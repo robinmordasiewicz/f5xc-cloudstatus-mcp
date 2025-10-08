@@ -1,0 +1,62 @@
+{
+  "name": "f5-status-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for F5 Cloud Status monitoring",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "f5-status-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "f5",
+    "status",
+    "monitoring",
+    "cloud",
+    "model-context-protocol",
+    "statuspage",
+    "service-status"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robinmordasiewicz/www.f5cloudstatus.com.git"
+  },
+  "homepage": "https://github.com/robinmordasiewicz/www.f5cloudstatus.com#readme",
+  "bugs": {
+    "url": "https://github.com/robinmordasiewicz/www.f5cloudstatus.com/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.19.1",
+    "axios": "^1.12.2",
+    "dotenv": "^17.2.3",
+    "playwright": "^1.56.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/parser": "^8.46.0",
+    "eslint": "^9.37.0",
+    "jest": "^30.2.0",
+    "prettier": "^3.6.2",
+    "ts-jest": "^29.4.4",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

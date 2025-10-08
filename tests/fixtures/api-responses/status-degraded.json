@@ -1,0 +1,13 @@
+{
+  "page": {
+    "id": "test-page-id",
+    "name": "F5 Distributed Cloud Services",
+    "url": "https://www.f5cloudstatus.com",
+    "time_zone": "America/Los_Angeles",
+    "updated_at": "2025-01-15T12:00:00.000Z"
+  },
+  "status": {
+    "indicator": "minor",
+    "description": "Minor Service Disruption"
+  }
+}
