@@ -7,8 +7,6 @@ A Model Context Protocol (MCP) server for monitoring F5 Cloud service status, pr
 > **📦 Installation:** See [INSTALLATION.md](INSTALLATION.md) for setup in Claude Desktop, VS Code, Cursor, Windsurf, and more.
 >
 > **👨‍💻 Developers:** See [DEVELOPERS.md](DEVELOPERS.md) for development setup and contribution guidelines.
->
-> **📚 Full Documentation:** See [DOCUMENTATION.md](DOCUMENTATION.md) for complete documentation index.
 
 ## Features
 
@@ -165,7 +163,6 @@ The server supports optional environment variable configuration. See [INSTALLATI
 - **[INSTALLATION.md](INSTALLATION.md)** - Comprehensive installation guide for all MCP clients
 - **[USAGE_EXAMPLES.md](USAGE_EXAMPLES.md)** - 14 detailed real-world usage examples
 - **[DEVELOPERS.md](DEVELOPERS.md)** - Development setup and contribution guide
-- **[DOCUMENTATION.md](DOCUMENTATION.md)** - Complete documentation index
 
 ## Contributing
 

@@ -277,5 +277,5 @@ The AI should respond with live status information from F5's status page.
 ## Next Steps
 
 - See [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md) for 14 real-world usage examples
-- Check [DOCUMENTATION.md](DOCUMENTATION.md) for complete API reference
 - Review [ARCHITECTURE.md](ARCHITECTURE.md) for technical details
+- Check [DEVELOPERS.md](DEVELOPERS.md) for development setup and API reference
