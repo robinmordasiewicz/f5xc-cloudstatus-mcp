@@ -11,7 +11,7 @@ The standard configuration for all MCP clients:
   "mcpServers": {
     "f5-cloud-status": {
       "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp-server@latest"]
+      "args": ["-y", "f5cloudstatus-mcp@latest"]
     }
   }
 }
@@ -47,7 +47,7 @@ This uses `npx` to automatically download and run the latest version. No manual 
 
 **CLI installation:**
 ```bash
-claude mcp add f5-cloud-status npx f5cloudstatus-mcp-server@latest
+claude mcp add f5-cloud-status npx f5cloudstatus-mcp@latest
 ```
 
 **Or** use auto-discovery from Claude Desktop config (if `chat.mcp.discovery.enabled` is `true`).
@@ -58,7 +58,7 @@ claude mcp add f5-cloud-status npx f5cloudstatus-mcp-server@latest
 
 **CLI installation:**
 ```bash
-code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus-mcp-server@latest"]}'
+code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus-mcp@latest"]}'
 ```
 
 **Or enable auto-discovery:**
@@ -74,7 +74,7 @@ code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus
   "chat.mcp.servers": {
     "f5-cloud-status": {
       "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp-server@latest"]
+      "args": ["-y", "f5cloudstatus-mcp@latest"]
     }
   }
 }
@@ -109,7 +109,7 @@ code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus
      "cline.mcpServers": {
        "f5-cloud-status": {
          "command": "npx",
-         "args": ["-y", "f5cloudstatus-mcp-server@latest"]
+         "args": ["-y", "f5cloudstatus-mcp@latest"]
        }
      }
    }
@@ -123,7 +123,7 @@ See [Cline MCP docs](https://docs.cline.bot/mcp/configuring-mcp-servers) for mor
 ### Global NPM Installation
 
 ```bash
-npm install -g f5cloudstatus-mcp-server
+npm install -g f5cloudstatus-mcp
 ```
 
 Configuration:
@@ -142,8 +142,8 @@ Configuration:
 For contributors and developers modifying the source:
 
 ```bash
-git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server.git
-cd f5cloudstatus-mcp-server
+git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp.git
+cd f5cloudstatus-mcp
 npm install
 npm run build
 ```
@@ -154,7 +154,7 @@ Configuration with absolute path:
   "mcpServers": {
     "f5-cloud-status": {
       "command": "node",
-      "args": ["/absolute/path/to/f5cloudstatus-mcp-server/dist/index.js"]
+      "args": ["/absolute/path/to/f5cloudstatus-mcp/dist/index.js"]
     }
   }
 }
@@ -191,12 +191,12 @@ Required: Node.js 18.0.0 or later
 
 **Verify Package Installation:**
 ```bash
-npm list -g f5cloudstatus-mcp-server
+npm list -g f5cloudstatus-mcp
 ```
 
 **Test Server Standalone:**
 ```bash
-npx f5cloudstatus-mcp-server
+npx f5cloudstatus-mcp
 # Should output: "MCP Server started and listening on stdio"
 ```
 
@@ -254,8 +254,8 @@ curl https://www.f5cloudstatus.com/api/v2/summary.json
 
 ## Getting Help
 
-- **GitHub Issues**: https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server/issues
-- **NPM Package**: https://www.npmjs.com/package/f5cloudstatus-mcp-server
+- **GitHub Issues**: https://github.com/robinmordasiewicz/f5cloudstatus-mcp/issues
+- **NPM Package**: https://www.npmjs.com/package/f5cloudstatus-mcp
 - **Documentation**: See [README.md](README.md) for usage examples
 
 ## Verifying Installation

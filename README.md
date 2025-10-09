@@ -29,7 +29,7 @@ A Model Context Protocol (MCP) server for monitoring F5 Cloud service status, pr
   "mcpServers": {
     "f5-cloud-status": {
       "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp-server@latest"]
+      "args": ["-y", "f5cloudstatus-mcp@latest"]
     }
   }
 }
@@ -37,7 +37,7 @@ A Model Context Protocol (MCP) server for monitoring F5 Cloud service status, pr
 
 **Command-line install** for Claude Code:
 ```bash
-claude mcp add f5-cloud-status npx f5cloudstatus-mcp-server@latest
+claude mcp add f5-cloud-status npx f5cloudstatus-mcp@latest
 ```
 
 📦 **See [MCP Client Configuration](#mcp-client-configuration)** below for client-specific setup instructions.
@@ -45,8 +45,8 @@ claude mcp add f5-cloud-status npx f5cloudstatus-mcp-server@latest
 ### Developer Setup
 
 ```bash
-git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server.git
-cd f5cloudstatus-mcp-server
+git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp.git
+cd f5cloudstatus-mcp
 npm install
 npm run build
 ```
@@ -100,7 +100,7 @@ The standard configuration for adding the F5 Cloud Status MCP server:
   "mcpServers": {
     "f5-cloud-status": {
       "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp-server@latest"]
+      "args": ["-y", "f5cloudstatus-mcp@latest"]
     }
   }
 }
@@ -110,7 +110,7 @@ The standard configuration for adding the F5 Cloud Status MCP server:
 
 #### Claude Code
 ```bash
-claude mcp add f5-cloud-status npx f5cloudstatus-mcp-server@latest
+claude mcp add f5-cloud-status npx f5cloudstatus-mcp@latest
 ```
 
 #### Claude Desktop
@@ -128,7 +128,7 @@ Use the base configuration in Cline's MCP settings. See [Cline MCP docs](https:/
 
 #### VS Code / GitHub Copilot
 ```bash
-code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus-mcp-server@latest"]}'
+code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus-mcp@latest"]}'
 ```
 
 Or enable auto-discovery in VS Code settings:
@@ -146,7 +146,7 @@ Or enable auto-discovery in VS Code settings:
 
 #### Global NPM Installation
 ```bash
-npm install -g f5cloudstatus-mcp-server
+npm install -g f5cloudstatus-mcp
 ```
 
 Configuration:
@@ -164,8 +164,8 @@ Configuration:
 For contributors and developers modifying the source:
 
 ```bash
-git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server.git
-cd f5cloudstatus-mcp-server
+git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp.git
+cd f5cloudstatus-mcp
 npm install && npm run build
 ```
 
@@ -175,7 +175,7 @@ Configuration:
   "mcpServers": {
     "f5-cloud-status": {
       "command": "node",
-      "args": ["/absolute/path/to/f5cloudstatus-mcp-server/dist/index.js"]
+      "args": ["/absolute/path/to/f5cloudstatus-mcp/dist/index.js"]
     }
   }
 }

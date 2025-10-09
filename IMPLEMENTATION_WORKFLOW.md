@@ -44,8 +44,8 @@ Set up project infrastructure and core dependencies
 
 ```bash
 # Create project directory
-mkdir f5cloudstatus-mcp-server
-cd f5cloudstatus-mcp-server
+mkdir f5cloudstatus-mcp
+cd f5cloudstatus-mcp
 
 # Initialize npm project
 npm init -y
