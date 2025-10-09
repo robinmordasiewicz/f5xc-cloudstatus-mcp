@@ -182,6 +182,10 @@ The server provides six MCP tools for interacting with F5 Cloud status:
 5. **`f5-status-get-maintenance`** - Get scheduled maintenance windows
 6. **`f5-status-search`** - Search for components, incidents, or maintenance by keyword
 
+## Development
+
+This project uses **fully automated CI/CD** with version bumping. See [docs/CICD.md](docs/CICD.md) for details.
+
 ## License
 
 MIT - See [LICENSE](LICENSE) file for details
