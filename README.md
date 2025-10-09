@@ -4,8 +4,6 @@ A Model Context Protocol (MCP) server for monitoring F5 Cloud service status, pr
 
 > **🚀 Quick Start:** New to MCP servers? See [QUICKSTART.md](QUICKSTART.md) for a 5-minute setup guide.
 >
-> **📦 Installation:** See [INSTALLATION.md](INSTALLATION.md) for setup in Claude Desktop, VS Code, Cursor, Windsurf, and more.
->
 > **👨‍💻 Developers:** See [DEVELOPERS.md](DEVELOPERS.md) for development setup and contribution guidelines.
 
 ## Features
@@ -18,9 +16,11 @@ A Model Context Protocol (MCP) server for monitoring F5 Cloud service status, pr
 - **Intelligent Caching**: TTL-based caching with configurable durations per data type
 - **Comprehensive Search**: Search across components, incidents, and maintenance by keyword
 
-## Quick Installation
+## Installation
 
-**For most MCP clients**, add this to your configuration:
+### Base Configuration
+
+The standard configuration for all MCP clients:
 
 ```json
 {
@@ -33,46 +33,116 @@ A Model Context Protocol (MCP) server for monitoring F5 Cloud service status, pr
 }
 ```
 
-**For Claude Code**, use the command line:
+This uses `npx` to automatically download and run the latest version. No manual installation required.
 
+### Claude Desktop
+
+1. **Locate your configuration file:**
+   - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+   - **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+2. **Add the base configuration** (see above)
+
+3. **Restart Claude Desktop**
+
+4. **Verify**: Look for the 🔌 MCP icon showing "f5-cloud-status" connected
+
+### Claude Code
+
+**CLI installation:**
 ```bash
 claude mcp add f5-cloud-status npx f5cloudstatus-mcp@latest
 ```
 
-📦 **See [INSTALLATION.md](INSTALLATION.md)** for detailed setup instructions for all MCP clients.
+**Or** use auto-discovery from Claude Desktop config (if `chat.mcp.discovery.enabled` is `true`).
 
-## Client-Specific Setup
+### VS Code (with GitHub Copilot)
 
-### Claude Desktop
+**Requirements**: VS Code 1.102 or later
 
-Add the configuration above to your `claude_desktop_config.json`:
-- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-- **Linux**: `~/.config/Claude/claude_desktop_config.json`
-
-### VS Code / GitHub Copilot
-
+**CLI installation:**
 ```bash
 code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus-mcp@latest"]}'
 ```
 
-### Cursor
+**Or enable auto-discovery:**
+```json
+{
+  "chat.mcp.discovery.enabled": true
+}
+```
 
-- **One-click**: Install from Cursor Settings → MCP
-- **Manual**: Add configuration to `.cursor/mcp.json`
+**Or manual configuration** in `settings.json`:
+```json
+{
+  "chat.mcp.servers": {
+    "f5-cloud-status": {
+      "command": "npx",
+      "args": ["-y", "f5cloudstatus-mcp@latest"]
+    }
+  }
+}
+```
 
-### Other Clients
+### Cursor IDE
 
-See [INSTALLATION.md](INSTALLATION.md) for:
-- Cline
-- Windsurf
-- Custom configurations
-- Global npm installation
-- Local development setup
+**One-click install:**
+1. Open **Command Palette** (`Ctrl+Shift+P` / `Cmd+Shift+P`)
+2. Type **"Cursor Settings"** → **MCP**
+3. Browse and click **Install** for F5 Cloud Status
+
+**Or manual configuration:**
+- **Project**: Create `.cursor/mcp.json` with base configuration
+- **Global**: Create `~/.cursor/mcp.json` with base configuration
+
+### Windsurf
+
+**Plugin Store:**
+1. Click **Plugins** in Cascade panel → Search **"F5 Cloud Status"** → **Install**
+
+**Or manual:**
+1. **Windsurf Settings** → **Cascade** → **MCP Servers** → **Add Custom Server**
+2. Add base configuration
+
+### Cline (VS Code Extension)
+
+1. Install **Cline** extension in VS Code
+2. Add base configuration to Cline's MCP settings or VS Code `settings.json`:
+   ```json
+   {
+     "cline.mcpServers": {
+       "f5-cloud-status": {
+         "command": "npx",
+         "args": ["-y", "f5cloudstatus-mcp@latest"]
+       }
+     }
+   }
+   ```
+3. Restart VS Code
+
+See [Cline MCP docs](https://docs.cline.bot/mcp/configuring-mcp-servers) for more details.
+
+### Alternative Installation: Global NPM
+
+```bash
+npm install -g f5cloudstatus-mcp
+```
+
+Configuration:
+```json
+{
+  "mcpServers": {
+    "f5-cloud-status": {
+      "command": "f5cloudstatus-mcp"
+    }
+  }
+}
+```
 
 ## Example Queries
 
-Once configured, ask Claude to use the F5 status tools:
+Once configured, ask your AI assistant:
 
 > **📖 See [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md) for 14 detailed real-world examples with expected responses.**
 
@@ -128,39 +198,90 @@ For detailed API documentation and examples, see [USAGE_EXAMPLES.md](USAGE_EXAMP
 
 ## Troubleshooting
 
-### Server not connecting
+### Server Not Connecting
 
-- Ensure your MCP client configuration is correct
-- Check your MCP client logs for error messages
-- Verify network connectivity to https://www.f5cloudstatus.com
+**Check Node.js Installation:**
+```bash
+node --version
+npm --version
+```
 
-### No data returned
+Required: Node.js 18.0.0 or later
 
-- Verify network connectivity to https://www.f5cloudstatus.com
-- The server may be starting up (first request can be slow)
-- Check your MCP client logs for detailed error messages
+**Test Server Standalone:**
+```bash
+npx f5cloudstatus-mcp
+# Should output: "MCP Server started and listening on stdio"
+```
 
-### Slow responses
+### Tools Not Appearing
 
-- First request may be slow due to data fetching
+1. **Restart the application** completely
+2. **Check configuration syntax** - JSON must be valid
+3. **Verify paths** are correct (especially on Windows)
+4. **Check logs** for error messages
+
+### Permission Errors
+
+**Never use sudo with npm** - it creates permission issues.
+
+**Fix npm permissions:**
+```bash
+# Option 1: Use a version manager (recommended)
+# Install nvm (Node Version Manager) and reinstall Node.js
+
+# Option 2: Configure npm to use user directory
+npm config set prefix ~/.npm-global
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Windows-Specific Issues
+
+**Playwright Browser Installation:**
+```bash
+npx playwright install chromium
+```
+
+**Path Issues:**
+- Always use **absolute paths** in Windows configurations
+- Use double backslashes (`\\`) in JSON
+- Reference `node.exe` explicitly instead of `npx`
+
+### Network Issues
+
+**Test connectivity:**
+```bash
+curl https://www.f5cloudstatus.com/api/v2/summary.json
+```
+
+**Check firewall** if behind corporate proxy
+
+### Slow Performance
+
+- First request may be slow (data fetching)
 - Subsequent requests use cache (30s-5min TTL)
-- This is normal behavior for the first query
+- The web scraper (Playwright) only runs as fallback when API fails
 
-For more troubleshooting help, see [INSTALLATION.md](INSTALLATION.md#troubleshooting).
+## Verifying Installation
 
-## Advanced Configuration
+Test the server by asking your AI assistant:
 
-The server supports optional environment variable configuration. See [INSTALLATION.md](INSTALLATION.md#advanced-configuration) for details on:
+```
+What is the current status of F5 Cloud services?
+```
 
-- Custom API timeouts
-- Cache TTL adjustments
-- Debug logging
-- Scraper configuration
+Or:
+
+```
+Show me all F5 Distributed Cloud components
+```
+
+The AI should respond with live status information from F5's status page.
 
 ## Documentation
 
 - **[QUICKSTART.md](QUICKSTART.md)** - 5-minute setup guide for new users
-- **[INSTALLATION.md](INSTALLATION.md)** - Comprehensive installation guide for all MCP clients
 - **[USAGE_EXAMPLES.md](USAGE_EXAMPLES.md)** - 14 detailed real-world usage examples
 - **[DEVELOPERS.md](DEVELOPERS.md)** - Development setup and contribution guide
 
@@ -180,5 +301,5 @@ MIT - See [LICENSE](LICENSE) file for details
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/issues)
-- **Documentation**: See the [docs](.) directory
+- **GitHub Issues**: [GitHub Issues](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/issues)
+- **NPM Package**: https://www.npmjs.com/package/f5cloudstatus-mcp
