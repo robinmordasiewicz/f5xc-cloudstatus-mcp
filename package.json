@@ -25,7 +25,9 @@
     "cloud",
     "model-context-protocol",
     "statuspage",
-    "service-status"
+    "service-status",
+    "automated-versioning",
+    "cicd"
   ],
   "author": "robinmordasiewicz",
   "license": "MIT",
