@@ -99,24 +99,74 @@ This MCP server works with:
 - **Windsurf** - Cascade IDE with MCP
 - **Cline** - Claude Dev VS Code extension
 
-### Quick Setup
+### Recommended: Using NPM Package
 
-**Using NPM package** (recommended):
+The **recommended method** is to use the published npm package. This provides automatic updates and easier configuration.
+
+#### Method 1: Using npx (No Installation Required)
+
+Configure your MCP client with npx:
+
+```json
+{
+  "mcpServers": {
+    "f5-cloud-status": {
+      "command": "npx",
+      "args": ["-y", "f5cloudstatus-mcp-server"]
+    }
+  }
+}
+```
+
+#### Method 2: Global Installation
 
 ```bash
 # Install globally
 npm install -g f5cloudstatus-mcp-server
-
-# Then configure in your tool - see INSTALLATION.md
 ```
 
-**Using local development build**:
+Then configure:
+
+```json
+{
+  "mcpServers": {
+    "f5-cloud-status": {
+      "command": "f5cloudstatus-mcp"
+    }
+  }
+}
+```
+
+#### Method 3: Claude Code One-Command Install
 
 ```bash
-npm run build
+claude code mcp add f5cloudstatus-mcp-server
 ```
 
-Then configure with path to `dist/index.js` - see examples in [INSTALLATION.md](INSTALLATION.md).
+### Alternative: Local Development Build
+
+**For developers** who want to modify the code or contribute:
+
+1. Clone and build:
+   ```bash
+   git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server.git
+   cd f5cloudstatus-mcp-server
+   npm install
+   npm run build
+   ```
+
+2. Configure with absolute path to `dist/index.js`:
+
+   ```json
+   {
+     "mcpServers": {
+       "f5-cloud-status": {
+         "command": "node",
+         "args": ["/absolute/path/to/f5cloudstatus-mcp-server/dist/index.js"]
+       }
+     }
+   }
+   ```
 
 📦 **Complete setup guides**: See [INSTALLATION.md](INSTALLATION.md) for detailed instructions for each tool.
 
@@ -163,54 +213,26 @@ Are there any upcoming maintenance windows for F5 Cloud services?
 Search F5 status for anything related to "API Gateway"
 ```
 
-### Alternative: Using npx
+### Configuration Files
 
-You can also run the server directly with npx in your MCP configuration:
+#### Using .env file (Optional)
 
-```json
-{
-  "mcpServers": {
-    "f5-status": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "tsx",
-        "/absolute/path/to/www.f5cloudstatus.com/src/index.ts"
-      ]
-    }
-  }
-}
-```
+The server supports configuration via environment variables. Create a `.env` file for custom settings:
 
-This doesn't require building, but needs `tsx` installed globally:
 ```bash
-npm install -g tsx
+# API Configuration (optional - has sensible defaults)
+API_BASE_URL=https://www.f5cloudstatus.com/api/v2
+API_TIMEOUT=10000
+
+# Cache TTL in milliseconds (optional)
+CACHE_TTL_STATUS=30000
+CACHE_TTL_COMPONENTS=60000
+
+# Logging (optional)
+LOG_LEVEL=info  # debug, info, warn, error
 ```
 
-### Using with .env file
-
-For easier configuration management, use a `.env` file (recommended):
-
-1. Copy `.env.example` to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Edit `.env` with your preferred settings
-
-3. Simplify your MCP configuration:
-   ```json
-   {
-     "mcpServers": {
-       "f5-status": {
-         "command": "node",
-         "args": [
-           "/absolute/path/to/www.f5cloudstatus.com/dist/index.js"
-         ]
-       }
-     }
-   }
-   ```
+The `.env` file is automatically loaded by the server when using any installation method (npx, global, or local).
 
 ### Troubleshooting
 

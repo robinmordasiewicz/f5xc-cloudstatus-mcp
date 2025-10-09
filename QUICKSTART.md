@@ -5,24 +5,101 @@ Get up and running with the F5 Cloud Status MCP Server in 5 minutes.
 ## Prerequisites
 
 - Node.js 18+ installed
-- Claude Desktop installed (for MCP client usage)
+- An MCP-compatible AI tool (Claude Desktop, VS Code, Cursor, or Windsurf)
 
-## Installation Steps
+## Option 1: NPM Package (Recommended - Fastest Setup)
 
-### 1. Install Dependencies
+### For Claude Desktop
 
-```bash
-cd /home/robin/GIT/robinmordasiewicz/www.f5cloudstatus.com
-npm install
+**Step 1:** Locate your Claude Desktop configuration file:
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+- **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+**Step 2:** Add this configuration:
+
+```json
+{
+  "mcpServers": {
+    "f5-cloud-status": {
+      "command": "npx",
+      "args": ["-y", "f5cloudstatus-mcp-server"]
+    }
+  }
+}
 ```
 
-### 2. Build the Server
+**Step 3:** Restart Claude Desktop
+
+**Step 4:** Look for the 🔌 MCP icon - you should see "f5-cloud-status" connected!
+
+### For Claude Code
+
+Simply run:
 
 ```bash
+claude code mcp add f5cloudstatus-mcp-server
+```
+
+### For VS Code (with GitHub Copilot)
+
+Open Extensions view and search for `@mcp`, then install **F5 Cloud Status**.
+
+Or enable auto-discovery in VS Code settings:
+```json
+{
+  "chat.mcp.discovery.enabled": true
+}
+```
+
+### For Cursor IDE
+
+1. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
+2. Search for "Cursor Settings"
+3. Click MCP and browse for F5 Cloud Status
+4. Click Install
+
+### For Windsurf
+
+1. Click Plugins icon in Cascade panel
+2. Search for "F5 Cloud Status"
+3. Click Install
+
+## Option 2: Global Installation
+
+If you prefer a global installation:
+
+```bash
+# Install globally
+npm install -g f5cloudstatus-mcp-server
+```
+
+Then configure:
+
+```json
+{
+  "mcpServers": {
+    "f5-cloud-status": {
+      "command": "f5cloudstatus-mcp"
+    }
+  }
+}
+```
+
+## Option 3: For Developers (Local Build)
+
+**Only if you want to modify the source code:**
+
+### 1. Clone and Build
+
+```bash
+git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server.git
+cd f5cloudstatus-mcp-server
+npm install
 npm run build
 ```
 
-### 3. Test Locally (Optional)
+### 2. Test Locally (Optional)
 
 ```bash
 npm start
@@ -30,59 +107,44 @@ npm start
 
 You should see:
 ```
-[2025-10-08T...] [INFO] Configuration validated successfully
-[2025-10-08T...] [INFO] MCP Server initialized
-[2025-10-08T...] [INFO] Starting MCP Server
-[2025-10-08T...] [INFO] MCP Server started and listening on stdio
+[INFO] MCP Server started and listening on stdio
 ```
 
 Press `Ctrl+C` to stop.
 
-### 4. Configure Claude Desktop
+### 3. Configure with Absolute Path
 
-Edit your Claude Desktop configuration file:
+Edit your MCP client configuration with the absolute path to `dist/index.js`:
 
-**macOS:**
-```bash
-nano ~/Library/Application\ Support/Claude/claude_desktop_config.json
-```
-
-**Linux:**
-```bash
-nano ~/.config/Claude/claude_desktop_config.json
-```
-
-**Windows (PowerShell):**
-```powershell
-notepad $env:APPDATA\Claude\claude_desktop_config.json
-```
-
-Add this configuration (replace the path with your actual project path):
-
+**macOS/Linux:**
 ```json
 {
   "mcpServers": {
-    "f5-status": {
+    "f5-cloud-status": {
       "command": "node",
-      "args": [
-        "/home/robin/GIT/robinmordasiewicz/www.f5cloudstatus.com/dist/index.js"
-      ]
+      "args": ["/absolute/path/to/f5cloudstatus-mcp-server/dist/index.js"]
     }
   }
 }
 ```
 
-### 5. Restart Claude Desktop
+**Windows:**
+```json
+{
+  "mcpServers": {
+    "f5-cloud-status": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": ["C:\\path\\to\\f5cloudstatus-mcp-server\\dist\\index.js"]
+    }
+  }
+}
+```
 
-Completely quit and restart Claude Desktop.
-
-### 6. Verify Connection
-
-In Claude Desktop, look for the 🔌 icon in the bottom-right corner. You should see "f5-status" listed as a connected MCP server.
+**Note:** Replace paths with your actual project location. The npx method (Option 1) is much simpler!
 
 ## Try It Out
 
-Ask Claude any of these questions:
+Ask your AI assistant any of these questions:
 
 1. **"What is the current status of F5 Cloud services?"**
    - Uses: `f5-status-get-overall`
@@ -91,7 +153,7 @@ Ask Claude any of these questions:
    - Uses: `f5-status-get-components` with status filter
 
 3. **"Are there any active incidents?"**
-   - Uses: `f5-status-get-incidents` with unresolved filter
+   - Uses: `f5-status-get-incidents`
 
 4. **"What maintenance is scheduled for F5 Cloud?"**
    - Uses: `f5-status-get-maintenance`
@@ -101,64 +163,74 @@ Ask Claude any of these questions:
 
 ## Common Issues
 
-### "Command not found" or server not starting
+### Server not connecting
 
-Make sure you built the project:
+**Using npx method:**
 ```bash
-npm run build
+# Test if npx works
+npx f5cloudstatus-mcp-server
+# Should show: "MCP Server started and listening on stdio"
 ```
 
-### Server connects but returns errors
-
-Check your internet connection to https://www.f5cloudstatus.com
-
-Enable debug logging:
+**Check Node.js version:**
 ```bash
-LOG_LEVEL=debug npm start
+node --version  # Should be 18.0.0 or higher
+npm --version
 ```
 
-### Playwright browser not found
+### Tools not appearing in AI assistant
 
-Install Playwright browsers:
+1. **Restart the application completely**
+2. **Check configuration syntax** - JSON must be valid
+3. **Verify paths** if using local build (must be absolute paths)
+
+### Permission errors (when installing globally)
+
+**Never use sudo with npm!**
+
+Fix permissions:
+```bash
+# Use a version manager instead
+# Install nvm: https://github.com/nvm-sh/nvm
+nvm install --lts
+nvm use --lts
+```
+
+### Playwright browser not found (rare - only if API fails)
+
 ```bash
 npx playwright install chromium
 ```
 
-### Server works standalone but not in Claude Desktop
-
-1. Use absolute paths in the configuration (not relative paths like `./dist/index.js`)
-2. Check Claude Desktop logs for specific error messages
-3. Ensure Node.js is in your system PATH
+The web scraper only runs as a fallback when the API fails.
 
 ## Optional: Environment Configuration
 
-For production use, create a `.env` file:
+The server works with sensible defaults. To customize:
+
+Create a `.env` file (anywhere in your system):
 
 ```bash
-cp .env.example .env
+# API Configuration (optional)
+API_BASE_URL=https://www.f5cloudstatus.com/api/v2
+API_TIMEOUT=10000
+
+# Cache TTL in milliseconds (optional)
+CACHE_TTL_STATUS=30000
+CACHE_TTL_COMPONENTS=60000
+
+# Logging (optional)
+LOG_LEVEL=info  # debug, info, warn, error
 ```
 
-Edit `.env` to customize:
-- API timeouts and retry settings
-- Cache TTL durations
-- Log levels
-- Scraper behavior
-
-Then restart the server (or Claude Desktop if using with MCP).
+The `.env` file will be automatically loaded.
 
 ## Next Steps
 
-- Read the full [README.md](README.md) for detailed tool documentation
-- Review [ARCHITECTURE.md](ARCHITECTURE.md) to understand the system design
-- Check [ANALYSIS.md](ANALYSIS.md) to see the original website analysis
-
-## Support
-
-For issues:
-1. Check the Troubleshooting section in README.md
-2. Enable debug logging: `LOG_LEVEL=debug`
-3. Review Claude Desktop logs
-4. Open an issue on GitHub with logs and configuration
+- **📦 Full Installation Guide**: [INSTALLATION.md](INSTALLATION.md) - Detailed setup for all tools
+- **📖 Usage Examples**: [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md) - 14 real-world examples
+- **📚 Complete Documentation**: [README.md](README.md) - All features and tools
+- **🏗️ Architecture**: [ARCHITECTURE.md](ARCHITECTURE.md) - System design details
 
 ## Development
 
@@ -173,7 +245,12 @@ npm test
 
 # Check code quality
 npm run lint
-npm run format
 ```
 
-See the full README.md for complete development documentation.
+See the [README.md](README.md) for complete development documentation.
+
+## Getting Help
+
+- **GitHub Issues**: https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server/issues
+- **NPM Package**: https://www.npmjs.com/package/f5cloudstatus-mcp-server
+- **Troubleshooting**: See [INSTALLATION.md](INSTALLATION.md) for detailed troubleshooting

@@ -287,7 +287,20 @@ LOG_LEVEL=info
 
 #### Windows
 
-Use **absolute paths** for node.exe and package locations:
+**Recommended:** Use npx (works on Windows too):
+
+```json
+{
+  "mcpServers": {
+    "f5-cloud-status": {
+      "command": "npx",
+      "args": ["-y", "f5cloudstatus-mcp-server"]
+    }
+  }
+}
+```
+
+**Alternative:** If npx doesn't work, use absolute paths:
 
 ```json
 {
@@ -316,6 +329,46 @@ Standard npx configuration works:
   }
 }
 ```
+
+### For Developers: Local Build Configuration
+
+**If you've cloned the repository and want to use a local build:**
+
+1. **Clone and build:**
+   ```bash
+   git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server.git
+   cd f5cloudstatus-mcp-server
+   npm install
+   npm run build
+   ```
+
+2. **Configure with absolute path:**
+
+   **macOS/Linux:**
+   ```json
+   {
+     "mcpServers": {
+       "f5-cloud-status": {
+         "command": "node",
+         "args": ["/absolute/path/to/f5cloudstatus-mcp-server/dist/index.js"]
+       }
+     }
+   }
+   ```
+
+   **Windows:**
+   ```json
+   {
+     "mcpServers": {
+       "f5-cloud-status": {
+         "command": "C:\\Program Files\\nodejs\\node.exe",
+         "args": ["C:\\path\\to\\f5cloudstatus-mcp-server\\dist\\index.js"]
+       }
+     }
+   }
+   ```
+
+**Note:** Using the npm package (npx or global install) is recommended for most users as it provides automatic updates and simpler configuration.
 
 ## Troubleshooting
 
