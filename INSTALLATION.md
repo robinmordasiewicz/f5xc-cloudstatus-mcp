@@ -2,147 +2,79 @@
 
 Complete installation instructions for using this MCP server with various AI tools and IDEs.
 
-## Table of Contents
+## Base Configuration
 
-- [Quick Install](#quick-install)
-- [Claude Desktop](#claude-desktop)
-- [Claude Code](#claude-code)
-- [VS Code (with GitHub Copilot)](#vs-code-with-github-copilot)
-- [Cursor IDE](#cursor-ide)
-- [Windsurf](#windsurf)
-- [Cline (VS Code Extension)](#cline-vs-code-extension)
-- [Troubleshooting](#troubleshooting)
-
-## Quick Install
-
-### NPM Package
-
-```bash
-# Global installation (recommended)
-npm install -g f5cloudstatus-mcp-server
-
-# Local installation for a specific project
-npm install f5cloudstatus-mcp-server
-```
-
-### Using npx (No Installation Required)
-
-```bash
-npx f5cloudstatus-mcp-server
-```
-
-## Claude Desktop
-
-### Method 1: Desktop Extensions (Recommended - 2025)
-
-1. **Open Claude Desktop** and navigate to **Settings > Extensions**
-2. Click **"Browse extensions"**
-3. Search for **"F5 Cloud Status"** (if available in the directory)
-4. Click **"Install"**
-
-### Method 2: Manual Configuration
-
-1. **Locate Configuration File:**
-   - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-   - **Linux**: `~/.config/Claude/claude_desktop_config.json`
-
-2. **Edit Configuration:**
-
-   ```json
-   {
-     "mcpServers": {
-       "f5-cloud-status": {
-         "command": "npx",
-         "args": ["-y", "f5cloudstatus-mcp-server"]
-       }
-     }
-   }
-   ```
-
-   **Or with global installation:**
-
-   ```json
-   {
-     "mcpServers": {
-       "f5-cloud-status": {
-         "command": "f5cloudstatus-mcp"
-       }
-     }
-   }
-   ```
-
-3. **Restart Claude Desktop**
-
-4. **Verify**: Look for the 🔌 MCP icon showing "f5-cloud-status" as connected
-
-## Claude Code
-
-Claude Code automatically detects and integrates MCP servers configured in Claude Desktop.
-
-### Option 1: Use Claude Desktop Configuration
-
-Claude Code will auto-discover MCP servers from your Claude Desktop config if `chat.mcp.discovery.enabled` is set to `true`.
-
-### Option 2: Add Directly via Command Line
-
-```bash
-claude code mcp add f5cloudstatus-mcp-server
-```
-
-### Option 3: Manual Configuration
-
-Add to your Claude Code settings:
+The standard configuration for all MCP clients:
 
 ```json
 {
   "mcpServers": {
     "f5-cloud-status": {
       "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp-server"]
+      "args": ["-y", "f5cloudstatus-mcp-server@latest"]
     }
   }
 }
 ```
 
+This uses `npx` to automatically download and run the latest version. No manual installation required.
+
+## Table of Contents
+
+- [Claude Desktop](#claude-desktop)
+- [Claude Code](#claude-code)
+- [VS Code (with GitHub Copilot)](#vs-code-with-github-copilot)
+- [Cursor IDE](#cursor-ide)
+- [Windsurf](#windsurf)
+- [Cline (VS Code Extension)](#cline-vs-code-extension)
+- [Alternative Installation Methods](#alternative-installation-methods)
+- [Troubleshooting](#troubleshooting)
+
+## Claude Desktop
+
+1. **Locate your configuration file:**
+   - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+   - **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+2. **Add the base configuration** (see above)
+
+3. **Restart Claude Desktop**
+
+4. **Verify**: Look for the 🔌 MCP icon showing "f5-cloud-status" connected
+
+## Claude Code
+
+**CLI installation:**
+```bash
+claude mcp add f5-cloud-status npx f5cloudstatus-mcp-server@latest
+```
+
+**Or** use auto-discovery from Claude Desktop config (if `chat.mcp.discovery.enabled` is `true`).
+
 ## VS Code (with GitHub Copilot)
 
 **Requirements**: VS Code 1.102 or later
 
-### Method 1: Extensions Marketplace
-
-1. Open **Extensions view** (`Ctrl+Shift+X` / `Cmd+Shift+X`)
-2. Search for **`@mcp`**
-3. Find and install **F5 Cloud Status MCP** (if available)
-
-### Method 2: Command Line
-
+**CLI installation:**
 ```bash
-code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["-y","f5cloudstatus-mcp-server"]}'
+code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus-mcp-server@latest"]}'
 ```
 
-### Method 3: Auto-discovery from Claude Desktop
-
-Enable in VS Code settings:
-
+**Or enable auto-discovery:**
 ```json
 {
   "chat.mcp.discovery.enabled": true
 }
 ```
 
-VS Code will automatically detect MCP servers configured in Claude Desktop.
-
-### Method 4: Manual Configuration
-
-Add to VS Code `settings.json`:
-
+**Or manual configuration** in `settings.json`:
 ```json
 {
   "chat.mcp.servers": {
     "f5-cloud-status": {
       "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp-server"]
+      "args": ["-y", "f5cloudstatus-mcp-server@latest"]
     }
   }
 }
@@ -150,123 +82,87 @@ Add to VS Code `settings.json`:
 
 ## Cursor IDE
 
-### Method 1: One-Click Install (Recommended)
-
+**One-click install:**
 1. Open **Command Palette** (`Ctrl+Shift+P` / `Cmd+Shift+P`)
-2. Type **"Cursor Settings"**
-3. Click **MCP** in sidebar
-4. Browse available servers and click **Install** for F5 Cloud Status
+2. Type **"Cursor Settings"** → **MCP**
+3. Browse and click **Install** for F5 Cloud Status
 
-### Method 2: Manual Configuration
-
-**Choose configuration location:**
-
-#### Project-Specific (Recommended for team projects):
-
-Create `.cursor/mcp.json` in your project root:
-
-```json
-{
-  "mcpServers": {
-    "f5-cloud-status": {
-      "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp-server"]
-    }
-  }
-}
-```
-
-#### Global (For all projects):
-
-Create `~/.cursor/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "f5-cloud-status": {
-      "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp-server"]
-    }
-  }
-}
-```
-
-### Verify Installation
-
-Tools will appear under **"Available Tools"** in the MCP settings page.
+**Or manual configuration:**
+- **Project**: Create `.cursor/mcp.json` with base configuration
+- **Global**: Create `~/.cursor/mcp.json` with base configuration
 
 ## Windsurf
 
-### Method 1: Plugin Store (Recommended)
+**Plugin Store:**
+1. Click **Plugins** in Cascade panel → Search **"F5 Cloud Status"** → **Install**
 
-1. Click **Plugins** icon in Cascade panel (top right)
-2. Or go to **Windsurf Settings > Cascade > Plugins**
-3. Search for **"F5 Cloud Status"**
-4. Click **Install**
-5. Leave **Server Config (JSON)** empty for default configuration
-
-### Method 2: Manual Configuration
-
-1. Open **Windsurf Settings**
-   - Click "Windsurf - Settings" (bottom right)
-   - Or `Cmd+Shift+P` / `Ctrl+Shift+P` → "Open Windsurf Settings"
-
-2. Navigate to **Cascade > MCP Servers**
-
-3. Click **"Add Custom Server +"**
-
-4. Add configuration:
-
-   ```json
-   {
-     "mcpServers": {
-       "f5-cloud-status": {
-         "command": "npx",
-         "args": ["-y", "f5cloudstatus-mcp-server"]
-       }
-     }
-   }
-   ```
-
-5. Alternatively, edit `mcp_config.json` directly for advanced setups
-
-### Communication Methods
-
-Windsurf supports both `stdio` and `SSE` (Server-Sent Events) communication methods.
+**Or manual:**
+1. **Windsurf Settings** → **Cascade** → **MCP Servers** → **Add Custom Server**
+2. Add base configuration
 
 ## Cline (VS Code Extension)
 
-Cline (formerly Claude Dev) is a VS Code extension that supports MCP servers.
-
-### Installation Steps
-
-1. **Install Cline Extension:**
-   - Open VS Code Extensions (`Ctrl+Shift+X` / `Cmd+Shift+X`)
-   - Search for **"Cline"**
-   - Click **Install**
-
-2. **Configure MCP Server:**
-
-   Add to VS Code `settings.json` or Cline's configuration:
-
+1. Install **Cline** extension in VS Code
+2. Add base configuration to Cline's MCP settings or VS Code `settings.json`:
    ```json
    {
      "cline.mcpServers": {
        "f5-cloud-status": {
          "command": "npx",
-         "args": ["-y", "f5cloudstatus-mcp-server"]
+         "args": ["-y", "f5cloudstatus-mcp-server@latest"]
        }
      }
    }
    ```
+3. Restart VS Code
 
-3. **Restart VS Code** or reload Cline
+See [Cline MCP docs](https://docs.cline.bot/mcp/configuring-mcp-servers) for more details.
 
-## Configuration Options
+## Alternative Installation Methods
 
-### Environment Variables
+### Global NPM Installation
 
-Create a `.env` file in your project root (optional):
+```bash
+npm install -g f5cloudstatus-mcp-server
+```
+
+Configuration:
+```json
+{
+  "mcpServers": {
+    "f5-cloud-status": {
+      "command": "f5cloudstatus-mcp"
+    }
+  }
+}
+```
+
+### Local Development Build
+
+For contributors and developers modifying the source:
+
+```bash
+git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server.git
+cd f5cloudstatus-mcp-server
+npm install
+npm run build
+```
+
+Configuration with absolute path:
+```json
+{
+  "mcpServers": {
+    "f5-cloud-status": {
+      "command": "node",
+      "args": ["/absolute/path/to/f5cloudstatus-mcp-server/dist/index.js"]
+    }
+  }
+}
+```
+
+### Environment Configuration
+
+Optional `.env` file for custom settings:
 
 ```bash
 # API Configuration
@@ -276,99 +172,10 @@ API_TIMEOUT=10000
 # Cache TTL (milliseconds)
 CACHE_TTL_STATUS=30000
 CACHE_TTL_COMPONENTS=60000
-CACHE_TTL_INCIDENTS=120000
-CACHE_TTL_MAINTENANCE=300000
 
 # Logging
 LOG_LEVEL=info
 ```
-
-### Platform-Specific Configurations
-
-#### Windows
-
-**Recommended:** Use npx (works on Windows too):
-
-```json
-{
-  "mcpServers": {
-    "f5-cloud-status": {
-      "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp-server"]
-    }
-  }
-}
-```
-
-**Alternative:** If npx doesn't work, use absolute paths:
-
-```json
-{
-  "mcpServers": {
-    "f5-cloud-status": {
-      "command": "C:\\Program Files\\nodejs\\node.exe",
-      "args": [
-        "C:\\Users\\YourName\\AppData\\Roaming\\npm\\node_modules\\f5cloudstatus-mcp-server\\dist\\index.js"
-      ]
-    }
-  }
-}
-```
-
-#### macOS/Linux
-
-Standard npx configuration works:
-
-```json
-{
-  "mcpServers": {
-    "f5-cloud-status": {
-      "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp-server"]
-    }
-  }
-}
-```
-
-### For Developers: Local Build Configuration
-
-**If you've cloned the repository and want to use a local build:**
-
-1. **Clone and build:**
-   ```bash
-   git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server.git
-   cd f5cloudstatus-mcp-server
-   npm install
-   npm run build
-   ```
-
-2. **Configure with absolute path:**
-
-   **macOS/Linux:**
-   ```json
-   {
-     "mcpServers": {
-       "f5-cloud-status": {
-         "command": "node",
-         "args": ["/absolute/path/to/f5cloudstatus-mcp-server/dist/index.js"]
-       }
-     }
-   }
-   ```
-
-   **Windows:**
-   ```json
-   {
-     "mcpServers": {
-       "f5-cloud-status": {
-         "command": "C:\\Program Files\\nodejs\\node.exe",
-         "args": ["C:\\path\\to\\f5cloudstatus-mcp-server\\dist\\index.js"]
-       }
-     }
-   }
-   ```
-
-**Note:** Using the npm package (npx or global install) is recommended for most users as it provides automatic updates and simpler configuration.
 
 ## Troubleshooting
 
