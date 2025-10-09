@@ -1,17 +1,22 @@
 {
   "manifest_version": "0.2",
-  "name": "f5cloudstatus",
-  "display_name": "F5 Cloud Status",
-  "version": "1.0.5",
+  "id": "f5cloudstatus-mcp",
+  "name": "F5 Distributed Cloud Status",
+  "version": "1.0.6",
   "description": "MCP server for F5 Cloud Status monitoring",
+  "long_description": "Model Context Protocol (MCP) server for monitoring F5 Cloud service status, providing real-time status information, component health, incidents, and scheduled maintenance.",
   "author": {
     "name": "Robin Mordasiewicz",
-    "email": "robin@mordasiewicz.com",
+    "email": "r.mordasiewicz@f5.com",
     "url": "https://www.linkedin.com/in/robin-mordasiewicz/"
   },
-  "homepage": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp",
+  "homepage": "https://www.f5cloudstatus.com",
   "documentation": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp/blob/main/README.md",
   "support": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp/issues",
+  "icon": "f5.svg",
+  "screenshots": [
+    "f5cloudstatus.png"
+  ],
   "server": {
     "type": "node",
     "entry_point": "dist/index.js",
@@ -26,40 +31,37 @@
   "tools": [
     {
       "name": "f5-status-get-overall",
-      "description": "Get the current overall status of F5 Cloud services"
+      "description": "Get the current overall status of F5 Cloud services."
     },
     {
       "name": "f5-status-get-components",
-      "description": "Get all service components with current status"
+      "description": "Get all service components with current status."
     },
     {
       "name": "f5-status-get-component",
-      "description": "Get detailed information about a specific component"
+      "description": "Get detailed information about a specific component."
     },
     {
       "name": "f5-status-get-incidents",
-      "description": "Get current and recent incidents"
+      "description": "Get current and recent incidents."
     },
     {
       "name": "f5-status-get-maintenance",
-      "description": "Get scheduled maintenance windows"
+      "description": "Get scheduled maintenance windows."
     },
     {
       "name": "f5-status-search",
-      "description": "Search for components, incidents, or maintenance by keyword"
+      "description": "Search for components, incidents, or maintenance by keyword."
     }
   ],
-  "prompts": [
-    {
-      "name": "Check overall status",
-      "description": "What is the current status of F5 Cloud services?",
-      "text": "What is the current status of F5 Cloud services?"
-    },
-    {
-      "name": "List all components",
-      "description": "Show me all F5 Cloud components and their current operational status",
-      "text": "Show me all F5 Cloud components and their current operational status"
-    }
+  "keywords": [
+    "status",
+    "cloud",
+    "outage",
+    "maintenance",
+    "Resolved",
+    "Monitoring",
+    "Investigating"
   ],
   "license": "MIT",
   "repository": {
