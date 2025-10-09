@@ -221,9 +221,9 @@ The `.env` file will be automatically loaded.
 
 ## Next Steps
 
-- **📦 Full Installation Guide**: [INSTALLATION.md](INSTALLATION.md) - Detailed setup for all tools
+- **📦 Full Installation Guide**: [README.md](README.md) - Detailed setup for all tools
 - **📖 Usage Examples**: [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md) - 14 real-world examples
-- **📚 Complete Documentation**: [README.md](README.md) - All features and tools
+- **👨‍💻 Development Guide**: [DEVELOPERS.md](DEVELOPERS.md) - Development setup and contribution
 - **🏗️ Architecture**: [ARCHITECTURE.md](ARCHITECTURE.md) - System design details
 
 ## Development
@@ -247,4 +247,4 @@ See the [README.md](README.md) for complete development documentation.
 
 - **GitHub Issues**: https://github.com/robinmordasiewicz/f5cloudstatus-mcp/issues
 - **NPM Package**: https://www.npmjs.com/package/f5cloudstatus-mcp
-- **Troubleshooting**: See [INSTALLATION.md](INSTALLATION.md) for detailed troubleshooting
+- **Troubleshooting**: See [README.md](README.md#troubleshooting) for detailed troubleshooting
