@@ -1,0 +1,212 @@
+name: Auto Version and Publish
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - 'README.md'
+      - 'LICENSE'
+      - 'docs/**'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  auto-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Check if version bump needed
+        id: version_check
+        run: |
+          # Get current version from package.json
+          CURRENT_VERSION=$(jq -r '.version' package.json)
+
+          # Check if tag exists
+          if git rev-parse "v${CURRENT_VERSION}" >/dev/null 2>&1; then
+            echo "needs_bump=true" >> $GITHUB_OUTPUT
+            echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          else
+            echo "needs_bump=false" >> $GITHUB_OUTPUT
+            echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Bump version
+        if: steps.version_check.outputs.needs_bump == 'true'
+        id: bump
+        run: |
+          # Bump patch version
+          npm version patch --no-git-tag-version
+
+          NEW_VERSION=$(jq -r '.version' package.json)
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+          # Update manifest.json to match
+          jq --arg version "$NEW_VERSION" '.version = $version' manifest.json > manifest.json.tmp
+          mv manifest.json.tmp manifest.json
+
+      - name: Commit version bump
+        if: steps.version_check.outputs.needs_bump == 'true'
+        run: |
+          git add package.json manifest.json
+          git commit -m "chore: bump version to ${{ steps.bump.outputs.new_version }} [skip ci]"
+          git push origin main
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Install MCPB CLI
+        run: npm install -g @anthropic-ai/mcpb
+
+      - name: Build MCPB package
+        run: mcpb pack
+
+      - name: Get version info
+        id: version
+        run: |
+          VERSION=$(jq -r '.version' package.json)
+          PACKAGE_NAME=$(jq -r '.name' manifest.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "package_name=$PACKAGE_NAME" >> $GITHUB_OUTPUT
+          echo "filename=${PACKAGE_NAME}-${VERSION}.mcpb" >> $GITHUB_OUTPUT
+
+      - name: Rename MCPB file
+        run: |
+          MCPB_FILE=$(find . -maxdepth 1 -name "*.mcpb" -type f | head -n 1)
+          if [ -n "$MCPB_FILE" ]; then
+            mv "$MCPB_FILE" "${{ steps.version.outputs.filename }}"
+          else
+            echo "Error: No .mcpb file found"
+            exit 1
+          fi
+
+      - name: Create and push tag
+        run: |
+          git tag v${{ steps.version.outputs.version }}
+          git push origin v${{ steps.version.outputs.version }}
+
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          cat > release_notes.md << EOF
+          ## F5 Cloud Status MCP Server v${{ steps.version.outputs.version }}
+
+          ### Installation
+
+          **One-click installation in Claude Desktop:**
+          1. Download the \`.mcpb\` file below
+          2. Double-click the file to install
+          3. Restart Claude Desktop
+
+          **Manual installation using npx:**
+          \`\`\`json
+          {
+            "mcpServers": {
+              "f5-cloud-status": {
+                "command": "npx",
+                "args": ["-y", "f5cloudstatus-mcp@${{ steps.version.outputs.version }}"]
+              }
+            }
+          }
+          \`\`\`
+
+          **Install from GitHub Packages:**
+          \`\`\`bash
+          npm install @robinmordasiewicz/f5cloudstatus-mcp@${{ steps.version.outputs.version }} --registry=https://npm.pkg.github.com
+          \`\`\`
+
+          ### What's Included
+
+          This MCPB bundle includes:
+          - Complete F5 Cloud Status MCP server
+          - All required dependencies
+          - Ready to use - no additional installation needed
+
+          ### Features
+
+          - Real-time F5 Cloud service status monitoring
+          - Component health tracking (148+ components)
+          - Incident management and tracking
+          - Maintenance window information
+          - Intelligent caching with TTL
+          - Dual data sources (API + web scraper fallback)
+
+          ### Documentation
+
+          - [GitHub Repository](https://github.com/robinmordasiewicz/f5cloudstatus-mcp)
+          - [NPM Package](https://www.npmjs.com/package/f5cloudstatus-mcp)
+          - [GitHub Package](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/pkgs/npm/f5cloudstatus-mcp)
+          - [Usage Examples](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/blob/main/USAGE_EXAMPLES.md)
+          EOF
+
+          echo "notes_file=release_notes.md" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+          body_path: ${{ steps.release_notes.outputs.notes_file }}
+          draft: false
+          prerelease: false
+          files: |
+            ${{ steps.version.outputs.filename }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js for GitHub Packages
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@robinmordasiewicz'
+
+      - name: Configure package for GitHub Packages
+        run: |
+          cp package.json package.json.backup
+          jq '.name = "@robinmordasiewicz/f5cloudstatus-mcp" |
+              .publishConfig = {"registry": "https://npm.pkg.github.com"}' \
+              package.json > package.json.tmp
+          mv package.json.tmp package.json
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Restore package.json
+        if: always()
+        run: |
+          if [ -f package.json.backup ]; then
+            mv package.json.backup package.json
+          fi
+
+      - name: Upload MCPB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcpb-package-v${{ steps.version.outputs.version }}
+          path: ${{ steps.version.outputs.filename }}
+          retention-days: 90
