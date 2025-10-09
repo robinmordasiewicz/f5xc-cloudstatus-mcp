@@ -517,7 +517,7 @@ export class ToolHandler {
 ## Directory Structure
 
 ```
-f5-status-mcp-server/
+f5cloudstatus-mcp-server/
 ├── src/
 │   ├── server/
 │   │   ├── index.ts                 # Server entry point
@@ -1065,7 +1065,7 @@ User's Machine
     "f5-cloud-status": {
       "command": "node",
       "args": [
-        "/path/to/f5-status-mcp-server/dist/index.js"
+        "/path/to/f5cloudstatus-mcp-server/dist/index.js"
       ],
       "env": {
         "LOG_LEVEL": "info"

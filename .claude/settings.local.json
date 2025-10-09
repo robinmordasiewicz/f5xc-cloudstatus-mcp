@@ -34,7 +34,18 @@
       "mcp__f5-status__f5-status-get-overall",
       "mcp__f5-status__f5-status-get-components",
       "mcp__f5-status__f5-status-get-component",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "mcp__f5-status__f5-status-search",
+      "Bash(npm login)",
+      "Bash(npm whoami:*)",
+      "Bash(npm search:*)",
+      "Bash(npm publish:*)",
+      "Bash(npm pkg fix:*)",
+      "Bash(npm view:*)",
+      "Bash(npm deprecate:*)",
+      "Bash(npm unpublish:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh repo rename:*)"
     ],
     "deny": [],
     "ask": []

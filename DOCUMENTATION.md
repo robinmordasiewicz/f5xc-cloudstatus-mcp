@@ -246,7 +246,7 @@ npm start
 node dist/index.js
 
 # Using the binary
-f5-status-mcp
+f5cloudstatus-mcp
 ```
 
 ## Troubleshooting
