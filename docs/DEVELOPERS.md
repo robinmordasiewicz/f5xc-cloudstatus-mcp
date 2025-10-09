@@ -451,6 +451,24 @@ test: Add integration tests for incident service
 
 ### Build errors
 
+**Error: `tsc: command not found`**
+
+This means dependencies are not installed. Run:
+```bash
+npm install
+```
+
+**Error: `EACCES: permission denied` during npm install**
+
+Your npm cache has permission issues. Fix with:
+```bash
+sudo chown -R $(id -u):$(id -g) "$HOME/.npm"
+npm cache clean --force
+npm install
+```
+
+**General build troubleshooting:**
+
 - Delete `dist/` and `node_modules/`
 - Run `npm install` again
 - Check Node.js version: `node --version` (should be >= 18.0.0)
