@@ -2,10 +2,6 @@
 
 A Model Context Protocol (MCP) server for monitoring F5 Cloud service status, providing real-time status information, component health, incidents, and scheduled maintenance.
 
-> **🚀 Quick Start:** New to MCP servers? See [QUICKSTART.md](QUICKSTART.md) for a 5-minute setup guide.
->
-> **👨‍💻 Developers:** See [DEVELOPERS.md](DEVELOPERS.md) for development setup and contribution guidelines.
-
 ## Features
 
 - **Real-time Status Monitoring**: Get current operational status of F5 Cloud services
@@ -54,8 +50,6 @@ This uses `npx` to automatically download and run the latest version. No manual 
 ```bash
 claude mcp add f5-cloud-status npx f5cloudstatus-mcp@latest
 ```
-
-**Or** use auto-discovery from Claude Desktop config (if `chat.mcp.discovery.enabled` is `true`).
 
 ### VS Code (with GitHub Copilot)
 
@@ -177,12 +171,6 @@ Are there any active incidents affecting F5 Cloud services?
 ```
 Are there any upcoming maintenance windows for F5 Cloud services?
 ```
-
-**Search across all data:**
-```
-Search F5 status for anything related to "API Gateway"
-```
-
 ## Available Tools
 
 The server provides six MCP tools for interacting with F5 Cloud status:
@@ -193,107 +181,6 @@ The server provides six MCP tools for interacting with F5 Cloud status:
 4. **`f5-status-get-incidents`** - Get current and recent incidents
 5. **`f5-status-get-maintenance`** - Get scheduled maintenance windows
 6. **`f5-status-search`** - Search for components, incidents, or maintenance by keyword
-
-For detailed API documentation and examples, see [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md).
-
-## Troubleshooting
-
-### Server Not Connecting
-
-**Check Node.js Installation:**
-```bash
-node --version
-npm --version
-```
-
-Required: Node.js 18.0.0 or later
-
-**Test Server Standalone:**
-```bash
-npx f5cloudstatus-mcp
-# Should output: "MCP Server started and listening on stdio"
-```
-
-### Tools Not Appearing
-
-1. **Restart the application** completely
-2. **Check configuration syntax** - JSON must be valid
-3. **Verify paths** are correct (especially on Windows)
-4. **Check logs** for error messages
-
-### Permission Errors
-
-**Never use sudo with npm** - it creates permission issues.
-
-**Fix npm permissions:**
-```bash
-# Option 1: Use a version manager (recommended)
-# Install nvm (Node Version Manager) and reinstall Node.js
-
-# Option 2: Configure npm to use user directory
-npm config set prefix ~/.npm-global
-echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
-```
-
-### Windows-Specific Issues
-
-**Playwright Browser Installation:**
-```bash
-npx playwright install chromium
-```
-
-**Path Issues:**
-- Always use **absolute paths** in Windows configurations
-- Use double backslashes (`\\`) in JSON
-- Reference `node.exe` explicitly instead of `npx`
-
-### Network Issues
-
-**Test connectivity:**
-```bash
-curl https://www.f5cloudstatus.com/api/v2/summary.json
-```
-
-**Check firewall** if behind corporate proxy
-
-### Slow Performance
-
-- First request may be slow (data fetching)
-- Subsequent requests use cache (30s-5min TTL)
-- The web scraper (Playwright) only runs as fallback when API fails
-
-## Verifying Installation
-
-Test the server by asking your AI assistant:
-
-```
-What is the current status of F5 Cloud services?
-```
-
-Or:
-
-```
-Show me all F5 Distributed Cloud components
-```
-
-The AI should respond with live status information from F5's status page.
-
-## Documentation
-
-- **[QUICKSTART.md](QUICKSTART.md)** - 5-minute setup guide for new users
-- **[USAGE_EXAMPLES.md](USAGE_EXAMPLES.md)** - 14 detailed real-world usage examples
-- **[DEVELOPERS.md](DEVELOPERS.md)** - Development setup and contribution guide
-
-## Contributing
-
-Contributions are welcome! See [DEVELOPERS.md](DEVELOPERS.md) for:
-
-- Development setup
-- Project structure
-- Testing guidelines
-- Code quality standards
-- Pull request process
 
 ## License
 
