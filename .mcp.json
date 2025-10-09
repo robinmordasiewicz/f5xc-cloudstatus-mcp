@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "f5-status": {
+    "f5cloudstatus": {
       "command": "node",
       "args": [
         "dist/index.js"

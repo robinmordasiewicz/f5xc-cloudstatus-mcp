@@ -1,5 +1,5 @@
 {
-  "name": "f5cloudstatus-mcp-server",
+  "name": "f5cloudstatus-mcp",
   "version": "1.0.5",
   "description": "MCP server for F5 Cloud Status monitoring",
   "main": "dist/index.js",
@@ -36,11 +36,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server.git"
+    "url": "git+https://github.com/robinmordasiewicz/f5cloudstatus-mcp.git"
   },
-  "homepage": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server#readme",
+  "homepage": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp#readme",
   "bugs": {
-    "url": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server/issues"
+    "url": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp/issues"
   },
   "engines": {
     "node": ">=18.0.0"
