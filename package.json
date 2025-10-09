@@ -36,11 +36,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/robinmordasiewicz/www.f5cloudstatus.com.git"
+    "url": "git+https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server.git"
   },
-  "homepage": "https://github.com/robinmordasiewicz/www.f5cloudstatus.com#readme",
+  "homepage": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server#readme",
   "bugs": {
-    "url": "https://github.com/robinmordasiewicz/www.f5cloudstatus.com/issues"
+    "url": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server/issues"
   },
   "engines": {
     "node": ">=18.0.0"
