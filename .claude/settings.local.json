@@ -45,7 +45,9 @@
       "Bash(npm deprecate:*)",
       "Bash(npm unpublish:*)",
       "Bash(gh repo view:*)",
-      "Bash(gh repo rename:*)"
+      "Bash(gh repo rename:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(npm version:*)"
     ],
     "deny": [],
     "ask": []
