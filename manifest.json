@@ -1,5 +1,5 @@
 {
-  "manifest_version": "0.3",
+  "manifest_version": "0.2",
   "name": "f5cloudstatus-mcp",
   "display_name": "F5 Distributed Cloud Status",
   "version": "1.1.0",
