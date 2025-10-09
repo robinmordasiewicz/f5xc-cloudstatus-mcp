@@ -5,8 +5,8 @@
 
 import dotenv from 'dotenv';
 
-// Load environment variables (silent mode to avoid stdout pollution)
-dotenv.config({ debug: false });
+// Load environment variables (quiet mode to suppress runtime messages)
+dotenv.config({ quiet: true });
 
 /**
  * Configuration interface
