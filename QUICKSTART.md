@@ -9,61 +9,55 @@ Get up and running with the F5 Cloud Status MCP Server in 5 minutes.
 
 ## Option 1: NPM Package (Recommended - Fastest Setup)
 
-### For Claude Desktop
+### Base Configuration
 
-**Step 1:** Locate your Claude Desktop configuration file:
-- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-- **Linux**: `~/.config/Claude/claude_desktop_config.json`
-
-**Step 2:** Add this configuration:
+This works for **all MCP clients**:
 
 ```json
 {
   "mcpServers": {
     "f5-cloud-status": {
       "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp-server"]
+      "args": ["-y", "f5cloudstatus-mcp-server@latest"]
     }
   }
 }
 ```
 
-**Step 3:** Restart Claude Desktop
+### For Claude Desktop
 
-**Step 4:** Look for the 🔌 MCP icon - you should see "f5-cloud-status" connected!
+1. Locate `claude_desktop_config.json`:
+   - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+   - **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+2. Add base configuration (above)
+3. Restart Claude Desktop
+4. Look for 🔌 MCP icon → "f5-cloud-status" connected
 
 ### For Claude Code
 
-Simply run:
-
 ```bash
-claude code mcp add f5cloudstatus-mcp-server
+claude mcp add f5-cloud-status npx f5cloudstatus-mcp-server@latest
 ```
 
 ### For VS Code (with GitHub Copilot)
 
-Open Extensions view and search for `@mcp`, then install **F5 Cloud Status**.
-
-Or enable auto-discovery in VS Code settings:
-```json
-{
-  "chat.mcp.discovery.enabled": true
-}
+```bash
+code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus-mcp-server@latest"]}'
 ```
+
+Or enable auto-discovery: Set `"chat.mcp.discovery.enabled": true` in settings.
 
 ### For Cursor IDE
 
-1. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
-2. Search for "Cursor Settings"
-3. Click MCP and browse for F5 Cloud Status
-4. Click Install
+**GUI**: Command Palette → "Cursor Settings" → MCP → Install F5 Cloud Status
+**Or**: Add base configuration to `.cursor/mcp.json`
 
 ### For Windsurf
 
-1. Click Plugins icon in Cascade panel
-2. Search for "F5 Cloud Status"
-3. Click Install
+**GUI**: Plugins → Search "F5 Cloud Status" → Install
+**Or**: Add base configuration to Windsurf MCP settings
 
 ## Option 2: Global Installation
 
