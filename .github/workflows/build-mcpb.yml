@@ -1,0 +1,101 @@
+name: Build MCPB Package
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install MCPB CLI
+        run: npm install -g @anthropic-ai/mcpb
+      
+      - name: Validate manifest.json
+        run: |
+          if [ ! -f "manifest.json" ]; then
+            echo "Error: manifest.json not found"
+            exit 1
+          fi
+          
+          # Validate JSON syntax
+          if ! jq empty manifest.json 2>/dev/null; then
+            echo "Error: manifest.json is not valid JSON"
+            exit 1
+          fi
+          
+          echo "✓ manifest.json is valid"
+      
+      - name: Build MCPB package
+        run: mcpb pack
+      
+      - name: Verify MCPB package
+        run: |
+          MCPB_FILE=$(find . -maxdepth 1 -name "*.mcpb" -type f | head -n 1)
+          if [ -z "$MCPB_FILE" ]; then
+            echo "Error: No .mcpb file was generated"
+            exit 1
+          fi
+          
+          FILE_SIZE=$(stat -f%z "$MCPB_FILE" 2>/dev/null || stat -c%s "$MCPB_FILE")
+          FILE_SIZE_MB=$((FILE_SIZE / 1048576))
+          
+          echo "✓ MCPB package generated: $MCPB_FILE"
+          echo "✓ Package size: ${FILE_SIZE_MB}MB"
+          
+          # Verify it's a valid zip file
+          if unzip -t "$MCPB_FILE" > /dev/null 2>&1; then
+            echo "✓ Package is a valid zip archive"
+          else
+            echo "Error: Package is not a valid zip archive"
+            exit 1
+          fi
+          
+          # List contents
+          echo ""
+          echo "Package contents:"
+          unzip -l "$MCPB_FILE"
+      
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcpb-build-${{ github.sha }}
+          path: '*.mcpb'
+          retention-days: 7
+      
+      - name: Build summary
+        run: |
+          MCPB_FILE=$(find . -maxdepth 1 -name "*.mcpb" -type f | head -n 1)
+          FILE_SIZE=$(stat -f%z "$MCPB_FILE" 2>/dev/null || stat -c%s "$MCPB_FILE")
+          FILE_SIZE_MB=$((FILE_SIZE / 1048576))
+          
+          echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ MCPB package built successfully" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **File**: \`$MCPB_FILE\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Size**: ${FILE_SIZE_MB}MB" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### To publish this build:" >> $GITHUB_STEP_SUMMARY
+          echo "1. Create a version tag: \`git tag v1.0.0\`" >> $GITHUB_STEP_SUMMARY
+          echo "2. Push the tag: \`git push origin v1.0.0\`" >> $GITHUB_STEP_SUMMARY
+          echo "3. The publish workflow will automatically create a release" >> $GITHUB_STEP_SUMMARY

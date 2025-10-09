@@ -1,0 +1,140 @@
+name: Build and Publish MCPB Package
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Triggers on version tags like v1.0.0, v1.2.3
+  workflow_dispatch:  # Allows manual triggering from GitHub Actions tab
+    inputs:
+      version:
+        description: 'Version to publish (e.g., 1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write  # Required to create releases
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install MCPB CLI
+        run: npm install -g @anthropic-ai/mcpb
+      
+      - name: Build MCPB package
+        run: mcpb pack
+      
+      - name: Get package info
+        id: package
+        run: |
+          # Get version from package.json or git tag
+          if [ "${{ github.event_name }}" == "push" ]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+          else
+            VERSION=${{ inputs.version }}
+          fi
+          
+          # Get package name from manifest.json or package.json
+          if [ -f "manifest.json" ]; then
+            PACKAGE_NAME=$(jq -r '.id' manifest.json)
+          else
+            PACKAGE_NAME=$(jq -r '.name' package.json)
+          fi
+          
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "package_name=$PACKAGE_NAME" >> $GITHUB_OUTPUT
+          echo "filename=${PACKAGE_NAME}-${VERSION}.mcpb" >> $GITHUB_OUTPUT
+      
+      - name: Rename MCPB file
+        run: |
+          # Find the generated .mcpb file and rename it with version
+          MCPB_FILE=$(find . -maxdepth 1 -name "*.mcpb" -type f | head -n 1)
+          if [ -n "$MCPB_FILE" ]; then
+            mv "$MCPB_FILE" "${{ steps.package.outputs.filename }}"
+          else
+            echo "Error: No .mcpb file found"
+            exit 1
+          fi
+      
+      - name: Generate release notes
+        id: release_notes
+        run: |
+          cat > release_notes.md << EOF
+          ## F5 Cloud Status MCP Server v${{ steps.package.outputs.version }}
+          
+          ### Installation
+          
+          **One-click installation in Claude Desktop:**
+          1. Download the \`.mcpb\` file below
+          2. Double-click the file to install
+          3. Restart Claude Desktop
+          
+          **Manual installation using npx:**
+          \`\`\`json
+          {
+            "mcpServers": {
+              "f5-cloud-status": {
+                "command": "npx",
+                "args": ["-y", "f5cloudstatus-mcp@${{ steps.package.outputs.version }}"]
+              }
+            }
+          }
+          \`\`\`
+          
+          ### What's Included
+          
+          This MCPB bundle includes:
+          - Complete F5 Cloud Status MCP server
+          - All required dependencies
+          - Ready to use - no additional installation needed
+          
+          ### Features
+          
+          - Real-time F5 Cloud service status monitoring
+          - Component health tracking (148+ components)
+          - Incident management and tracking
+          - Maintenance window information
+          - Intelligent caching with TTL
+          - Dual data sources (API + web scraper fallback)
+          
+          ### Documentation
+          
+          - [GitHub Repository](https://github.com/robinmordasiewicz/f5cloudstatus-mcp)
+          - [NPM Package](https://www.npmjs.com/package/f5cloudstatus-mcp)
+          - [Usage Examples](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/blob/main/USAGE_EXAMPLES.md)
+          EOF
+          
+          echo "notes_file=release_notes.md" >> $GITHUB_OUTPUT
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.package.outputs.version }}
+          name: v${{ steps.package.outputs.version }}
+          body_path: ${{ steps.release_notes.outputs.notes_file }}
+          draft: false
+          prerelease: false
+          files: |
+            ${{ steps.package.outputs.filename }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Upload artifact for verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcpb-package
+          path: ${{ steps.package.outputs.filename }}
+          retention-days: 30
