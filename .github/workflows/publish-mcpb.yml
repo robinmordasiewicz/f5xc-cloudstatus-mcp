@@ -49,7 +49,7 @@ jobs:
           
           # Get package name from manifest.json or package.json
           if [ -f "manifest.json" ]; then
-            PACKAGE_NAME=$(jq -r '.id' manifest.json)
+            PACKAGE_NAME=$(jq -r '.name' manifest.json)
           else
             PACKAGE_NAME=$(jq -r '.name' package.json)
           fi
