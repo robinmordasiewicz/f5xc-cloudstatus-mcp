@@ -940,7 +940,7 @@ How does this week compare to last week?
 - [QUICKSTART.md](QUICKSTART.md) - 5-minute setup guide
 - [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md) - 14 detailed examples
 - [ARCHITECTURE.md](ARCHITECTURE.md) - Technical architecture
-- [DOCUMENTATION.md](DOCUMENTATION.md) - Complete documentation index
+- [DEVELOPERS.md](DEVELOPERS.md) - Development setup and contribution guide
 
 **Community:**
 - GitHub Issues: https://github.com/robinmordasiewicz/www.f5cloudstatus.com/issues
