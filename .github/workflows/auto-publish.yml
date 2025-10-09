@@ -9,6 +9,7 @@ on:
       - 'README.md'
       - 'LICENSE'
       - 'docs/**'
+  workflow_dispatch:  # Allow manual trigger
 
 permissions:
   contents: write
