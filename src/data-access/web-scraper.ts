@@ -119,7 +119,8 @@ export class WebScraper {
       await page.evaluate(() => {
         // @ts-ignore - DOM is available in browser context
         const expandButtons = document.querySelectorAll('.component-group-expand');
-        expandButtons.forEach((button: Element) => {
+        // @ts-ignore - DOM is available in browser context
+        expandButtons.forEach((button) => {
           // @ts-ignore - HTMLElement is available in browser context
           if (button instanceof HTMLElement) {
             button.click();
@@ -140,7 +141,8 @@ export class WebScraper {
           group?: string;
         }> = [];
 
-        componentElements.forEach((element: Element, index: number) => {
+        // @ts-ignore - DOM is available in browser context
+        componentElements.forEach((element, index: number) => {
           const nameElement = element.querySelector('.name');
           const statusElement = element.querySelector('.component-status');
           const groupElement = element.closest('.component-group')?.querySelector('.group-name');
@@ -221,7 +223,8 @@ export class WebScraper {
           }>;
         }> = [];
 
-        incidentElements.forEach((element: Element, index: number) => {
+        // @ts-ignore - DOM is available in browser context
+        incidentElements.forEach((element, index: number) => {
           const titleElement = element.querySelector('.incident-title');
           const statusElement = element.querySelector('.incident-status');
           const impactElement = element.querySelector('.impact-level');
@@ -232,9 +235,13 @@ export class WebScraper {
             const status = statusElement.textContent?.trim().toLowerCase() || 'investigating';
             const impact = impactElement?.textContent?.trim().toLowerCase() || 'minor';
 
-            const updates = Array.from(updateElements).map((update: Element) => {
+            // @ts-ignore - DOM is available in browser context
+            const updates = Array.from(updateElements).map((update) => {
+              // @ts-ignore - DOM is available in browser context
               const statusEl = update.querySelector('.update-status');
+              // @ts-ignore - DOM is available in browser context
               const bodyEl = update.querySelector('.update-body');
+              // @ts-ignore - DOM is available in browser context
               const timestampEl = update.querySelector('.update-timestamp');
 
               return {
