@@ -51,6 +51,39 @@ npm install
 npm run build
 ```
 
+**MCP Client Configuration for Local Development:**
+
+Add this to your MCP client configuration file (e.g., Claude Desktop config):
+
+```json
+{
+  "mcpServers": {
+    "f5cloudstatus": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/f5cloudstatus-mcp/dist/index.js"
+      ],
+      "env": {
+        "API_BASE_URL": "https://www.f5cloudstatus.com/api/v2",
+        "API_TIMEOUT": "10000",
+        "API_RETRY_ATTEMPTS": "3",
+        "API_RETRY_DELAY": "1000",
+        "SCRAPER_BASE_URL": "https://www.f5cloudstatus.com",
+        "SCRAPER_TIMEOUT": "30000",
+        "SCRAPER_HEADLESS": "true",
+        "CACHE_TTL_STATUS": "30000",
+        "CACHE_TTL_COMPONENTS": "60000",
+        "CACHE_TTL_INCIDENTS": "120000",
+        "CACHE_TTL_MAINTENANCE": "300000",
+        "LOG_LEVEL": "info"
+      }
+    }
+  }
+}
+```
+
+Replace `/absolute/path/to/f5cloudstatus-mcp` with your actual project path.
+
 ## Configuration
 
 Create a `.env` file in the project root based on `.env.example`:
