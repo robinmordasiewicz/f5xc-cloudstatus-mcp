@@ -4,6 +4,8 @@ A Model Context Protocol (MCP) server for monitoring F5 Cloud service status, pr
 
 > **🚀 Quick Start:** New to MCP servers? See [QUICKSTART.md](QUICKSTART.md) for a 5-minute setup guide.
 >
+> **📦 Installation:** See [INSTALLATION.md](INSTALLATION.md) for setup in Claude Desktop, VS Code, Cursor, Windsurf, and more.
+>
 > **📚 Full Documentation:** See [DOCUMENTATION.md](DOCUMENTATION.md) for complete documentation index.
 
 ## Features
@@ -18,8 +20,33 @@ A Model Context Protocol (MCP) server for monitoring F5 Cloud service status, pr
 
 ## Installation
 
+### For Users (NPM Package)
+
+Install via npm to use with your AI tools:
+
 ```bash
+# Global installation (recommended)
+npm install -g f5cloudstatus-mcp-server
+
+# Or use without installing
+npx f5cloudstatus-mcp-server
+```
+
+**Quick Setup for Popular Tools:**
+- **Claude Desktop/Code**: `claude code mcp add f5cloudstatus-mcp-server`
+- **VS Code**: Search `@mcp` in Extensions or enable auto-discovery
+- **Cursor**: One-click install from MCP settings
+- **Windsurf**: Install from Plugin Store
+
+📦 **Detailed guides**: See [INSTALLATION.md](INSTALLATION.md) for step-by-step setup for all supported tools.
+
+### For Developers (Local Setup)
+
+```bash
+git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp-server.git
+cd f5cloudstatus-mcp-server
 npm install
+npm run build
 ```
 
 ## Configuration
@@ -62,43 +89,36 @@ npm start
 
 ## Usage with MCP Clients
 
-### Claude Desktop Configuration
+### Supported Tools
 
-1. **Build the server:**
-   ```bash
-   npm run build
-   ```
+This MCP server works with:
+- **Claude Desktop** - AI assistant with MCP support
+- **Claude Code** - AI coding assistant
+- **VS Code** - With GitHub Copilot (v1.102+)
+- **Cursor** - AI-powered code editor
+- **Windsurf** - Cascade IDE with MCP
+- **Cline** - Claude Dev VS Code extension
 
-2. **Configure Claude Desktop:**
+### Quick Setup
 
-   Add the server to your Claude Desktop configuration file:
+**Using NPM package** (recommended):
 
-   **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+```bash
+# Install globally
+npm install -g f5cloudstatus-mcp-server
 
-   **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+# Then configure in your tool - see INSTALLATION.md
+```
 
-   **Linux:** `~/.config/Claude/claude_desktop_config.json`
+**Using local development build**:
 
-   ```json
-   {
-     "mcpServers": {
-       "f5-status": {
-         "command": "node",
-         "args": [
-           "/absolute/path/to/www.f5cloudstatus.com/dist/index.js"
-         ]
-       }
-     }
-   }
-   ```
+```bash
+npm run build
+```
 
-   Replace `/absolute/path/to/www.f5cloudstatus.com` with your actual project path.
+Then configure with path to `dist/index.js` - see examples in [INSTALLATION.md](INSTALLATION.md).
 
-3. **Restart Claude Desktop**
-
-4. **Verify the connection:**
-
-   Look for the 🔌 MCP icon in Claude Desktop, which should show "f5-status" as connected.
+📦 **Complete setup guides**: See [INSTALLATION.md](INSTALLATION.md) for detailed instructions for each tool.
 
 ### Example Queries
 

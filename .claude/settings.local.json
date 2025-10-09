@@ -47,7 +47,8 @@
       "Bash(gh repo view:*)",
       "Bash(gh repo rename:*)",
       "Bash(gh repo edit:*)",
-      "Bash(npm version:*)"
+      "Bash(npm version:*)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
