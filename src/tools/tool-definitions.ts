@@ -11,7 +11,8 @@ import { z } from 'zod';
  */
 export const getOverallStatusTool = {
   name: 'f5-status-get-overall',
-  description: 'Get the current overall status of F5 Cloud services including operational state and service health indicator',
+  description:
+    'Get the current overall status of F5 Cloud services including operational state and service health indicator',
   inputSchema: {
     type: 'object' as const,
     properties: {},
@@ -25,7 +26,8 @@ export const getOverallStatusTool = {
  */
 export const getComponentsTool = {
   name: 'f5-status-get-components',
-  description: 'Get all F5 Cloud service components with their current operational status, organized by category (Distributed Cloud Services, XC App Stack, etc.)',
+  description:
+    'Get all F5 Cloud service components with their current operational status, organized by category (Distributed Cloud Services, XC App Stack, etc.)',
   inputSchema: {
     type: 'object' as const,
     properties: {
@@ -72,7 +74,8 @@ export const getComponentTool = {
  */
 export const getIncidentsTool = {
   name: 'f5-status-get-incidents',
-  description: 'Get current and recent incidents affecting F5 Cloud services, including status updates and affected components',
+  description:
+    'Get current and recent incidents affecting F5 Cloud services, including status updates and affected components',
   inputSchema: {
     type: 'object' as const,
     properties: {
@@ -135,7 +138,8 @@ export const getMaintenanceTool = {
  */
 export const searchTool = {
   name: 'f5-status-search',
-  description: 'Search F5 Cloud status information by keyword or pattern, including components, incidents, and maintenance',
+  description:
+    'Search F5 Cloud status information by keyword or pattern, including components, incidents, and maintenance',
   inputSchema: {
     type: 'object' as const,
     properties: {
@@ -176,16 +180,17 @@ export const toolSchemas = {
     group: z.string().optional(),
   }),
 
-  'f5-status-get-component': z.object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-  }).refine(
-    (data) => data.id || data.name,
-    { message: 'Either id or name must be provided' }
-  ),
+  'f5-status-get-component': z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+    })
+    .refine((data) => data.id || data.name, { message: 'Either id or name must be provided' }),
 
   'f5-status-get-incidents': z.object({
-    status: z.enum(['investigating', 'identified', 'monitoring', 'resolved', 'postmortem']).optional(),
+    status: z
+      .enum(['investigating', 'identified', 'monitoring', 'resolved', 'postmortem'])
+      .optional(),
     impact: z.enum(['none', 'minor', 'major', 'critical']).optional(),
     days: z.number().min(1).max(90).optional(),
     unresolved_only: z.boolean().optional(),
@@ -204,10 +209,10 @@ export const toolSchemas = {
 };
 
 export type ToolInputs = {
-  'f5-status-get-overall': z.infer<typeof toolSchemas['f5-status-get-overall']>;
-  'f5-status-get-components': z.infer<typeof toolSchemas['f5-status-get-components']>;
-  'f5-status-get-component': z.infer<typeof toolSchemas['f5-status-get-component']>;
-  'f5-status-get-incidents': z.infer<typeof toolSchemas['f5-status-get-incidents']>;
-  'f5-status-get-maintenance': z.infer<typeof toolSchemas['f5-status-get-maintenance']>;
-  'f5-status-search': z.infer<typeof toolSchemas['f5-status-search']>;
+  'f5-status-get-overall': z.infer<(typeof toolSchemas)['f5-status-get-overall']>;
+  'f5-status-get-components': z.infer<(typeof toolSchemas)['f5-status-get-components']>;
+  'f5-status-get-component': z.infer<(typeof toolSchemas)['f5-status-get-component']>;
+  'f5-status-get-incidents': z.infer<(typeof toolSchemas)['f5-status-get-incidents']>;
+  'f5-status-get-maintenance': z.infer<(typeof toolSchemas)['f5-status-get-maintenance']>;
+  'f5-status-search': z.infer<(typeof toolSchemas)['f5-status-search']>;
 };

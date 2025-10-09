@@ -29,11 +29,7 @@ export class CacheService {
   /**
    * Get value from cache or fetch if missing/expired
    */
-  async get<T>(
-    key: string,
-    ttl: number,
-    fetcher: () => Promise<T>
-  ): Promise<T> {
+  async get<T>(key: string, ttl: number, fetcher: () => Promise<T>): Promise<T> {
     try {
       // Check cache
       const cached = this.cache.get(key) as CacheEntry<T> | undefined;

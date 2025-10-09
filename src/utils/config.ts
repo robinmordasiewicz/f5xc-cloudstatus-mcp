@@ -82,7 +82,7 @@ export const config: Config = {
     ttlMaintenance: getEnvNumber('CACHE_TTL_MAINTENANCE', 300000),
   },
   logging: {
-    level: (getEnv('LOG_LEVEL', 'info') as 'debug' | 'info' | 'warn' | 'error'),
+    level: getEnv('LOG_LEVEL', 'info') as 'debug' | 'info' | 'warn' | 'error',
   },
 };
 
@@ -136,7 +136,9 @@ export function validateConfig(): void {
   // Validate log level
   const validLogLevels = ['debug', 'info', 'warn', 'error'];
   if (!validLogLevels.includes(config.logging.level)) {
-    errors.push(`Invalid LOG_LEVEL: ${config.logging.level}. Must be one of: ${validLogLevels.join(', ')}`);
+    errors.push(
+      `Invalid LOG_LEVEL: ${config.logging.level}. Must be one of: ${validLogLevels.join(', ')}`
+    );
   }
 
   if (errors.length > 0) {

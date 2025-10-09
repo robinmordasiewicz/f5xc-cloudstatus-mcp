@@ -31,7 +31,7 @@ export class APIClient {
       baseURL: config.api.baseUrl,
       timeout: config.api.timeout,
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'User-Agent': 'F5-Status-MCP-Server/1.0',
       },
     });
@@ -123,10 +123,7 @@ export class APIClient {
   /**
    * Make HTTP request with retry logic
    */
-  private async request<T>(
-    url: string,
-    options?: AxiosRequestConfig
-  ): Promise<T> {
+  private async request<T>(url: string, options?: AxiosRequestConfig): Promise<T> {
     return this.retry(async () => {
       try {
         const response = await this.client.get<T>(url, options);
@@ -141,10 +138,7 @@ export class APIClient {
   /**
    * Retry function with exponential backoff
    */
-  private async retry<T>(
-    fn: () => Promise<T>,
-    attempt: number = 0
-  ): Promise<T> {
+  private async retry<T>(fn: () => Promise<T>, attempt: number = 0): Promise<T> {
     try {
       return await fn();
     } catch (error) {
@@ -154,10 +148,9 @@ export class APIClient {
 
       // Calculate delay with exponential backoff
       const delay = this.retryDelay * Math.pow(2, attempt);
-      logger.warn(
-        `Retry attempt ${attempt + 1}/${this.retryAttempts} after ${delay}ms`,
-        { error: this.getErrorMessage(error) }
-      );
+      logger.warn(`Retry attempt ${attempt + 1}/${this.retryAttempts} after ${delay}ms`, {
+        error: this.getErrorMessage(error),
+      });
 
       await this.sleep(delay);
       return this.retry(fn, attempt + 1);
@@ -173,58 +166,43 @@ export class APIClient {
 
       // Timeout error
       if (axiosError.code === 'ECONNABORTED') {
-        throw new TimeoutError(
-          `API request timeout: ${url}`,
-          {
-            url,
-            timeout: config.api.timeout,
-          }
-        );
+        throw new TimeoutError(`API request timeout: ${url}`, {
+          url,
+          timeout: config.api.timeout,
+        });
       }
 
       // Network error
       if (axiosError.code === 'ENOTFOUND' || axiosError.code === 'ECONNREFUSED') {
-        throw new APIError(
-          `API network error: ${url}`,
-          {
-            url,
-            code: axiosError.code,
-            message: axiosError.message,
-          }
-        );
+        throw new APIError(`API network error: ${url}`, {
+          url,
+          code: axiosError.code,
+          message: axiosError.message,
+        });
       }
 
       // HTTP error
       if (axiosError.response) {
-        throw new APIError(
-          `API HTTP error: ${axiosError.response.status} ${url}`,
-          {
-            url,
-            status: axiosError.response.status,
-            statusText: axiosError.response.statusText,
-            data: axiosError.response.data,
-          }
-        );
+        throw new APIError(`API HTTP error: ${axiosError.response.status} ${url}`, {
+          url,
+          status: axiosError.response.status,
+          statusText: axiosError.response.statusText,
+          data: axiosError.response.data,
+        });
       }
 
       // Request error
-      throw new APIError(
-        `API request error: ${url}`,
-        {
-          url,
-          message: axiosError.message,
-        }
-      );
+      throw new APIError(`API request error: ${url}`, {
+        url,
+        message: axiosError.message,
+      });
     }
 
     // Unknown error
-    throw new APIError(
-      `Unknown API error: ${url}`,
-      {
-        url,
-        error: String(error),
-      }
-    );
+    throw new APIError(`Unknown API error: ${url}`, {
+      url,
+      error: String(error),
+    });
   }
 
   /**

@@ -6,7 +6,11 @@
 /**
  * Status levels for overall system status
  */
-export type StatusLevel = 'operational' | 'degraded_performance' | 'partial_outage' | 'major_outage';
+export type StatusLevel =
+  | 'operational'
+  | 'degraded_performance'
+  | 'partial_outage'
+  | 'major_outage';
 
 /**
  * Indicator levels for component status
@@ -62,7 +66,12 @@ export interface DailyUptimeStat {
 /**
  * Incident status progression
  */
-export type IncidentStatus = 'investigating' | 'identified' | 'monitoring' | 'resolved' | 'postmortem';
+export type IncidentStatus =
+  | 'investigating'
+  | 'identified'
+  | 'monitoring'
+  | 'resolved'
+  | 'postmortem';
 
 /**
  * Impact level of an incident

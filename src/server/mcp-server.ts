@@ -5,10 +5,7 @@
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from '@modelcontextprotocol/sdk/types.js';
+import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 
 import { createDataAccessLayer } from '../data-access/index.js';
 import { createCacheService } from '../cache/index.js';
@@ -55,11 +52,7 @@ export class MCPServer {
     const incidentService = createIncidentService(this.dataAccess, this.cache);
 
     // Initialize tool handler
-    this.toolHandler = createToolHandler(
-      statusService,
-      componentService,
-      incidentService
-    );
+    this.toolHandler = createToolHandler(statusService, componentService, incidentService);
 
     // Setup handlers
     this.setupHandlers();

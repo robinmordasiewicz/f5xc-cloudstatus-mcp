@@ -102,10 +102,7 @@ export function isF5StatusError(error: unknown): error is F5StatusError {
  */
 export function formatError(error: unknown): string {
   if (isF5StatusError(error)) {
-    const parts = [
-      `[${error.code}]`,
-      error.message,
-    ];
+    const parts = [`[${error.code}]`, error.message];
     if (error.details) {
       parts.push(`Details: ${JSON.stringify(error.details)}`);
     }

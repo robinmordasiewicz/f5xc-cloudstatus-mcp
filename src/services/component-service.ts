@@ -29,14 +29,10 @@ export class ComponentService {
   async getAllComponents(): Promise<Component[]> {
     logger.debug('Getting all components');
 
-    return this.cache.get(
-      'all-components',
-      config.cache.ttlComponents,
-      async () => {
-        const rawComponents = await this.dataAccess.getComponents();
-        return this.transformComponents(rawComponents);
-      }
-    );
+    return this.cache.get('all-components', config.cache.ttlComponents, async () => {
+      const rawComponents = await this.dataAccess.getComponents();
+      return this.transformComponents(rawComponents);
+    });
   }
 
   /**
@@ -58,9 +54,7 @@ export class ComponentService {
    */
   async getComponentByName(name: string): Promise<Component> {
     const components = await this.getAllComponents();
-    const component = components.find(
-      (c) => c.name.toLowerCase() === name.toLowerCase()
-    );
+    const component = components.find((c) => c.name.toLowerCase() === name.toLowerCase());
 
     if (!component) {
       throw new NotFoundError(`Component not found: ${name}`);
@@ -165,9 +159,7 @@ export class ComponentService {
   /**
    * Transform raw components to domain model
    */
-  private transformComponents(
-    rawComponents: RawComponentsResponse | Component[]
-  ): Component[] {
+  private transformComponents(rawComponents: RawComponentsResponse | Component[]): Component[] {
     // If already transformed (from scraper), return as-is
     if (Array.isArray(rawComponents)) {
       return rawComponents;
@@ -197,9 +189,7 @@ export class ComponentService {
   /**
    * Map component status to indicator level
    */
-  private mapStatusToIndicator(
-    status: string
-  ): IndicatorLevel {
+  private mapStatusToIndicator(status: string): IndicatorLevel {
     switch (status) {
       case 'operational':
         return 'none';

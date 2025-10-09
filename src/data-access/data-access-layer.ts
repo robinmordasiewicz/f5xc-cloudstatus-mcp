@@ -42,10 +42,7 @@ export class DataAccessLayer {
       return await this.apiClient.fetchStatus();
     } catch (error) {
       logger.warn('API status fetch failed, attempting scraper fallback', error);
-      return this.fallbackToScraper(
-        () => this.scraper.scrapeStatus(),
-        'status'
-      );
+      return this.fallbackToScraper(() => this.scraper.scrapeStatus(), 'status');
     }
   }
 
@@ -71,10 +68,7 @@ export class DataAccessLayer {
       return await this.apiClient.fetchComponents();
     } catch (error) {
       logger.warn('API components fetch failed, attempting scraper fallback', error);
-      return this.fallbackToScraper(
-        () => this.scraper.scrapeComponents(),
-        'components'
-      );
+      return this.fallbackToScraper(() => this.scraper.scrapeComponents(), 'components');
     }
   }
 
@@ -87,10 +81,7 @@ export class DataAccessLayer {
       return await this.apiClient.fetchIncidents();
     } catch (error) {
       logger.warn('API incidents fetch failed, attempting scraper fallback', error);
-      return this.fallbackToScraper(
-        () => this.scraper.scrapeIncidents(),
-        'incidents'
-      );
+      return this.fallbackToScraper(() => this.scraper.scrapeIncidents(), 'incidents');
     }
   }
 
@@ -173,10 +164,7 @@ export class DataAccessLayer {
   /**
    * Fallback to scraper if enabled
    */
-  private async fallbackToScraper<T>(
-    scraperFn: () => Promise<T>,
-    dataType: string
-  ): Promise<T> {
+  private async fallbackToScraper<T>(scraperFn: () => Promise<T>, dataType: string): Promise<T> {
     if (!this.useScraperFallback) {
       throw this.createDataUnavailableError(dataType, 'Scraper fallback disabled');
     }
@@ -194,10 +182,10 @@ export class DataAccessLayer {
    * Create data unavailable error
    */
   private createDataUnavailableError(dataType: string, error: unknown): DataUnavailableError {
-    return new DataUnavailableError(
-      `Unable to fetch ${dataType} from API or scraper`,
-      { dataType, error }
-    );
+    return new DataUnavailableError(`Unable to fetch ${dataType} from API or scraper`, {
+      dataType,
+      error,
+    });
   }
 }
 

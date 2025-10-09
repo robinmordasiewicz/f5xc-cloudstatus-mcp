@@ -28,14 +28,10 @@ export class StatusService {
   async getOverallStatus(): Promise<OverallStatus> {
     logger.debug('Getting overall status');
 
-    return this.cache.get(
-      'overall-status',
-      config.cache.ttlStatus,
-      async () => {
-        const rawStatus = await this.dataAccess.getStatus();
-        return this.transformStatus(rawStatus);
-      }
-    );
+    return this.cache.get('overall-status', config.cache.ttlStatus, async () => {
+      const rawStatus = await this.dataAccess.getStatus();
+      return this.transformStatus(rawStatus);
+    });
   }
 
   /**
@@ -81,9 +77,7 @@ export class StatusService {
   /**
    * Transform raw status to domain model
    */
-  private transformStatus(
-    rawStatus: RawStatusResponse | OverallStatus
-  ): OverallStatus {
+  private transformStatus(rawStatus: RawStatusResponse | OverallStatus): OverallStatus {
     // If already transformed (from scraper), return as-is
     if ('lastUpdated' in rawStatus) {
       return rawStatus;

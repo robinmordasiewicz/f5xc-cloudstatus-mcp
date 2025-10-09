@@ -9,7 +9,12 @@ import { config } from '../utils/config.js';
 import { logger } from '../utils/logger.js';
 import { NotFoundError } from '../utils/errors.js';
 import type { Incident, IncidentStatus, IncidentImpact, Maintenance } from '../types/domain.js';
-import type { RawIncidentsResponse, RawIncident, RawMaintenance, RawScheduledMaintenancesResponse } from '../types/api.js';
+import type {
+  RawIncidentsResponse,
+  RawIncident,
+  RawMaintenance,
+  RawScheduledMaintenancesResponse,
+} from '../types/api.js';
 
 /**
  * Incident Service class
@@ -29,14 +34,10 @@ export class IncidentService {
   async getAllIncidents(): Promise<Incident[]> {
     logger.debug('Getting all incidents');
 
-    return this.cache.get(
-      'all-incidents',
-      config.cache.ttlIncidents,
-      async () => {
-        const rawIncidents = await this.dataAccess.getIncidents();
-        return this.transformIncidents(rawIncidents);
-      }
-    );
+    return this.cache.get('all-incidents', config.cache.ttlIncidents, async () => {
+      const rawIncidents = await this.dataAccess.getIncidents();
+      return this.transformIncidents(rawIncidents);
+    });
   }
 
   /**
@@ -45,14 +46,10 @@ export class IncidentService {
   async getUnresolvedIncidents(): Promise<Incident[]> {
     logger.debug('Getting unresolved incidents');
 
-    return this.cache.get(
-      'unresolved-incidents',
-      config.cache.ttlIncidents,
-      async () => {
-        const rawIncidents = await this.dataAccess.getUnresolvedIncidents();
-        return rawIncidents.incidents.map((raw) => this.transformIncident(raw));
-      }
-    );
+    return this.cache.get('unresolved-incidents', config.cache.ttlIncidents, async () => {
+      const rawIncidents = await this.dataAccess.getUnresolvedIncidents();
+      return rawIncidents.incidents.map((raw) => this.transformIncident(raw));
+    });
   }
 
   /**
@@ -110,14 +107,10 @@ export class IncidentService {
   async getAllMaintenances(): Promise<Maintenance[]> {
     logger.debug('Getting all maintenances');
 
-    return this.cache.get(
-      'all-maintenances',
-      config.cache.ttlMaintenance,
-      async () => {
-        const rawMaintenances = await this.dataAccess.getScheduledMaintenances();
-        return this.transformMaintenances(rawMaintenances);
-      }
-    );
+    return this.cache.get('all-maintenances', config.cache.ttlMaintenance, async () => {
+      const rawMaintenances = await this.dataAccess.getScheduledMaintenances();
+      return this.transformMaintenances(rawMaintenances);
+    });
   }
 
   /**
@@ -126,16 +119,10 @@ export class IncidentService {
   async getActiveMaintenances(): Promise<Maintenance[]> {
     logger.debug('Getting active maintenances');
 
-    return this.cache.get(
-      'active-maintenances',
-      config.cache.ttlMaintenance,
-      async () => {
-        const rawMaintenances = await this.dataAccess.getActiveMaintenances();
-        return rawMaintenances.scheduled_maintenances.map((raw) =>
-          this.transformMaintenance(raw)
-        );
-      }
-    );
+    return this.cache.get('active-maintenances', config.cache.ttlMaintenance, async () => {
+      const rawMaintenances = await this.dataAccess.getActiveMaintenances();
+      return rawMaintenances.scheduled_maintenances.map((raw) => this.transformMaintenance(raw));
+    });
   }
 
   /**
@@ -144,16 +131,10 @@ export class IncidentService {
   async getUpcomingMaintenances(): Promise<Maintenance[]> {
     logger.debug('Getting upcoming maintenances');
 
-    return this.cache.get(
-      'upcoming-maintenances',
-      config.cache.ttlMaintenance,
-      async () => {
-        const rawMaintenances = await this.dataAccess.getUpcomingMaintenances();
-        return rawMaintenances.scheduled_maintenances.map((raw) =>
-          this.transformMaintenance(raw)
-        );
-      }
-    );
+    return this.cache.get('upcoming-maintenances', config.cache.ttlMaintenance, async () => {
+      const rawMaintenances = await this.dataAccess.getUpcomingMaintenances();
+      return rawMaintenances.scheduled_maintenances.map((raw) => this.transformMaintenance(raw));
+    });
   }
 
   /**
@@ -181,9 +162,7 @@ export class IncidentService {
   /**
    * Transform raw incidents to domain model
    */
-  private transformIncidents(
-    rawIncidents: RawIncidentsResponse | Incident[]
-  ): Incident[] {
+  private transformIncidents(rawIncidents: RawIncidentsResponse | Incident[]): Incident[] {
     // If already transformed (from scraper), return as-is
     if (Array.isArray(rawIncidents)) {
       return rawIncidents;
@@ -221,12 +200,8 @@ export class IncidentService {
   /**
    * Transform raw maintenances to domain model
    */
-  private transformMaintenances(
-    rawMaintenances: RawScheduledMaintenancesResponse
-  ): Maintenance[] {
-    return rawMaintenances.scheduled_maintenances.map((raw) =>
-      this.transformMaintenance(raw)
-    );
+  private transformMaintenances(rawMaintenances: RawScheduledMaintenancesResponse): Maintenance[] {
+    return rawMaintenances.scheduled_maintenances.map((raw) => this.transformMaintenance(raw));
   }
 
   /**

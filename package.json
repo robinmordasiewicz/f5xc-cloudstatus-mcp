@@ -15,6 +15,9 @@
     "test:coverage": "jest --coverage",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts",
+    "format:check": "prettier --check src/**/*.ts",
+    "sync:manifest": "node scripts/sync-manifest.js",
+    "prepare": "node scripts/sync-manifest.js",
     "start": "node dist/index.js"
   },
   "keywords": [
@@ -60,6 +63,7 @@
     "@typescript-eslint/eslint-plugin": "^8.46.0",
     "@typescript-eslint/parser": "^8.46.0",
     "eslint": "^9.37.0",
+    "husky": "^9.0.0",
     "jest": "^30.2.0",
     "prettier": "^3.6.2",
     "ts-jest": "^29.4.4",

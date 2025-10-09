@@ -68,7 +68,7 @@ export class WebScraper {
       await page.goto(this.baseUrl, { timeout: this.timeout });
       await page.waitForSelector('.page-status', { timeout: this.timeout });
 
-      const status = await page.evaluate(() => {
+      const status = (await page.evaluate(() => {
         // @ts-ignore - DOM is available in browser context
         const statusElement = document.querySelector('.page-status');
         // @ts-ignore - DOM is available in browser context
@@ -90,7 +90,7 @@ export class WebScraper {
           description,
           indicator,
         };
-      }) as { description: string; indicator: 'none' | 'minor' | 'major' | 'critical' };
+      })) as { description: string; indicator: 'none' | 'minor' | 'major' | 'critical' };
 
       return {
         status: this.mapIndicatorToStatus(status.indicator),
@@ -119,7 +119,7 @@ export class WebScraper {
       await page.evaluate(() => {
         // @ts-ignore - DOM is available in browser context
         const expandButtons = document.querySelectorAll('.component-group-expand');
-        expandButtons.forEach((button: any) => {
+        expandButtons.forEach((button: Element) => {
           // @ts-ignore - HTMLElement is available in browser context
           if (button instanceof HTMLElement) {
             button.click();
@@ -130,7 +130,7 @@ export class WebScraper {
       // Wait for expansion to complete
       await page.waitForTimeout(1000);
 
-      const components = await page.evaluate(() => {
+      const components = (await page.evaluate(() => {
         // @ts-ignore - DOM is available in browser context
         const componentElements = document.querySelectorAll('.component-inner-container');
         const components: Array<{
@@ -140,7 +140,7 @@ export class WebScraper {
           group?: string;
         }> = [];
 
-        componentElements.forEach((element: any, index: number) => {
+        componentElements.forEach((element: Element, index: number) => {
           const nameElement = element.querySelector('.name');
           const statusElement = element.querySelector('.component-status');
           const groupElement = element.closest('.component-group')?.querySelector('.group-name');
@@ -165,7 +165,7 @@ export class WebScraper {
         });
 
         return components;
-      }) as Array<{
+      })) as Array<{
         id: string;
         name: string;
         status: string;
@@ -197,16 +197,16 @@ export class WebScraper {
       await page.goto(this.baseUrl, { timeout: this.timeout });
 
       // Check if incidents section exists
-      const hasIncidents = await page.evaluate(() => {
+      const hasIncidents = (await page.evaluate(() => {
         // @ts-ignore - DOM is available in browser context
         return document.querySelector('.incidents-list') !== null;
-      }) as boolean;
+      })) as boolean;
 
       if (!hasIncidents) {
         return [];
       }
 
-      const incidents = await page.evaluate(() => {
+      const incidents = (await page.evaluate(() => {
         // @ts-ignore - DOM is available in browser context
         const incidentElements = document.querySelectorAll('.incident-container');
         const incidents: Array<{
@@ -221,7 +221,7 @@ export class WebScraper {
           }>;
         }> = [];
 
-        incidentElements.forEach((element: any, index: number) => {
+        incidentElements.forEach((element: Element, index: number) => {
           const titleElement = element.querySelector('.incident-title');
           const statusElement = element.querySelector('.incident-status');
           const impactElement = element.querySelector('.impact-level');
@@ -232,7 +232,7 @@ export class WebScraper {
             const status = statusElement.textContent?.trim().toLowerCase() || 'investigating';
             const impact = impactElement?.textContent?.trim().toLowerCase() || 'minor';
 
-            const updates = Array.from(updateElements).map((update: any) => {
+            const updates = Array.from(updateElements).map((update: Element) => {
               const statusEl = update.querySelector('.update-status');
               const bodyEl = update.querySelector('.update-body');
               const timestampEl = update.querySelector('.update-timestamp');
@@ -255,7 +255,7 @@ export class WebScraper {
         });
 
         return incidents;
-      }) as Array<{
+      })) as Array<{
         id: string;
         name: string;
         status: string;
@@ -270,14 +270,24 @@ export class WebScraper {
       return incidents.map((inc) => ({
         id: inc.id,
         name: inc.name,
-        status: inc.status as 'investigating' | 'identified' | 'monitoring' | 'resolved' | 'postmortem',
+        status: inc.status as
+          | 'investigating'
+          | 'identified'
+          | 'monitoring'
+          | 'resolved'
+          | 'postmortem',
         impact: inc.impact as 'none' | 'minor' | 'major' | 'critical',
         createdAt: new Date(),
         updatedAt: new Date(),
         shortlink: '',
         updates: inc.updates.map((update, index) => ({
           id: `${inc.id}-update-${index}`,
-          status: update.status as 'investigating' | 'identified' | 'monitoring' | 'resolved' | 'postmortem',
+          status: update.status as
+            | 'investigating'
+            | 'identified'
+            | 'monitoring'
+            | 'resolved'
+            | 'postmortem',
           body: update.body,
           createdAt: new Date(update.timestamp),
           displayAt: new Date(update.timestamp),

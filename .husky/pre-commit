@@ -1,0 +1,11 @@
+# Sync manifest.json before commit
+npm run sync:manifest
+
+# Run linter
+npm run lint
+
+# Run formatter check
+npm run format:check
+
+# Stage manifest.json if it was updated
+git add manifest.json
