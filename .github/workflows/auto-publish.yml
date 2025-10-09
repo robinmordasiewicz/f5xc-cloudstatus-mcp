@@ -36,22 +36,60 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Check if version already published
-        id: version_check
+      - name: Auto-bump version if needed
+        id: version_bump
         run: |
           # Get current version from package.json
           CURRENT_VERSION=$(jq -r '.version' package.json)
+          echo "Current version: $CURRENT_VERSION"
 
           # Check if tag already exists (version already published)
           if git rev-parse "v${CURRENT_VERSION}" >/dev/null 2>&1; then
-            echo "already_published=true" >> $GITHUB_OUTPUT
-            echo "Current version v${CURRENT_VERSION} is already published"
-            echo "Please bump version in package.json and manifest.json manually before pushing"
-            exit 1
+            echo "Version v${CURRENT_VERSION} tag already exists - auto-bumping version"
+
+            # Determine bump type from commit messages (conventional commits)
+            BUMP_TYPE="patch"  # default to patch
+
+            # Get commits since last tag
+            LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+            if [ -n "$LAST_TAG" ]; then
+              COMMIT_MESSAGES=$(git log ${LAST_TAG}..HEAD --pretty=%s)
+            else
+              COMMIT_MESSAGES=$(git log --pretty=%s)
+            fi
+
+            # Check for breaking changes or major version indicators
+            if echo "$COMMIT_MESSAGES" | grep -qE "^(BREAKING CHANGE:|feat!:|fix!:)"; then
+              BUMP_TYPE="major"
+              echo "Detected breaking changes - bumping major version"
+            # Check for new features
+            elif echo "$COMMIT_MESSAGES" | grep -qE "^feat(\(.*\))?:"; then
+              BUMP_TYPE="minor"
+              echo "Detected new features - bumping minor version"
+            else
+              echo "No major/minor indicators - bumping patch version"
+            fi
+
+            # Bump version in package.json using npm
+            npm version $BUMP_TYPE --no-git-tag-version
+            NEW_VERSION=$(jq -r '.version' package.json)
+
+            # Update manifest.json to match
+            jq --arg version "$NEW_VERSION" '.version = $version' manifest.json > manifest.json.tmp
+            mv manifest.json.tmp manifest.json
+
+            echo "Bumped version from $CURRENT_VERSION to $NEW_VERSION"
+            echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+            echo "version_bumped=true" >> $GITHUB_OUTPUT
+
+            # Commit version bump
+            git add package.json manifest.json
+            git commit -m "chore: bump version to $NEW_VERSION [skip ci]"
+            git push
           else
-            echo "already_published=false" >> $GITHUB_OUTPUT
+            echo "Version v${CURRENT_VERSION} is new - ready to publish"
             echo "version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-            echo "Ready to publish version v${CURRENT_VERSION}"
+            echo "version_bumped=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Install dependencies
@@ -69,8 +107,7 @@ jobs:
       - name: Get version info
         id: version
         run: |
-          # Use version from earlier check
-          VERSION="${{ steps.version_check.outputs.version }}"
+          VERSION="${{ steps.version_bump.outputs.version }}"
           PACKAGE_NAME=$(jq -r '.name' manifest.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "package_name=$PACKAGE_NAME" >> $GITHUB_OUTPUT

@@ -1,5 +1,5 @@
 {
-  "manifest_version": "0.2",
+  "manifest_version": "0.3",
   "name": "f5cloudstatus-mcp",
   "display_name": "F5 Distributed Cloud Status",
   "version": "1.0.13",
@@ -15,7 +15,6 @@
   "support": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp/issues",
   "icon": "icon.png",
   "screenshots": [
-    "f5cloudstatus.png"
   ],
   "server": {
     "type": "node",
@@ -55,13 +54,17 @@
     }
   ],
   "keywords": [
-    "status",
-    "cloud",
-    "outage",
-    "maintenance",
-    "Resolved",
-    "Monitoring",
-    "Investigating"
+    "Portal & Customer Login",
+    "Customer Dashboard",
+    "App Stack",
+    "Secure Mesh",
+    "Bot Defense",
+    "Client Side Defense",
+    "DNS",
+    "CDN Control Plane",
+    "HTTP Load Balancer",
+    "NGINX One",
+    "NGINXaaS for Azure"
   ],
   "license": "MIT",
   "repository": {
