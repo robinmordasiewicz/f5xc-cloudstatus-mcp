@@ -1,6 +1,6 @@
 {
   "name": "f5cloudstatus-mcp",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "MCP server for F5 Cloud Status monitoring",
   "main": "dist/index.js",
   "type": "module",
