@@ -13,6 +13,7 @@ on:
 
 permissions:
   contents: write  # Required to create releases
+  packages: write  # Required to publish to GitHub Packages
 
 jobs:
   build-and-publish:
@@ -138,3 +139,33 @@ jobs:
           name: mcpb-package
           path: ${{ steps.package.outputs.filename }}
           retention-days: 30
+
+      - name: Setup Node.js for GitHub Packages
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@robinmordasiewicz'
+
+      - name: Configure package for GitHub Packages
+        run: |
+          # Backup original package.json
+          cp package.json package.json.backup
+
+          # Update package.json for GitHub Packages
+          jq '.name = "@robinmordasiewicz/f5cloudstatus-mcp" |
+              .publishConfig = {"registry": "https://npm.pkg.github.com"}' \
+              package.json > package.json.tmp
+          mv package.json.tmp package.json
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Restore package.json
+        if: always()
+        run: |
+          if [ -f package.json.backup ]; then
+            mv package.json.backup package.json
+          fi
