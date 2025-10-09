@@ -33,7 +33,8 @@
       "Bash(npm run test:coverage:*)",
       "mcp__f5-status__f5-status-get-overall",
       "mcp__f5-status__f5-status-get-components",
-      "mcp__f5-status__f5-status-get-component"
+      "mcp__f5-status__f5-status-get-component",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
