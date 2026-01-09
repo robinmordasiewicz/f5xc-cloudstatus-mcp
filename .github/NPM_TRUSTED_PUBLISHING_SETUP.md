@@ -22,7 +22,7 @@ This guide explains how to set up npm Trusted Publishing with OpenID Connect (OI
 ### Step 1: Configure npm Trusted Publisher
 
 1. **Go to your package settings on npm:**
-   - Visit: https://www.npmjs.com/package/f5xc-cloudstatus-mcp/access
+   - Visit: https://www.npmjs.com/package//f5xc-cloudstatus-mcp/access
    - Or navigate to: Package → Settings → Publishing Access
 
 2. **Add a Trusted Publisher:**
@@ -196,7 +196,7 @@ Users can verify your package provenance:
 
 ```bash
 # Install and verify
-npm install f5xc-cloudstatus-mcp
+npm install /f5xc-cloudstatus-mcp
 npm audit signatures
 
 # Or verify specific version

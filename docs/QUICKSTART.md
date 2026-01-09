@@ -18,7 +18,7 @@ This works for **all MCP clients**:
   "mcpServers": {
     "f5-cloud-status": {
       "command": "npx",
-      "args": ["-y", "f5xc-cloudstatus-mcp@latest"]
+      "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]
     }
   }
 }
@@ -38,13 +38,13 @@ This works for **all MCP clients**:
 ### For Claude Code
 
 ```bash
-claude mcp add f5-cloud-status npx f5xc-cloudstatus-mcp@latest
+claude mcp add f5-cloud-status npx @robinmordasiewicz/f5xc-cloudstatus-mcp@latest
 ```
 
 ### For VS Code (with GitHub Copilot)
 
 ```bash
-code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5xc-cloudstatus-mcp@latest"]}'
+code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]}'
 ```
 
 Or enable auto-discovery: Set `"chat.mcp.discovery.enabled": true` in settings.
@@ -65,7 +65,7 @@ If you prefer a global installation:
 
 ```bash
 # Install globally
-npm install -g f5xc-cloudstatus-mcp
+npm install -g @robinmordasiewicz/f5xc-cloudstatus-mcp
 ```
 
 Then configure:
@@ -162,7 +162,7 @@ Ask your AI assistant any of these questions:
 **Using npx method:**
 ```bash
 # Test if npx works
-npx f5xc-cloudstatus-mcp
+npx @robinmordasiewicz/f5xc-cloudstatus-mcp
 # Should show: "MCP Server started and listening on stdio"
 ```
 
@@ -246,5 +246,5 @@ See the [README.md](README.md) for complete development documentation.
 ## Getting Help
 
 - **GitHub Issues**: https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/issues
-- **NPM Package**: https://www.npmjs.com/package/f5xc-cloudstatus-mcp
+- **NPM Package**: https://www.npmjs.com/package/@robinmordasiewicz/f5xc-cloudstatus-mcp
 - **Troubleshooting**: See [README.md](README.md#troubleshooting) for detailed troubleshooting
