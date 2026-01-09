@@ -1,0 +1,118 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - '.github/workflows/deploy-docs.yml'
+  workflow_dispatch:
+
+# Sets permissions for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Create documentation site
+        run: |
+          mkdir -p _site
+
+          # Copy README as index
+          cp README.md _site/index.md
+
+          # Copy all docs
+          cp -r docs _site/
+
+          # Create _config.yml for Jekyll
+          cat > _site/_config.yml <<EOF
+          title: F5 Distributed Cloud Status MCP Server
+          description: Documentation for F5 Cloud Status MCP Server
+          theme: jekyll-theme-cayman
+          markdown: kramdown
+          kramdown:
+            input: GFM
+            syntax_highlighter: rouge
+          EOF
+
+          # Create a proper index page
+          cat > _site/index.md <<'EOF'
+          # F5 Distributed Cloud Status MCP Server
+
+          A Model Context Protocol (MCP) server for monitoring F5 Cloud service status.
+
+          ## Documentation
+
+          ### Getting Started
+          - [Quick Start Guide](docs/QUICKSTART.md)
+          - [User Guide](docs/USER_GUIDE.md)
+          - [Usage Examples](docs/USAGE_EXAMPLES.md)
+
+          ### Development
+          - [Developer Guide](docs/DEVELOPERS.md)
+          - [Architecture](docs/ARCHITECTURE.md)
+          - [Implementation Workflow](docs/IMPLEMENTATION_WORKFLOW.md)
+
+          ### Reference
+          - [Analysis](docs/ANALYSIS.md)
+          - [CI/CD](docs/CICD.md)
+          - [Test Suite Design](docs/TEST_SUITE_DESIGN.md)
+          - [Validation Results](docs/VALIDATION_RESULTS.md)
+          - [MCPB Publishing](docs/MCPB_PUBLISHING.md)
+          - [Cleanup Implementation](docs/CLEANUP_IMPLEMENTATION.md)
+
+          ## Quick Links
+
+          - [GitHub Repository](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp)
+          - [NPM Package](https://www.npmjs.com/package/@robinmordasiewicz/f5xc-cloudstatus-mcp)
+          - [Issues](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/issues)
+
+          ## Installation
+
+          \`\`\`bash
+          npx @robinmordasiewicz/f5xc-cloudstatus-mcp@latest
+          \`\`\`
+
+          Or add to your Claude Desktop config:
+
+          \`\`\`json
+          {
+            "mcpServers": {
+              "f5xc-cloudstatus": {
+                "command": "npx",
+                "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]
+              }
+            }
+          }
+          \`\`\`
+          EOF
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
