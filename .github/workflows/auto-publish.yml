@@ -146,7 +146,7 @@ jobs:
           \`\`\`json
           {
             "mcpServers": {
-              "f5-cloud-status": {
+              "f5xc-cloudstatus": {
                 "command": "npx",
                 "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@${{ steps.version.outputs.version }}"]
               }
