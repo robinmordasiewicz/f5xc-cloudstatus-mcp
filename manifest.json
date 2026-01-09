@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "f5cloudstatus-mcp",
   "display_name": "F5 Distributed Cloud Status",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "MCP server for F5 Cloud Status monitoring with fully automated CI/CD",
   "long_description": "Model Context Protocol (MCP) server for monitoring F5 Cloud service status, providing real-time status information, component health, incidents, and scheduled maintenance.",
   "author": {
