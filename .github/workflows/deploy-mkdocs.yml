@@ -30,12 +30,10 @@ jobs:
         with:
           python-version: '3.x'
           cache: 'pip'
+          cache-dependency-path: 'requirements-docs.txt'
 
       - name: Install dependencies
-        run: |
-          pip install mkdocs-material>=9.7.0
-          pip install mkdocs-minify-plugin>=0.8.0
-          pip install pymdown-extensions>=10.14
+        run: pip install -r requirements-docs.txt
 
       - name: Build MkDocs site
         run: mkdocs build --strict
