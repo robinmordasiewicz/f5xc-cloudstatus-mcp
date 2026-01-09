@@ -24,8 +24,8 @@ This guide is for contributors and developers working on the F5 Cloud Status MCP
 ### Clone and Install
 
 ```bash
-git clone https://github.com/robinmordasiewicz/f5cloudstatus-mcp.git
-cd f5cloudstatus-mcp
+git clone https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp.git
+cd f5xc-cloudstatus-mcp
 npm install
 npm run build
 ```
@@ -40,7 +40,7 @@ Add this to your MCP client configuration file (e.g., Claude Desktop config):
     "f5cloudstatus": {
       "command": "node",
       "args": [
-        "/absolute/path/to/f5cloudstatus-mcp/dist/index.js"
+        "/absolute/path/to/f5xc-cloudstatus-mcp/dist/index.js"
       ],
       "env": {
         "API_BASE_URL": "https://www.f5cloudstatus.com/api/v2",
@@ -61,7 +61,7 @@ Add this to your MCP client configuration file (e.g., Claude Desktop config):
 }
 ```
 
-Replace `/absolute/path/to/f5cloudstatus-mcp` with your actual project path.
+Replace `/absolute/path/to/f5xc-cloudstatus-mcp` with your actual project path.
 
 ### Environment Configuration
 
@@ -492,8 +492,8 @@ gh release create v1.0.x --generate-notes
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/discussions)
+- **Issues**: [GitHub Issues](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/discussions)
 - **Documentation**: See the [docs](.) directory
 
 ## License

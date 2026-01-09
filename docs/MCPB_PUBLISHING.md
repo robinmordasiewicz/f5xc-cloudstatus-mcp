@@ -116,7 +116,7 @@ After publishing, users can:
 
 1. **One-click installation**: Download `.mcpb` and double-click
 2. **Direct download**: Get specific versions from Releases
-3. **NPX installation**: Use `npx f5cloudstatus-mcp@latest`
+3. **NPX installation**: Use `npx f5xc-cloudstatus-mcp@latest`
 
 ## 🐛 Troubleshooting
 
@@ -193,6 +193,6 @@ git push origin [TAG_NAME]
 ## 📞 Support
 
 For issues:
-- GitHub Issues: [Repository Issues](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/issues)
+- GitHub Issues: [Repository Issues](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/issues)
 - Workflow problems: Check Actions tab logs
 - MCPB format: See [anthropics/mcpb](https://github.com/anthropics/mcpb)

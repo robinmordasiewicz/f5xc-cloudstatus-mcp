@@ -23,7 +23,7 @@ The standard configuration for all MCP clients:
   "mcpServers": {
     "f5-cloud-status": {
       "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp@latest"]
+      "args": ["-y", "f5xc-cloudstatus-mcp@latest"]
     }
   }
 }
@@ -48,7 +48,7 @@ This uses `npx` to automatically download and run the latest version. No manual 
 
 **CLI installation:**
 ```bash
-claude mcp add f5-cloud-status npx f5cloudstatus-mcp@latest
+claude mcp add f5-cloud-status npx f5xc-cloudstatus-mcp@latest
 ```
 
 ### VS Code (with GitHub Copilot)
@@ -57,7 +57,7 @@ claude mcp add f5-cloud-status npx f5cloudstatus-mcp@latest
 
 **CLI installation:**
 ```bash
-code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus-mcp@latest"]}'
+code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5xc-cloudstatus-mcp@latest"]}'
 ```
 
 **Or enable auto-discovery:**
@@ -73,7 +73,7 @@ code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus
   "chat.mcp.servers": {
     "f5-cloud-status": {
       "command": "npx",
-      "args": ["-y", "f5cloudstatus-mcp@latest"]
+      "args": ["-y", "f5xc-cloudstatus-mcp@latest"]
     }
   }
 }
@@ -108,7 +108,7 @@ code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["f5cloudstatus
      "cline.mcpServers": {
        "f5-cloud-status": {
          "command": "npx",
-         "args": ["-y", "f5cloudstatus-mcp@latest"]
+         "args": ["-y", "f5xc-cloudstatus-mcp@latest"]
        }
      }
    }
@@ -120,7 +120,7 @@ See [Cline MCP docs](https://docs.cline.bot/mcp/configuring-mcp-servers) for mor
 ### Alternative Installation: Global NPM
 
 ```bash
-npm install -g f5cloudstatus-mcp
+npm install -g f5xc-cloudstatus-mcp
 ```
 
 Configuration:
@@ -128,7 +128,7 @@ Configuration:
 {
   "mcpServers": {
     "f5-cloud-status": {
-      "command": "f5cloudstatus-mcp"
+      "command": "f5xc-cloudstatus-mcp"
     }
   }
 }
@@ -192,5 +192,5 @@ MIT - See [LICENSE](LICENSE) file for details
 
 ## Support
 
-- **GitHub Issues**: [GitHub Issues](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/issues)
-- **NPM Package**: https://www.npmjs.com/package/f5cloudstatus-mcp
+- **GitHub Issues**: [GitHub Issues](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/issues)
+- **NPM Package**: https://www.npmjs.com/package/f5xc-cloudstatus-mcp

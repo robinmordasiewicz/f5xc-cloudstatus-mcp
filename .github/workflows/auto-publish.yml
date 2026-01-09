@@ -148,7 +148,7 @@ jobs:
             "mcpServers": {
               "f5-cloud-status": {
                 "command": "npx",
-                "args": ["-y", "f5cloudstatus-mcp@${{ steps.version.outputs.version }}"]
+                "args": ["-y", "f5xc-cloudstatus-mcp@${{ steps.version.outputs.version }}"]
               }
             }
           }
@@ -156,7 +156,7 @@ jobs:
 
           **Install from GitHub Packages:**
           \`\`\`bash
-          npm install @robinmordasiewicz/f5cloudstatus-mcp@${{ steps.version.outputs.version }} --registry=https://npm.pkg.github.com
+          npm install @robinmordasiewicz/f5xc-cloudstatus-mcp@${{ steps.version.outputs.version }} --registry=https://npm.pkg.github.com
           \`\`\`
 
           ### What's Included
@@ -177,10 +177,10 @@ jobs:
 
           ### Documentation
 
-          - [GitHub Repository](https://github.com/robinmordasiewicz/f5cloudstatus-mcp)
-          - [NPM Package](https://www.npmjs.com/package/f5cloudstatus-mcp)
-          - [GitHub Package](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/pkgs/npm/f5cloudstatus-mcp)
-          - [Usage Examples](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/blob/main/USAGE_EXAMPLES.md)
+          - [GitHub Repository](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp)
+          - [NPM Package](https://www.npmjs.com/package/f5xc-cloudstatus-mcp)
+          - [GitHub Package](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/pkgs/npm/f5xc-cloudstatus-mcp)
+          - [Usage Examples](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/blob/main/USAGE_EXAMPLES.md)
           EOF
 
           echo "notes_file=release_notes.md" >> $GITHUB_OUTPUT
@@ -208,7 +208,7 @@ jobs:
       - name: Configure package for GitHub Packages
         run: |
           cp package.json package.json.backup
-          jq '.name = "@robinmordasiewicz/f5cloudstatus-mcp" |
+          jq '.name = "@robinmordasiewicz/f5xc-cloudstatus-mcp" |
               .publishConfig = {"registry": "https://npm.pkg.github.com"}' \
               package.json > package.json.tmp
           mv package.json.tmp package.json

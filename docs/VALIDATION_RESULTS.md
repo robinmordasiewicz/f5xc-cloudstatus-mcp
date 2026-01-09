@@ -18,12 +18,12 @@ found 0 vulnerabilities
 
 **Prepare Script Auto-Executed**:
 ```
-> f5cloudstatus-mcp@1.1.0 prepare
+> f5xc-cloudstatus-mcp@1.1.0 prepare
 > node scripts/sync-manifest.js
 
 ✅ Synced manifest.json from package.json:
    - version: 1.1.0
-   - name: f5cloudstatus-mcp
+   - name: f5xc-cloudstatus-mcp
    - description: MCP server for F5 Cloud Status monitoring with fully automated CI/CD
    - license: MIT
 ```
@@ -36,7 +36,7 @@ found 0 vulnerabilities
 **Command**: `npm run lint`
 **Result**: PASS - Zero errors, zero warnings
 ```
-> f5cloudstatus-mcp@1.1.0 lint
+> f5xc-cloudstatus-mcp@1.1.0 lint
 > eslint src/**/*.ts
 
 (No output - clean)
@@ -74,12 +74,12 @@ src/utils/errors.ts 3ms
 **Command**: `npm run sync:manifest`
 **Result**: SUCCESS
 ```
-> f5cloudstatus-mcp@1.1.0 sync:manifest
+> f5xc-cloudstatus-mcp@1.1.0 sync:manifest
 > node scripts/sync-manifest.js
 
 ✅ Synced manifest.json from package.json:
    - version: 1.1.0
-   - name: f5cloudstatus-mcp
+   - name: f5xc-cloudstatus-mcp
    - description: MCP server for F5 Cloud Status monitoring with fully automated CI/CD
    - license: MIT
 ```

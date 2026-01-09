@@ -1,11 +1,11 @@
 {
-  "name": "f5cloudstatus-mcp",
+  "name": "f5xc-cloudstatus-mcp",
   "version": "1.2.2",
   "description": "MCP server for F5 Cloud Status monitoring with fully automated CI/CD",
   "main": "dist/index.js",
   "type": "module",
   "bin": {
-    "f5cloudstatus-mcp": "dist/index.js"
+    "f5xc-cloudstatus-mcp": "dist/index.js"
   },
   "scripts": {
     "build": "tsc",
@@ -41,11 +41,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/robinmordasiewicz/f5cloudstatus-mcp.git"
+    "url": "git+https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp.git"
   },
-  "homepage": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp#readme",
+  "homepage": "https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp#readme",
   "bugs": {
-    "url": "https://github.com/robinmordasiewicz/f5cloudstatus-mcp/issues"
+    "url": "https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/issues"
   },
   "engines": {
     "node": ">=18.0.0"

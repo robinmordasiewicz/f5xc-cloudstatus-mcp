@@ -32,7 +32,7 @@ export class MCPServer {
     // Initialize server
     this.server = new Server(
       {
-        name: 'f5cloudstatus-mcp',
+        name: 'f5xc-cloudstatus-mcp',
         version: '1.0.0',
       },
       {
