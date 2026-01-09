@@ -334,7 +334,7 @@ import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 
 const server = new Server({
-  name: "f5-cloud-status",
+  name: "f5xc-cloudstatus",
   version: "1.0.0"
 }, {
   capabilities: {

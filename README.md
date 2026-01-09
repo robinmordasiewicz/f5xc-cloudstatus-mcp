@@ -21,7 +21,7 @@ The standard configuration for all MCP clients:
 ```json
 {
   "mcpServers": {
-    "f5-cloud-status": {
+    "f5xc-cloudstatus": {
       "command": "npx",
       "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]
     }
@@ -42,13 +42,13 @@ This uses `npx` to automatically download and run the latest version. No manual 
 
 3. **Restart Claude Desktop**
 
-4. **Verify**: Look for the 🔌 MCP icon showing "f5-cloud-status" connected
+4. **Verify**: Look for the 🔌 MCP icon showing "f5xc-cloudstatus" connected
 
 ### Claude Code
 
 **CLI installation:**
 ```bash
-claude mcp add f5-cloud-status npx @robinmordasiewicz/f5xc-cloudstatus-mcp@latest
+claude mcp add f5xc-cloudstatus npx @robinmordasiewicz/f5xc-cloudstatus-mcp@latest
 ```
 
 ### VS Code (with GitHub Copilot)
@@ -57,7 +57,7 @@ claude mcp add f5-cloud-status npx @robinmordasiewicz/f5xc-cloudstatus-mcp@lates
 
 **CLI installation:**
 ```bash
-code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]}'
+code --add-mcp '{"name":"f5xc-cloudstatus","command":"npx","args":["@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]}'
 ```
 
 **Or enable auto-discovery:**
@@ -71,7 +71,7 @@ code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["@robinmordasi
 ```json
 {
   "chat.mcp.servers": {
-    "f5-cloud-status": {
+    "f5xc-cloudstatus": {
       "command": "npx",
       "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]
     }
@@ -106,7 +106,7 @@ code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["@robinmordasi
    ```json
    {
      "cline.mcpServers": {
-       "f5-cloud-status": {
+       "f5xc-cloudstatus": {
          "command": "npx",
          "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]
        }
@@ -127,7 +127,7 @@ Configuration:
 ```json
 {
   "mcpServers": {
-    "f5-cloud-status": {
+    "f5xc-cloudstatus": {
       "command": "f5xc-cloudstatus-mcp"
     }
   }
