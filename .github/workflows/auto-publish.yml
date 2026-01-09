@@ -110,9 +110,11 @@ jobs:
         run: |
           VERSION="${{ steps.version_bump.outputs.version }}"
           PACKAGE_NAME=$(jq -r '.name' manifest.json)
+          # Sanitize package name for filename (remove @ and replace / with -)
+          SAFE_PACKAGE_NAME=$(echo "$PACKAGE_NAME" | sed 's/@//g' | sed 's/\//-/g')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "package_name=$PACKAGE_NAME" >> $GITHUB_OUTPUT
-          echo "filename=${PACKAGE_NAME}-${VERSION}.mcpb" >> $GITHUB_OUTPUT
+          echo "filename=${SAFE_PACKAGE_NAME}-${VERSION}.mcpb" >> $GITHUB_OUTPUT
 
       - name: Rename MCPB file
         run: |
