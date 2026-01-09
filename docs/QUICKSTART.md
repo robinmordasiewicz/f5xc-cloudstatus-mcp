@@ -221,7 +221,7 @@ The `.env` file will be automatically loaded.
 
 ## Next Steps
 
-- **📦 Full Installation Guide**: [README.md](README.md) - Detailed setup for all tools
+- **📦 Full Installation Guide**: [Home](index.md) - Detailed setup for all tools
 - **📖 Usage Examples**: [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md) - 14 real-world examples
 - **👨‍💻 Development Guide**: [DEVELOPERS.md](DEVELOPERS.md) - Development setup and contribution
 - **🏗️ Architecture**: [ARCHITECTURE.md](ARCHITECTURE.md) - System design details
@@ -241,10 +241,10 @@ npm test
 npm run lint
 ```
 
-See the [README.md](README.md) for complete development documentation.
+See the [Home](index.md) page for complete development documentation.
 
 ## Getting Help
 
 - **GitHub Issues**: https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/issues
 - **NPM Package**: https://www.npmjs.com/package/@robinmordasiewicz/f5xc-cloudstatus-mcp
-- **Troubleshooting**: See [README.md](README.md#troubleshooting) for detailed troubleshooting
+- **Troubleshooting**: See GitHub Issues for troubleshooting help

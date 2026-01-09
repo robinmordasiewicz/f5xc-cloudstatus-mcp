@@ -475,7 +475,7 @@ npm install
 
 ## Release Process
 
-See [.github/NPM_TRUSTED_PUBLISHING_SETUP.md](.github/NPM_TRUSTED_PUBLISHING_SETUP.md) for details on publishing new versions with npm Trusted Publishing.
+See [NPM_TRUSTED_PUBLISHING_SETUP.md](NPM_TRUSTED_PUBLISHING_SETUP.md) for details on publishing new versions with npm Trusted Publishing.
 
 Quick release:
 
@@ -494,8 +494,8 @@ gh release create v1.0.x --generate-notes
 
 - **Issues**: [GitHub Issues](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/discussions)
-- **Documentation**: See the [docs](.) directory
+- **Documentation**: See the documentation site
 
 ## License
 
-MIT - See [LICENSE](LICENSE) file for details
+MIT - See [LICENSE](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/blob/main/LICENSE) file for details
