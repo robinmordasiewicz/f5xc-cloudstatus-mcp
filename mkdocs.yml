@@ -1,0 +1,100 @@
+site_name: F5 Distributed Cloud Status MCP Server
+site_description: MCP server for F5 Cloud Status monitoring with fully automated CI/CD
+site_url: https://robinmordasiewicz.github.io/f5xc-cloudstatus-mcp/
+repo_name: robinmordasiewicz/f5xc-cloudstatus-mcp
+repo_url: https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/console
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.path
+    - navigation.top
+    - navigation.footer
+    - navigation.instant
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - toc.follow
+    - header.autohide
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Quick Start: QUICKSTART.md
+    - User Guide: USER_GUIDE.md
+    - Usage Examples: USAGE_EXAMPLES.md
+  - Development:
+    - Developer Guide: DEVELOPERS.md
+    - Architecture: ARCHITECTURE.md
+    - Implementation Workflow: IMPLEMENTATION_WORKFLOW.md
+  - Reference:
+    - Analysis: ANALYSIS.md
+    - CI/CD: CICD.md
+    - Test Suite Design: TEST_SUITE_DESIGN.md
+    - Validation Results: VALIDATION_RESULTS.md
+    - MCPB Publishing: MCPB_PUBLISHING.md
+    - Cleanup Implementation: CLEANUP_IMPLEMENTATION.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - pymdownx.mark
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - admonition
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/sidebar-fix.js
