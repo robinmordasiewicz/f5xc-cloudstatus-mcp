@@ -936,7 +936,7 @@ How does this week compare to last week?
 ### Getting Help
 
 **Documentation:**
-- [README.md](README.md) - Installation and overview
+- [Home](index.md) - Installation and overview
 - [QUICKSTART.md](QUICKSTART.md) - 5-minute setup guide
 - [USAGE_EXAMPLES.md](USAGE_EXAMPLES.md) - 14 detailed examples
 - [ARCHITECTURE.md](ARCHITECTURE.md) - Technical architecture

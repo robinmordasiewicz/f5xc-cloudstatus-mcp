@@ -63,6 +63,7 @@ nav:
     - Test Suite Design: TEST_SUITE_DESIGN.md
     - Validation Results: VALIDATION_RESULTS.md
     - MCPB Publishing: MCPB_PUBLISHING.md
+    - NPM Trusted Publishing: NPM_TRUSTED_PUBLISHING_SETUP.md
     - Cleanup Implementation: CLEANUP_IMPLEMENTATION.md
 
 markdown_extensions:
