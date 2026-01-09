@@ -116,7 +116,7 @@ After publishing, users can:
 
 1. **One-click installation**: Download `.mcpb` and double-click
 2. **Direct download**: Get specific versions from Releases
-3. **NPX installation**: Use `npx f5xc-cloudstatus-mcp@latest`
+3. **NPX installation**: Use `npx ///f5xc-cloudstatus-mcp@latest`
 
 ## 🐛 Troubleshooting
 

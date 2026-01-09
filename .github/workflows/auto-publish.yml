@@ -148,7 +148,7 @@ jobs:
             "mcpServers": {
               "f5-cloud-status": {
                 "command": "npx",
-                "args": ["-y", "f5xc-cloudstatus-mcp@${{ steps.version.outputs.version }}"]
+                "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@${{ steps.version.outputs.version }}"]
               }
             }
           }
@@ -178,7 +178,7 @@ jobs:
           ### Documentation
 
           - [GitHub Repository](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp)
-          - [NPM Package](https://www.npmjs.com/package/f5xc-cloudstatus-mcp)
+          - [NPM Package](https://www.npmjs.com/package/@robinmordasiewicz/f5xc-cloudstatus-mcp)
           - [GitHub Package](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/pkgs/npm/f5xc-cloudstatus-mcp)
           - [Usage Examples](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/blob/main/USAGE_EXAMPLES.md)
           EOF
