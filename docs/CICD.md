@@ -71,7 +71,7 @@ The auto-publish workflow triggers on push to `main` for:
 
 Each successful run publishes:
 
-1. **MCPB Package**: `f5cloudstatus-mcp-{version}.mcpb`
+1. **MCPB Package**: `f5xc-cloudstatus-mcp-{version}.mcpb`
    - Attached to GitHub Release
    - Available for one-click installation in Claude Desktop
 
@@ -80,7 +80,7 @@ Each successful run publishes:
    - Auto-generated release notes
    - Installation instructions
 
-3. **GitHub Package**: `@robinmordasiewicz/f5cloudstatus-mcp@{version}`
+3. **GitHub Package**: `@robinmordasiewicz/f5xc-cloudstatus-mcp@{version}`
    - Published to GitHub npm registry
    - Installable via npm
 
@@ -93,12 +93,12 @@ Each successful run publishes:
 
 **From GitHub Packages (npm):**
 ```bash
-npm install @robinmordasiewicz/f5cloudstatus-mcp@1.0.14 --registry=https://npm.pkg.github.com
+npm install @robinmordasiewicz/f5xc-cloudstatus-mcp@1.0.14 --registry=https://npm.pkg.github.com
 ```
 
 **From npm registry:**
 ```bash
-npx -y f5cloudstatus-mcp@1.0.14
+npx -y f5xc-cloudstatus-mcp@1.0.14
 ```
 
 ## Example Workflow (Fully Automated)

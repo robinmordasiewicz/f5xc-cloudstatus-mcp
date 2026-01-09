@@ -1,7 +1,7 @@
 name: Publish to npm with Trusted Publishing (OIDC)
 
 # This workflow uses npm Trusted Publishing with OIDC (Generally Available as of July 2025)
-# No npm tokens required! Configure at: https://www.npmjs.com/package/f5cloudstatus-mcp/access
+# No npm tokens required! Configure at: https://www.npmjs.com/package/f5xc-cloudstatus-mcp/access
 
 on:
   release:

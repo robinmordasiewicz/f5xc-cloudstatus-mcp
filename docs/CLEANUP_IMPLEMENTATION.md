@@ -65,7 +65,7 @@ npm run lint
 ```
 ✅ Synced manifest.json from package.json:
    - version: 1.1.0
-   - name: f5cloudstatus-mcp
+   - name: f5xc-cloudstatus-mcp
    - description: MCP server for F5 Cloud Status monitoring with fully automated CI/CD
    - license: MIT
 ```

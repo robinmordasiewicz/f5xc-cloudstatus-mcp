@@ -1,2 +1,2 @@
-project_name: f5cloudstatus-mcp
+project_name: f5xc-cloudstatus-mcp
 language: typescript
