@@ -350,7 +350,7 @@ export interface Config {
 
 export const defaultConfig: Config = {
   server: {
-    name: "f5-cloud-status",
+    name: "f5xc-cloudstatus",
     version: "1.0.0"
   },
   api: {

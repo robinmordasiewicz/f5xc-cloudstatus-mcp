@@ -16,7 +16,7 @@ This works for **all MCP clients**:
 ```json
 {
   "mcpServers": {
-    "f5-cloud-status": {
+    "f5xc-cloudstatus": {
       "command": "npx",
       "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]
     }
@@ -33,18 +33,18 @@ This works for **all MCP clients**:
 
 2. Add base configuration (above)
 3. Restart Claude Desktop
-4. Look for 🔌 MCP icon → "f5-cloud-status" connected
+4. Look for 🔌 MCP icon → "f5xc-cloudstatus" connected
 
 ### For Claude Code
 
 ```bash
-claude mcp add f5-cloud-status npx @robinmordasiewicz/f5xc-cloudstatus-mcp@latest
+claude mcp add f5xc-cloudstatus npx @robinmordasiewicz/f5xc-cloudstatus-mcp@latest
 ```
 
 ### For VS Code (with GitHub Copilot)
 
 ```bash
-code --add-mcp '{"name":"f5-cloud-status","command":"npx","args":["@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]}'
+code --add-mcp '{"name":"f5xc-cloudstatus","command":"npx","args":["@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]}'
 ```
 
 Or enable auto-discovery: Set `"chat.mcp.discovery.enabled": true` in settings.
@@ -73,7 +73,7 @@ Then configure:
 ```json
 {
   "mcpServers": {
-    "f5-cloud-status": {
+    "f5xc-cloudstatus": {
       "command": "f5xc-cloudstatus-mcp"
     }
   }
@@ -114,7 +114,7 @@ Edit your MCP client configuration with the absolute path to `dist/index.js`:
 ```json
 {
   "mcpServers": {
-    "f5-cloud-status": {
+    "f5xc-cloudstatus": {
       "command": "node",
       "args": ["/absolute/path/to/f5xc-cloudstatus-mcp/dist/index.js"]
     }
@@ -126,7 +126,7 @@ Edit your MCP client configuration with the absolute path to `dist/index.js`:
 ```json
 {
   "mcpServers": {
-    "f5-cloud-status": {
+    "f5xc-cloudstatus": {
       "command": "C:\\Program Files\\nodejs\\node.exe",
       "args": ["C:\\path\\to\\f5xc-cloudstatus-mcp\\dist\\index.js"]
     }
