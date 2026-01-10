@@ -1,6 +1,5 @@
-// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
-
 #!/usr/bin/env node
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
 
 /**
  * F5 Cloud Status MCP Server

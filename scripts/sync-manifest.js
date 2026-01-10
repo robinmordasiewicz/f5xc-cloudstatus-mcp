@@ -1,6 +1,5 @@
-// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
-
 #!/usr/bin/env node
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
 
 /**
  * Sync version and metadata from package.json to manifest.json
