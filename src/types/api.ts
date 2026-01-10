@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * API response types for Atlassian Statuspage API v2
  * These types represent raw API responses from www.f5cloudstatus.com

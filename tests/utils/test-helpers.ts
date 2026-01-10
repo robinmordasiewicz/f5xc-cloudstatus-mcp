@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 import type { Component, Incident, Maintenance, OverallStatus, IncidentUpdate } from '../../src/types/domain.js';
 
 /**

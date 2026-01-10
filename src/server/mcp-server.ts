@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * MCP Server for F5 Cloud Status
  * Main server implementation using MCP SDK

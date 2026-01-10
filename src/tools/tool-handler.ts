@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * MCP Tool Handler
  * Processes tool requests and coordinates with services

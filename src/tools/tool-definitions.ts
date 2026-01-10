@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * MCP Tool Definitions
  * Defines all available MCP tools for F5 Status monitoring

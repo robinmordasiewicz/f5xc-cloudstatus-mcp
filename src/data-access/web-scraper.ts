@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * Web scraper for F5 Cloud Status
  * Fallback data source when API is unavailable

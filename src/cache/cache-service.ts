@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * Cache service for F5 Status MCP Server
  * Implements TTL-based caching with type safety

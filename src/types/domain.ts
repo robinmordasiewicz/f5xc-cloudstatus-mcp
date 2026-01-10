@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * Domain types for F5 Cloud Status MCP Server
  * These types represent the business domain model
