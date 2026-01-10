@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * API client for F5 Cloud Status
  * Implements retry logic with exponential backoff

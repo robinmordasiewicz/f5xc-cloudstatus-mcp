@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 document.addEventListener('DOMContentLoaded', function() {
   // Fix for Material's instant navigation mode
   const observer = new MutationObserver(function(mutations) {

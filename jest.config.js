@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 export default {
   preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',

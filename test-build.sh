@@ -1,4 +1,6 @@
 #!/bin/bash
+# Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 
 # MCPB Build and Test Script
 # This script builds and validates your MCPB package locally before pushing to GitHub

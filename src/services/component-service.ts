@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * Component Service
  * Business logic for F5 Cloud components

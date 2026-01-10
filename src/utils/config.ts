@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * Configuration management for F5 Status MCP Server
  * Loads and validates environment variables

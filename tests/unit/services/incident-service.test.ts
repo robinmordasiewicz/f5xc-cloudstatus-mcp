@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 import { IncidentService, createIncidentService } from '../../../src/services/incident-service.js';
 import { MockDataAccessLayer } from '../../fixtures/mocks/mock-data-access.js';
 import { MockCacheService } from '../../fixtures/mocks/mock-cache.js';

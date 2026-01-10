@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * Custom error classes for F5 Status MCP Server
  */

@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Robin Mordasiewicz. MIT License.
+
 /**
  * Data Access Layer
  * Coordinates between API client and web scraper with automatic fallback
