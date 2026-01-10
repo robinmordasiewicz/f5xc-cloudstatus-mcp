@@ -1,7 +1,4 @@
-name: Publish to npm with Trusted Publishing (OIDC)
-
-# This workflow uses npm Trusted Publishing with OIDC (Generally Available as of July 2025)
-# No npm tokens required! Configure at: https://www.npmjs.com/package/@robinmordasiewicz/f5xc-cloudstatus-mcp/access
+name: Publish to npm
 
 on:
   release:
@@ -9,13 +6,10 @@ on:
 
 permissions:
   contents: read
-  id-token: write  # Required for OIDC authentication with npm
-  attestations: write  # Required for provenance attestations
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment: npm-production  # Must match the environment configured in npm trusted publishers
 
     steps:
       - name: Checkout code
@@ -26,12 +20,6 @@ jobs:
         with:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Upgrade npm to v11 for Trusted Publishing
-        run: npm install -g npm@latest
-
-      - name: Verify npm version
-        run: npm --version
 
       - name: Install dependencies
         run: npm ci
@@ -48,7 +36,7 @@ jobs:
       - name: Verify package contents
         run: npm pack --dry-run
 
-      - name: Publish to npm with OIDC (Trusted Publishing)
+      - name: Publish to npm
         run: npm publish --access public
-        # No NPM_TOKEN needed! Authentication happens via OIDC
-        # Provenance is automatically included with trusted publishing
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
