@@ -182,7 +182,7 @@ jobs:
           - [GitHub Repository](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp)
           - [NPM Package](https://www.npmjs.com/package/@robinmordasiewicz/f5xc-cloudstatus-mcp)
           - [GitHub Package](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/pkgs/npm/f5xc-cloudstatus-mcp)
-          - [Usage Examples](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/blob/main/USAGE_EXAMPLES.md)
+          - [Documentation](https://robinmordasiewicz.github.io/f5xc-cloudstatus-mcp/)
           EOF
 
           echo "notes_file=release_notes.md" >> $GITHUB_OUTPUT
@@ -226,6 +226,17 @@ jobs:
           if [ -f package.json.backup ]; then
             mv package.json.backup package.json
           fi
+
+      - name: Setup Node.js for npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Upload MCPB artifact
         uses: actions/upload-artifact@v4
