@@ -1,0 +1,7 @@
+# Test result artifacts
+test-results/
+*.log
+
+# Temporary test files
+*.tmp
+*.temp
