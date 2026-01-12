@@ -34,8 +34,14 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Use PAT_TOKEN user identity if available for bypass permissions
+          if [ -n "${{ secrets.PAT_TOKEN }}" ]; then
+            git config user.name "robinmordasiewicz"
+            git config user.email "r.mordasiewicz@f5.com"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+          fi
 
       - name: Auto-bump version if needed
         id: version_bump
