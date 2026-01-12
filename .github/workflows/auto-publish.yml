@@ -242,7 +242,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Publish to npm
-        run: npm publish --access public
+        run: |
+          # Ensure we're publishing to npmjs.org, not GitHub Packages
+          npm config set registry https://registry.npmjs.org/
+          npm publish --access public --registry https://registry.npmjs.org
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
