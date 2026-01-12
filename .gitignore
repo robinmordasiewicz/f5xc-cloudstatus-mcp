@@ -1,9 +1,34 @@
+# Dependencies
 node_modules/
+
+# Build outputs
 dist/
+site/
+
+# Environment and secrets
 .env
+
+# Logs
 *.log
+
+# Testing
 coverage/
+test-results/
+test-execution.log
+
+# OS files
 .DS_Store
+
+# MCP and tool states
 .playwright-mcp/
+.serena/
+.mcp.json
+
+# TypeScript
 *.tsbuildinfo
+
+# Claude Code local settings
 .claude/settings.local.json
+
+# MkDocs
+.cache/
