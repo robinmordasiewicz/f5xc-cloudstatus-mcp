@@ -1,0 +1,11 @@
+[94m[1m| [0m[90m f5cloudstatus_f5-status-get-component  [0m{"name":"API Gateway"}
+Let me search for the available components to find the exact name:
+[94m[1m| [0m[90m f5cloudstatus_f5-status-search  [0m{"query":"gateway","type":"components"}
+[94m[1m| [0m[90m f5cloudstatus_f5-status-get-components  [0mUnknown
+**Component not found:** "API Gateway" is not listed as an available component in the F5 Cloud Status.
+
+The available components don't include one with that exact name. However, you might be looking for:
+
+- **HTTP Load Balancer** - "HTTP Load Balancer with automatic certificate" (ID: `4q6rp9lhgh20`)
+
+Would you like me to get details for the **HTTP Load Balancer** component instead?

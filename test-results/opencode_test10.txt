@@ -1,0 +1,45 @@
+[94m[1m| [0m[90m f5cloudstatus_f5-status-get-maintenance  [0mUnknown
+## Upcoming F5 Cloud Scheduled Maintenance
+
+There are **8 upcoming** maintenance windows:
+
+### Major Maintenance (Jan 24-25, 2026)
+1. **Regional Edge Global** — Brief Interruption
+   - Start: Jan 24, 02:00 UTC
+   - End: Jan 25, 10:00 UTC
+   - Affects: 30 regional clusters globally (staggered schedule)
+   - Details: https://stspg.io/1nqjyfc44k5y
+
+2. **Logging Service** — No Impact Expected
+   - Start: Jan 24, 02:00 UTC
+   - End: Jan 25, 23:00 UTC
+   - Note: Possible delay in log display/transmission
+   - Details: https://stspg.io/y5tf4ddzjjn3
+
+### Jan 18, 2026
+3. **Logging Service** — No Impact
+   - 05:00 - 08:00 UTC
+   - Details: https://stspg.io/6k39w30jxvkr
+
+4. **CDN Lisbon (LS1)** — Performance Degradation
+   - 04:30 - 12:00 UTC
+   - Details: https://stspg.io/zj6xsxkwp4q6
+
+### Jan 17, 2026
+5. **CDN Sydney (SY5)** — Performance Degradation
+   - 08:30 - 12:30 UTC
+   - Details: https://stspg.io/s3pgkbnznfxb
+
+6. **DNS Service** — Possible Intermittent Failures
+   - Jan 17, 05:00 UTC - Jan 18, 23:00 UTC
+   - Details: https://stspg.io/2mcb18hc2rnm
+
+7. **Regional Edge Sydney (SY5)** — Brief Interruption
+   - 01:00 - 13:00 UTC
+   - Details: https://stspg.io/sqvm69qwtxgd
+
+8. **Regional Edge Amsterdam/Paris(PA2)/San Jose** — Brief Interruption
+   - 01:00 - 13:00 UTC
+   - Details: https://stspg.io/4yvvnlvym9qj
+
+Most of these are stability/performance improvements or capacity expansions. Customer Edge services should remain available via failover to other regional edges during brief interruption windows.

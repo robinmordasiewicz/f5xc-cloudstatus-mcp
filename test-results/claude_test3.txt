@@ -1,0 +1,3 @@
+I need your permission to access the F5 Cloud Status API to retrieve the service components. This will allow me to show you all F5 Cloud service components with their current operational status.
+
+May I proceed with retrieving the F5 Cloud service components?

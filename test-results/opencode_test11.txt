@@ -1,0 +1,2 @@
+[94m[1m| [0m[90m f5xc-cloudstatus_f5-status-get-maintenance  [0m{"active_only":true}
+No, there is no active maintenance right now. The system shows 0 active maintenance windows.

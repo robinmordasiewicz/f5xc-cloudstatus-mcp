@@ -1,0 +1,24 @@
+[94m[1m| [0m[90m f5xc-cloudstatus_f5-status-get-overall  [0mUnknown
+[94m[1m| [0m[90m f5xc-cloudstatus_f5-status-get-components  [0mUnknown
+[94m[1m| [0m[90m f5xc-cloudstatus_f5-status-get-incidents  [0m{"unresolved_only":true}
+## F5 Cloud Services Status
+
+**Overall Status:** 🟢 All Systems Operational
+
+**Last Updated:** January 12, 2026 at 2:21 PM UTC
+
+### Active Incidents
+
+| Incident | Impact | Status | Details |
+|----------|--------|--------|---------|
+| **Jakarta (JK1) Region Isolation** | 🔴 Critical | Monitoring | Connectivity restored. Issue with config propagation resolved. Being monitored for stability. |
+| **New IP Ranges for Regional Edge Sites** | 🟠 Major | Monitoring | Deadline to allowlist new IP ranges extended to January 5, 2026. Affects Regional Edge site provisioning. |
+
+### Component Summary
+- **Total Components:** 153
+- **Operational:** 153 (100%)
+- **Degraded:** 0
+
+All edge PoPs, services (CDN, Bot Defense, DNS, HTTP Load Balancer, Secure Mesh, etc.), and control planes are functioning normally.
+
+The Jakarta incident is in monitoring phase with services restored.

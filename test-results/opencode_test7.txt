@@ -1,0 +1,18 @@
+[94m[1m| [0m[90m f5xc-cloudstatus_f5-status-get-incidents  [0m{"unresolved_only":true}
+Yes, there are **2 active incidents** affecting F5 Cloud services:
+
+### Critical Incident
+**F5 Distributed Cloud - Service Interruption - Jakarta (JK1) Region is Isolated** *(INC-20260112-427)*
+- **Status:** Monitoring
+- **Impact:** Critical
+- **Affected:** Jakarta Regional Edge
+- **Latest Update:** Connectivity has been restored and config propagation issues are resolved. The team is monitoring for stability.
+- **Link:** https://stspg.io/pn53vrlngyg3
+
+### Major Incident  
+**Informational: New IP ranges for Distributed Cloud Regional Edge sites**
+- **Status:** Monitoring
+- **Impact:** Major
+- **Affected:** Regional Edge sites
+- **Details:** Deadline to allowlist new IP ranges was extended to January 5, 2026. This is informational regarding upcoming IP changes.
+- **Link:** https://stspg.io/jdzmp3d7tpc3

@@ -1,0 +1,86 @@
+[94m[1m| [0m[90m f5xc-cloudstatus_f5-status-get-components  [0m{"group":"Distributed Cloud Services"}
+The exact group name "Distributed Cloud Services" wasn't found. Let me search for it:
+[94m[1m| [0m[90m f5xc-cloudstatus_f5-status-search  [0m{"query":"Distributed Cloud Services","type":"components"}
+[94m[1m| [0m[90m f5xc-cloudstatus_f5-status-get-components  [0mUnknown
+The F5 Cloud Status API doesn't have a group named "Distributed Cloud Services" - components are organized by internal IDs. Here are the **153 Distributed Cloud Services components** organized by their internal groups:
+
+**Core Services (22ynq9vg49qm) - 16 components:**
+- Portal & Customer Login
+- Customer Dashboard
+- App Stack
+- Secure Mesh
+- Bot Defense
+- Client Side Defense
+- DNS
+- CDN Control Plane
+- Account Protection
+- NGINX One
+- TA - Traffic Advertising
+- Routed Originated Services
+- WebApp Scanning
+- HTTP Load Balancer
+- NGINXaaS for Azure
+- Global Log Receiver (GLR)
+
+**US Edge PoPs (kwm9bq7w9v22) - 14 components:**
+- Ashburn (dc12/b-dc12/c-dc12), VA
+- San Jose (sv10/b-sv10), CA
+- New York (ny8), NY
+- Seattle, WA
+- Toronto, Canada
+- Dallas (dal3/b-dal3), TX
+- Atlanta, GA
+- Miami, FL
+- Montreal, Canada
+- Chicago, IL
+
+**European Edge PoPs (9dyxpcltwdx7) - 11 components:**
+- Amsterdam, Netherlands
+- Frankfurt (fr4/b-fr4), Germany
+- London (tn2/b-tn2), UK
+- Paris (pa2/pa4), France
+- Madrid, Spain
+- Lisbon, Portugal
+- Stockholm, Sweden
+
+**Asia-Pacific Edge PoPs (b5yxhx1rxzby) - 7 components:**
+- Singapore, Singapore
+- Tokyo, Japan
+- Osaka, Japan
+- Hong Kong, Asia
+- Mumbai, India
+- Chennai, India
+- Jakarta, Indonesia
+
+**Australia Edge PoPs (c5ypld7xwdmk) - 2 components:**
+- Sydney, Australia
+- Melbourne, Australia
+
+**Middle East PoPs (p4vkldrpxhbb) - 2 components:**
+- Dubai, UAE
+- Tel Aviv, Israel
+
+**Support Services (fr9kjt2hgjkn) - 4 components:**
+- Website
+- Customer Support
+- Software Distribution
+- Product Documentation
+
+**Ongoing Development (k01x7jz7bb8j) - 11 components:**
+- Ongoing Development 1-10 + New York (b-ny8)
+
+**Regional/Transit Services (8y7jmcrw2j49) - 29 components:**
+- Proxy Services, Routed Services, Transit Carrier (US, UK, Germany, Asia)
+- Regional PoPs (Bahrain, Hong Kong, Montreal, Mumbai, Ohio, São Paulo, Sydney, Tokyo)
+- Customer Portal, Silverline Ticketing, ACD Service
+
+**Bot Defense & Protection (jdk3t8pzpxb5) - 56 components:**
+- F5 Bot Defense across AWS, GCP regions worldwide
+- SAFE services across GCP regions
+- DCPM (Distributed Cloud Protection Manager)
+- Internal Testing/Staging environments
+
+**Sao Paulo (9sp5y6byh2tv) - 1 component:**
+- Sao Paulo, Brazil Edge PoP
+
+All 153 components show **operational status**.

@@ -1,0 +1,7 @@
+I need your permission to check the F5 Cloud status. Once you approve, I'll be able to:
+
+1. Check the overall operational status of F5 Cloud services
+2. View any current incidents affecting the platform
+3. Review component health status
+
+Would you like me to proceed with checking the F5 Cloud status?
