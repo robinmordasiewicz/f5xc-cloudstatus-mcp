@@ -458,7 +458,7 @@ If you can't resolve your issue:
 
 1. **Check Documentation:**
    - Review the platform-specific guide you're using
-   - Check [Overview](overview.md) for general information
+   - Check [Home](../index.md) for general information
 
 2. **Verify Prerequisites:**
    - Node.js 18.0.0+ installed

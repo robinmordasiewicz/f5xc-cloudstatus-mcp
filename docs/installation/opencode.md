@@ -211,8 +211,7 @@ To remove the F5 XC Cloud Status MCP server:
 ## Next Steps
 
 - Review [Troubleshooting Guide](troubleshooting.md) if issues arise
-- Check [Overview](overview.md) for tool descriptions
-- See [UAT Test Prompts](../testing/uat-prompts.md) for comprehensive testing
+- Check [Home](../index.md) for tool descriptions and verification queries
 
 ---
 

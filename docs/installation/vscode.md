@@ -264,8 +264,7 @@ Once installed, use these VS Code shortcuts with MCP:
 ## Next Steps
 
 - Review [Troubleshooting Guide](troubleshooting.md) if issues arise
-- Check [Overview](overview.md) for tool descriptions
-- See [UAT Test Prompts](../testing/uat-prompts.md) for comprehensive testing
+- Check [Home](../index.md) for tool descriptions and verification queries
 
 ---
 
