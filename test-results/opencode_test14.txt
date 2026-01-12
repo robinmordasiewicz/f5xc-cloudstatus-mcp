@@ -1,0 +1,32 @@
+[94m[1m| [0m[90m f5cloudstatus_f5-status-get-components  [0mUnknown
+[94m[1m| [0m[90m f5cloudstatus_f5-status-get-incidents  [0m{"unresolved_only":true}
+[94m[1m| [0m[90m f5cloudstatus_f5-status-get-overall  [0mUnknown
+## F5 Cloud Status Report
+
+### Overall Status
+✅ **All Systems Operational** (Last updated: 2026-01-12 at 2:21 PM UTC)
+
+### Component Status
+- **Total components**: 153
+- **Operational**: 153 (100%)
+- **Degraded**: 0
+
+---
+
+### Active Incidents (2)
+
+#### 🔴 CRITICAL - Jakarta Region Connectivity Issue
+**Status**: Monitoring | **Created**: Jan 12, 2026, 5:26 AM UTC  
+**Incident**: INC-20260112-427 - Jakarta (JK1) Region Isolated  
+**Shortlink**: https://stspg.io/pn53vrlngyg3  
+**Latest Update** (8:34 AM UTC): Connectivity has been restored at Jakarta Regional Edge. Config propagation issue for customer edge has been resolved. Services are stable and being monitored.
+
+#### 🟡 MAJOR - New IP Ranges for Regional Edge Sites
+**Status**: Monitoring | **Created**: Oct 21, 2025  
+**Shortlink**: https://stspg.io/jdzmp3d7tpc3  
+**Latest Update** (Nov 6, 2025): Deadline to allowlist new Regional Edge IP ranges **extended to January 5, 2026**. No confirmed date yet for new Regional Edge sites going live. Contact support@cloud.f5.com with questions.
+
+---
+
+### Summary
+The F5 Distributed Cloud platform is fully operational. One critical incident from earlier today (Jakarta region) has been resolved and is now under monitoring. One major informational notice remains active regarding upcoming IP range changes.

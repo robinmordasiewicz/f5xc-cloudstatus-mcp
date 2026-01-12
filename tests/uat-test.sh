@@ -35,7 +35,7 @@ run_test() {
     if [ "$platform" = "opencode" ]; then
         timeout 60 opencode run "$prompt" > "$output_file" 2>&1 || true
     elif [ "$platform" = "claude" ]; then
-        timeout 60 claude -p "$prompt" > "$output_file" 2>&1 || true
+        timeout 60 claude -p "$prompt" --dangerously-skip-permissions > "$output_file" 2>&1 || true
     fi
 
     local end_time=$(date +%s)

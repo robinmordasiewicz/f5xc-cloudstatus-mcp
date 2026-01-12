@@ -104,6 +104,31 @@ npm test
 - **OpenCode** - Terminal editor with MCP support
 - **Claude CLI** - Command-line interface for Claude
 
+## Platform-Specific Notes
+
+### Claude CLI Permission Handling
+
+Claude CLI requires the `--dangerously-skip-permissions` flag for automated testing:
+
+```bash
+claude -p "your prompt" --dangerously-skip-permissions
+```
+
+**Why this is needed:**
+- Claude CLI has a security feature that requires interactive consent for MCP tool usage
+- This is appropriate for manual usage but blocks automated testing
+- The flag bypasses permission prompts during test execution
+- OpenCode does not require this flag
+
+**Security Note:**
+- This flag should ONLY be used in automated testing environments
+- Do NOT use in production or manual testing contexts
+- The flag is called "dangerously" for a reason - use with caution
+- For manual testing, omit the flag to preserve interactive permission prompts
+
+**Test Script Implementation:**
+Both test scripts (`uat-test.sh` and `uat-test.js`) automatically use this flag when testing Claude CLI. No additional configuration needed.
+
 ## Test Validation
 
 Each test validates:

@@ -1,0 +1,17 @@
+[94m[1m| [0m[90m f5cloudstatus_f5-status-get-incidents  [0m{"days":30}
+## F5 Cloud Incidents (Last 30 Days)
+
+| Status | Impact | Name | Date |
+|--------|--------|------|------|
+| 🔴 **Active** | Critical | **Service Interruption - Jakarta (JK1) Region** | Jan 12, 2026 |
+| ✅ Resolved | Major | **DNSSEC Issue** | Jan 8, 2026 |
+| ✅ Resolved | None | **5xx Increase on Load Balancers** | Dec 23, 2025 |
+
+### Summary
+- **Total incidents**: 3
+- **Unresolved**: 1
+- **Critical**: 1
+- **Major**: 1
+
+### Active Incident Details
+**Jakarta (JK1) Region Isolation** - Currently in monitoring status. Connectivity has been restored and config propagation for customer edge is resolved. Team continues to monitor for stability.

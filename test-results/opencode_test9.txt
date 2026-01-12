@@ -1,0 +1,45 @@
+[94m[1m| [0m[90m background_task  [0m{"agent":"explore","description":"Search incident handling code","prompt":"Find all code related to incidents in this codebase. Search for:\n1. Incident service/function definitions\n2. Incident data structures and types\n3. Incident API calls and handlers\n4. Any code that filters or processes incidents by impact level (critical, major, minor)\n5. Incident-related tool definitions\n\nReturn file paths, function names, and relevant code snippets. Be thorough - check all TypeScript/JavaScript files in src/, tests/, and any related directories."}
+[94m[1m| [0m[90m background_task  [0m{"agent":"explore","description":"Search impact status patterns","prompt":"Find all code related to status impact levels (critical, major, minor, none). Search for:\n1. Status enum or type definitions\n2. Impact filtering logic\n3. Any code that checks or compares impact levels\n4. Status-related constants or configurations\n\nReturn file paths, type definitions, and relevant code patterns."}
+[94m[1m| [0m[90m Grep     [0m{"include":"*.ts","pattern":"critical.*impact|impact.*critical"}
+[94m[1m| [0m[90m Grep     [0m{"include":"*.ts","pattern":"incident.*critical|critical.*incident"}
+[94m[1m| [0m[90m Grep     [0m{"include":"*.ts","pattern":"getIncidents|get-incidents"}
+[94m[1m| [0m[90m background_output  [0m{"task_id":"bg_b0c9ece2"}[94m[1m| [0m[90m background_output  [0m{"task_id":"bg_b8ec01a0"}
+
+[96m[1m| [0m[90m Read     [0msrc/tools/tool-definitions.ts
+[96m[1m| [0m[90m Read     [0msrc/tools/tool-handler.ts
+[96m[1m| [0m[90m Read     [0msrc/types/api.ts
+To show **critical impact incidents**, use the `f5-status-get-incidents` tool with the `impact` parameter set to `'critical'`:
+
+## Tool Definition
+
+**Tool:** `f5-status-get-incidents`
+
+**Parameters:**
+- `impact` (optional): Filter by impact level — `'none' | 'minor' | 'major' | 'critical'`
+- `status` (optional): Filter by status — `'investigating' | 'identified' | 'monitoring' | 'resolved' | 'postmortem'`
+- `days` (optional): Lookback period (1-90, default: 7)
+- `unresolved_only` (optional): Only return unresolved incidents
+
+## Code Location
+
+- **Tool definition:** [`src/tools/tool-definitions.ts:77-107`](src/tools/tool-definitions.ts#L77-L107)
+- **Tool handler:** [`src/tools/tool-handler.ts:138-180`](src/tools/tool-handler.ts#L138-L180) (filters by `impact` on line 147)
+- **Type definitions:** [`src/types/api.ts:90`](src/types/api.ts#L90) (incident impact type)
+
+## Usage
+
+```json
+{
+  "tool": "f5-status-get-incidents",
+  "args": {
+    "impact": "critical"
+  }
+}
+```
+
+This returns all incidents with `impact === 'critical'`, including:
+- Incident ID, name, status, impact
+- Created/updated timestamps
+- Affected components
+- Latest status update
+- Summary with count of critical/major incidents

@@ -5,26 +5,27 @@ This document contains 15 validated test prompts for verifying the F5 XC Cloud S
 ## Test Validation Results
 
 **Test Date:** January 12, 2026
+**Last Updated:** January 12, 2026 (Permission flag fix applied)
 **Test Method:** Automated bash/Node.js test execution
 **Detailed Results:** See [TEST-RESULTS.md](../../tests/TEST-RESULTS.md)
 
 | Platform | Tests Run | Passed | Success Rate | Duration |
 |----------|-----------|--------|--------------|----------|
 | **OpenCode** | 15/15 | 15 | **100%** ✅ | ~8.6 min |
-| **Claude CLI** | 3/15 | 2 | 67% | ~1.1 min |
+| **Claude CLI** | 15/15 | 15 | **100%** ✅ | ~11.6 min |
 | **VS Code** | 0/15 | - | Not tested | - |
 | **Claude Desktop** | 0/15 | - | Not tested | - |
-| **Total** | 18 | 17 | **94%** | ~9.7 min |
+| **Total** | 30 | 30 | **100%** ✅ | ~20.2 min |
 
-**Note:** Claude CLI stopped at Test 3 due to interactive permission prompt requirement, which blocks automated testing.
+**Fix Applied (January 12, 2026):** Added `--dangerously-skip-permissions` flag to Claude CLI invocations, resolving permission prompt issue. Both platforms now achieve 100% pass rate.
 
 ## Overview
 
 **Total Prompts:** 15
-**Actual Test Time:** ~8-9 minutes (OpenCode), varies by platform
+**Actual Test Time:** ~9 minutes (OpenCode), ~12 minutes (Claude CLI)
 **Tools Tested:** All 6 (overall status, components, incidents, maintenance, search)
 **Success Criteria:** All prompts execute without errors and return relevant data
-**Validation Status:** ✅ Fully validated on OpenCode platform
+**Validation Status:** ✅ Fully validated on both OpenCode and Claude CLI platforms
 
 ## Test Environment Requirements
 

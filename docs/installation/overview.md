@@ -24,15 +24,15 @@ npm --version
 | **Configuration Method** | `.mcp.json` | `opencode.json` | CLI command | `claude_desktop_config.json` |
 | **Restart Required** | No | No | No | Yes |
 | **Best For** | Developers | Terminal users | IDE integration | General users |
-| **Validation Status** | ⚠️ Partial* | ✅ Tested | ⏳ Config only | ⏳ Config only |
-| **UAT Test Results** | 2/15 (13%) | 15/15 (100%) | Not tested | Not tested |
-| **Automation Friendly** | ⚠️ Partial* | ✅ Yes | Unknown | Unknown |
+| **Validation Status** | ✅ Tested | ✅ Tested | ⏳ Config only | ⏳ Config only |
+| **UAT Test Results** | 15/15 (100%) | 15/15 (100%) | Not tested | Not tested |
+| **Automation Friendly** | ✅ Yes* | ✅ Yes | Unknown | Unknown |
 | **All 6 Tools Available** | ✅ | ✅ | ✅ | ✅ |
 | **Windows Support** | ✅ | ✅ | ✅ | ✅ |
 | **macOS Support** | ✅ | ✅ | ✅ | ✅ |
 | **Linux Support** | ✅ | ✅ | ✅ | ❌ (Desktop only) |
 
-\* *Claude CLI requires interactive permission approval for MCP tool usage, which blocks automated testing after Test 3. Suitable for manual testing only.*
+\* *Claude CLI requires `--dangerously-skip-permissions` flag for automated testing. Omit flag for manual testing with interactive permission prompts.*
 
 ## Choosing Your Platform
 

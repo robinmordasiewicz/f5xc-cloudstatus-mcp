@@ -1,0 +1,92 @@
+I'll retrieve all F5 Cloud service components for you.
+[94m[1m| [0m[90m f5cloudstatus_f5-status-get-components  [0mUnknown
+## F5 Cloud Service Components
+
+**Total: 153 components | All Operational** ✓
+
+### By Category
+
+#### **Core Services** (22ynq9vg49qm) - 16 components
+- Portal & Customer Login
+- Customer Dashboard
+- App Stack
+- Secure Mesh
+- Bot Defense
+- Client Side Defense
+- DNS
+- CDN Control Plane
+- Account Protection
+- NGINX One
+- TA - Traffic Advertising
+- Routed Originated Services
+- WebApp Scanning
+- HTTP Load Balancer
+- Global Log Receiver (GLR)
+- NGINXaaS for Azure
+
+#### **Bot Defense** (jdk3t8pzpxb5) - 56 components
+Multiple deployments across:
+- **F5 Bot Defense**: Sunnyvale, Santa Clara, Los Angeles, Chicago, Washington DC, New York, Ashburn, Hong Kong, Amsterdam
+- **AWS regions**: US (East1, East2, West1, West2), EU (Central1, North1, West1), AP (South1, South2, Southeast1, Southeast2, Southeast3, Northeast1, Northeast3), ME (South1), SA (East1)
+- **GCP regions**: US (East1, East4, Central1, West1, West2), North America (Northeast1, Northeast2), EU (West1, West2, West3), Asia (East1, East2, Northeast1, Northeast2)
+- **SAFE**: GCP US, EMEA, APCJ-1, APCJ-2, Canada
+- **DCPM**: US, EU, CA (Worldwide)
+
+#### **Routed Services** (8y7jmcrw2j49) - 29 components
+- Proxy Services: US West (SJC), UK (LON), US East (DCA), Germany (FRA), Asia (SIN)
+- Routed Services: US West (SJC), US East (DCA), UK (LON), Germany (FRA), Asia (SIN), Toronto (YYZ), Paris (CDG), North America
+- Regional PoPs: Bahrain (BAH), Hong Kong (HKG), Montreal (YUL), Mumbai (BOM), Ohio (CMH), São Paulo (GRU), Sydney (SYD), Tokyo (TYO)
+- Transit Carrier: US West (SJC), US East (DCA), UK (LON), Germany (FRA), Asia (SIN)
+- Customer Portal, Silverline Ticketing, ACD Service (SOC Phone)
+
+#### **Edge PoPs - US** (kwm9bq7w9v22) - 14 locations
+- Ashburn (dc12, b-dc12, c-dc12), VA
+- New York (ny8), NY
+- San Jose (sv10, b-sv10), CA
+- Seattle, WA
+- Toronto, Canada
+- Dallas (dal3, b-dal3), TX
+- Atlanta, GA
+- Montreal, Canada
+- Miami, FL
+- Chicago, IL
+
+#### **Edge PoPs - Europe** (9dyxpcltwdx7) - 11 locations
+- Amsterdam, Netherlands
+- Frankfurt (fr4, b-fr4), Germany
+- London (tn2, b-tn2), UK
+- Paris (pa2, pa4), France
+- Madrid, Spain
+- Lisbon, Portugal
+- Stockholm, Sweden
+
+#### **Edge PoPs - Asia Pacific** (b5yxhx1rxzby) - 7 locations
+- Singapore, Singapore
+- Tokyo, Japan
+- Osaka, Japan
+- Hong Kong, Asia
+- Mumbai, India
+- Chennai, India
+- Jakarta, Indonesia
+
+#### **Edge PoPs - Other** (c5ypld7xwdmk) - 2 locations
+- Sydney, Australia
+- Melbourne, Australia
+
+#### **Ongoing Development** (k01x7jz7bb8j) - 11 components
+- Ongoing Development 1-10, plus New York (b-ny8)
+
+#### **General** (fr9kjt2hgjkn) - 4 components
+- Website (cloud.f5.com)
+- Customer Support
+- Software Distribution
+- Product Documentation
+
+#### **Middle East** (p4vkldrpxhbb) - 2 locations
+- Dubai, United Arab Emirates
+- Tel Aviv, Israel
+
+#### **South America** (9sp5y6byh2tv) - 1 location
+- Sao Paulo, Brazil
+
+All 153 services are currently **operational** with status "none" (no issues).

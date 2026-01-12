@@ -1,0 +1,18 @@
+[94m[1m| [0m[90m f5xc-cloudstatus_f5-status-get-incidents  [0m{"unresolved_only":true}
+[94m[1m| [0m[90m f5xc-cloudstatus_f5-status-get-component  [0m{"id":"ybcpdlwcdq67"}
+
+[94m[1m| [0m[90m f5xc-cloudstatus_f5-status-get-component  [0m{"id":"1pfs1qj739dt"}There are currently **2 unresolved incidents** affecting F5 Cloud services:
+
+## Critical Incident
+**INC-20260112-427** - Jakarta (JK1) Region Service Interruption
+- **Affected Component**: Jakarta, Indonesia Edge PoP
+- Status: Monitoring
+- Connectivity has been restored, the team continues to monitor
+
+## Major Incident
+**Informational: New IP ranges for Distributed Cloud Regional Edge sites**
+- **Affected Component**: Portal & Customer Login
+- Status: Monitoring
+- Deadline for allowlisting new Regional Edge IP ranges was extended to January 5, 2026
+
+Both components are currently showing operational status.

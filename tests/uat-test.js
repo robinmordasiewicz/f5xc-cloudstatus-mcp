@@ -149,7 +149,7 @@ function runTest(platform, testCase) {
   try {
     const command = platform === 'opencode'
       ? `opencode run "${testCase.prompt.replace(/"/g, '\\"')}"`
-      : `claude -p "${testCase.prompt.replace(/"/g, '\\"')}"`;
+      : `claude -p "${testCase.prompt.replace(/"/g, '\\"')}" --dangerously-skip-permissions`;
 
     const output = execSync(command, {
       timeout: TIMEOUT,
