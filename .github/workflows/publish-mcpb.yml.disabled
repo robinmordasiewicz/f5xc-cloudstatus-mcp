@@ -89,7 +89,7 @@ jobs:
             "mcpServers": {
               "f5-cloud-status": {
                 "command": "npx",
-                "args": ["-y", "f5cloudstatus-mcp@${{ steps.package.outputs.version }}"]
+                "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@${{ steps.package.outputs.version }}"]
               }
             }
           }
@@ -113,9 +113,9 @@ jobs:
           
           ### Documentation
           
-          - [GitHub Repository](https://github.com/robinmordasiewicz/f5cloudstatus-mcp)
-          - [NPM Package](https://www.npmjs.com/package/f5cloudstatus-mcp)
-          - [Usage Examples](https://github.com/robinmordasiewicz/f5cloudstatus-mcp/blob/main/USAGE_EXAMPLES.md)
+          - [GitHub Repository](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp)
+          - [NPM Package](https://www.npmjs.com/package/@robinmordasiewicz/f5xc-cloudstatus-mcp)
+          - [Documentation](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp#readme)
           EOF
           
           echo "notes_file=release_notes.md" >> $GITHUB_OUTPUT
@@ -153,7 +153,7 @@ jobs:
           cp package.json package.json.backup
 
           # Update package.json for GitHub Packages
-          jq '.name = "@robinmordasiewicz/f5cloudstatus-mcp" |
+          jq '.name = "@robinmordasiewicz/f5xc-cloudstatus-mcp" |
               .publishConfig = {"registry": "https://npm.pkg.github.com"}' \
               package.json > package.json.tmp
           mv package.json.tmp package.json
