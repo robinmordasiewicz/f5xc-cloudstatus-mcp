@@ -235,6 +235,15 @@ jobs:
             mv package.json.backup package.json
           fi
 
+      - name: Verify package.json (remove publishConfig if exists)
+        run: |
+          # Remove publishConfig to ensure clean state for npm publish
+          jq 'del(.publishConfig)' package.json > package.json.tmp
+          mv package.json.tmp package.json
+          echo "📝 Verified package.json - publishConfig removed"
+          echo "Current registry config in package.json:"
+          jq '.publishConfig // "none"' package.json
+
       - name: Setup Node.js for npm
         uses: actions/setup-node@v4
         with:
