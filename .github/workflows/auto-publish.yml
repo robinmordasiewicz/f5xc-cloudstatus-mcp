@@ -235,36 +235,35 @@ jobs:
             mv package.json.backup package.json
           fi
 
-      - name: Verify package.json (remove publishConfig if exists)
+      - name: Prepare for npm publish
         run: |
           # Remove publishConfig to ensure clean state for npm publish
           jq 'del(.publishConfig)' package.json > package.json.tmp
           mv package.json.tmp package.json
           echo "📝 Verified package.json - publishConfig removed"
-          echo "Current registry config in package.json:"
-          jq '.publishConfig // "none"' package.json
 
-      - name: Clean npm configuration
-        run: |
           # Remove .npmrc created by previous setup-node action
           rm -f .npmrc
           rm -f ~/.npmrc
-          # Create new .npmrc for npmjs.org
-          echo "registry=https://registry.npmjs.org/" > .npmrc
-          echo "//registry.npmjs.org/:_authToken=\${NODE_AUTH_TOKEN}" >> .npmrc
-          echo "📝 Created clean .npmrc for npmjs.org"
-          cat .npmrc
+          rm -f /home/runner/.npmrc 2>/dev/null || true
 
-      - name: Setup Node.js for npm
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          # Create new .npmrc for npmjs.org with auth token
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          echo "registry=https://registry.npmjs.org/" >> .npmrc
+
+          echo "📝 Created clean .npmrc for npmjs.org"
+          echo "Registry configuration:"
+          npm config get registry
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to npm
         run: |
-          # Ensure we're publishing to npmjs.org, not GitHub Packages
+          # Double-check registry configuration
           npm config set registry https://registry.npmjs.org/
+          echo "Publishing to: $(npm config get registry)"
+
+          # Publish with explicit registry flag
           npm publish --access public --registry https://registry.npmjs.org
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
