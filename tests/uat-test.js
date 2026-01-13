@@ -4,9 +4,14 @@
  * Programmatically tests all 15 prompts on OpenCode and Claude CLI
  */
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Test configuration
 const TIMEOUT = 60000; // 60 seconds per test
