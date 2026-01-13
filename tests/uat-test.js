@@ -223,6 +223,24 @@ function runTest(platform, testCase) {
   }
 }
 
+// Check if required CLI tools are available
+function checkToolAvailability() {
+  const tools = ['opencode', 'claude'];
+  const available = [];
+  const missing = [];
+
+  for (const tool of tools) {
+    try {
+      execSync(`which ${tool}`, { stdio: 'ignore' });
+      available.push(tool);
+    } catch {
+      missing.push(tool);
+    }
+  }
+
+  return { available, missing, hasAll: missing.length === 0 };
+}
+
 // Main test execution
 async function main() {
   console.log('================================================');
@@ -230,6 +248,20 @@ async function main() {
   console.log('================================================');
   console.log(`Start Time: ${new Date().toISOString()}`);
   console.log(`Results Directory: ${RESULTS_DIR}`);
+
+  // Check if we're in CI or if tools are unavailable
+  const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+  const toolCheck = checkToolAvailability();
+
+  if (isCI || !toolCheck.hasAll) {
+    console.log('\n⚠️  UAT tests require CLI tools that are not available:');
+    console.log(`   CI Environment: ${isCI ? 'Yes' : 'No'}`);
+    console.log(`   Available tools: ${toolCheck.available.join(', ') || 'none'}`);
+    console.log(`   Missing tools: ${toolCheck.missing.join(', ') || 'none'}`);
+    console.log('\nSkipping UAT tests. Install opencode and claude CLI to run these tests.');
+    console.log('Run unit tests with: npm run test:unit');
+    process.exit(0); // Exit successfully
+  }
 
   // Test OpenCode
   console.log('\n--- Testing OpenCode ---');
