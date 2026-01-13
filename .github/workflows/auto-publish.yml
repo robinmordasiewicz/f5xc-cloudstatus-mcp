@@ -259,6 +259,9 @@ jobs:
 
       - name: Publish to npm
         run: |
+          # Clear the NPM_CONFIG_USERCONFIG environment variable that's set by setup-node
+          unset NPM_CONFIG_USERCONFIG
+
           # Double-check registry configuration
           npm config set registry https://registry.npmjs.org/
           echo "Publishing to: $(npm config get registry)"
