@@ -244,6 +244,17 @@ jobs:
           echo "Current registry config in package.json:"
           jq '.publishConfig // "none"' package.json
 
+      - name: Clean npm configuration
+        run: |
+          # Remove .npmrc created by previous setup-node action
+          rm -f .npmrc
+          rm -f ~/.npmrc
+          # Create new .npmrc for npmjs.org
+          echo "registry=https://registry.npmjs.org/" > .npmrc
+          echo "//registry.npmjs.org/:_authToken=\${NODE_AUTH_TOKEN}" >> .npmrc
+          echo "📝 Created clean .npmrc for npmjs.org"
+          cat .npmrc
+
       - name: Setup Node.js for npm
         uses: actions/setup-node@v4
         with:
