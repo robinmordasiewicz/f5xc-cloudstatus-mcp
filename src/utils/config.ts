@@ -24,6 +24,15 @@ export interface Config {
     baseUrl: string;
     timeout: number;
     headless: boolean;
+    pooling: {
+      enabled: boolean;
+      minSize: number;
+      maxSize: number;
+      idleTimeout: number;
+      acquireTimeout: number;
+      healthCheckInterval: number;
+      enableMetrics: boolean;
+    };
   };
   cache: {
     ttlStatus: number;
@@ -76,6 +85,15 @@ export const config: Config = {
     baseUrl: getEnv('SCRAPER_BASE_URL', 'https://www.f5cloudstatus.com'),
     timeout: getEnvNumber('SCRAPER_TIMEOUT', 30000),
     headless: getEnvBoolean('SCRAPER_HEADLESS', true),
+    pooling: {
+      enabled: getEnvBoolean('SCRAPER_POOLING_ENABLED', true),
+      minSize: getEnvNumber('SCRAPER_POOLING_MIN_SIZE', 1),
+      maxSize: getEnvNumber('SCRAPER_POOLING_MAX_SIZE', 3),
+      idleTimeout: getEnvNumber('SCRAPER_POOLING_IDLE_TIMEOUT', 60000),
+      acquireTimeout: getEnvNumber('SCRAPER_POOLING_ACQUIRE_TIMEOUT', 10000),
+      healthCheckInterval: getEnvNumber('SCRAPER_POOLING_HEALTH_CHECK_INTERVAL', 30000),
+      enableMetrics: getEnvBoolean('SCRAPER_POOLING_ENABLE_METRICS', true),
+    },
   },
   cache: {
     ttlStatus: getEnvNumber('CACHE_TTL_STATUS', 30000),
@@ -141,6 +159,26 @@ export function validateConfig(): void {
     errors.push(
       `Invalid LOG_LEVEL: ${config.logging.level}. Must be one of: ${validLogLevels.join(', ')}`
     );
+  }
+
+  // Validate pooling configuration
+  if (config.scraper.pooling.minSize < 0) {
+    errors.push('SCRAPER_POOLING_MIN_SIZE must be non-negative');
+  }
+  if (config.scraper.pooling.maxSize < 1) {
+    errors.push('SCRAPER_POOLING_MAX_SIZE must be at least 1');
+  }
+  if (config.scraper.pooling.maxSize < config.scraper.pooling.minSize) {
+    errors.push('SCRAPER_POOLING_MAX_SIZE must be >= MIN_SIZE');
+  }
+  if (config.scraper.pooling.idleTimeout <= 0) {
+    errors.push('SCRAPER_POOLING_IDLE_TIMEOUT must be positive');
+  }
+  if (config.scraper.pooling.acquireTimeout <= 0) {
+    errors.push('SCRAPER_POOLING_ACQUIRE_TIMEOUT must be positive');
+  }
+  if (config.scraper.pooling.healthCheckInterval <= 0) {
+    errors.push('SCRAPER_POOLING_HEALTH_CHECK_INTERVAL must be positive');
   }
 
   if (errors.length > 0) {

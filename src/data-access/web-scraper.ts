@@ -10,6 +10,7 @@ import { config } from '../utils/config.js';
 import { ScraperError } from '../utils/errors.js';
 import { logger } from '../utils/logger.js';
 import type { Component, Incident, OverallStatus } from '../types/domain.js';
+import { BrowserPool, type BrowserPoolConfig } from './browser-pool.js';
 
 /**
  * Scraped data structure
@@ -25,14 +26,34 @@ export interface ScrapedData {
  */
 export class WebScraper {
   private browser: Browser | null = null;
+  private pool: BrowserPool | null = null;
   private readonly baseUrl: string;
   private readonly timeout: number;
   private readonly headless: boolean;
+  private readonly usePooling: boolean;
 
   constructor() {
     this.baseUrl = config.scraper.baseUrl;
     this.timeout = config.scraper.timeout;
     this.headless = config.scraper.headless;
+    this.usePooling = config.scraper.pooling.enabled;
+
+    if (this.usePooling) {
+      const poolConfig: BrowserPoolConfig = {
+        minSize: config.scraper.pooling.minSize,
+        maxSize: config.scraper.pooling.maxSize,
+        idleTimeout: config.scraper.pooling.idleTimeout,
+        acquireTimeout: config.scraper.pooling.acquireTimeout,
+        healthCheckInterval: config.scraper.pooling.healthCheckInterval,
+        enableMetrics: config.scraper.pooling.enableMetrics,
+        headless: this.headless,
+        timeout: this.timeout,
+      };
+      this.pool = new BrowserPool(poolConfig);
+      logger.debug('Browser pooling enabled');
+    } else {
+      logger.debug('Browser pooling disabled');
+    }
   }
 
   /**
@@ -50,10 +71,14 @@ export class WebScraper {
   }
 
   /**
-   * Close browser
+   * Close browser or drain pool
    */
   async close(): Promise<void> {
-    if (this.browser) {
+    if (this.usePooling && this.pool) {
+      logger.debug('Draining browser pool');
+      await this.pool.drain();
+      this.pool = null;
+    } else if (this.browser) {
       logger.debug('Closing Playwright browser');
       await this.browser.close();
       this.browser = null;
@@ -65,6 +90,7 @@ export class WebScraper {
    */
   async scrapeStatus(): Promise<OverallStatus> {
     const page = await this.createPage();
+    const startTime = Date.now();
 
     try {
       await page.goto(this.baseUrl, { timeout: this.timeout });
@@ -94,6 +120,9 @@ export class WebScraper {
         };
       })) as { description: string; indicator: 'none' | 'minor' | 'major' | 'critical' };
 
+      const elapsed = Date.now() - startTime;
+      logger.debug(`Scraped status in ${elapsed}ms`);
+
       return {
         status: this.mapIndicatorToStatus(status.indicator),
         indicator: status.indicator,
@@ -103,7 +132,13 @@ export class WebScraper {
     } catch (error) {
       throw new ScraperError('Failed to scrape status', error);
     } finally {
+      const browser = (page as any)._pooledBrowser;
+      const usesPooling = (page as any)._usesPooling;
       await page.close();
+
+      if (usesPooling && this.pool && browser) {
+        await this.pool.release(browser);
+      }
     }
   }
 
@@ -112,6 +147,7 @@ export class WebScraper {
    */
   async scrapeComponents(): Promise<Component[]> {
     const page = await this.createPage();
+    const startTime = Date.now();
 
     try {
       await page.goto(this.baseUrl, { timeout: this.timeout });
@@ -176,6 +212,9 @@ export class WebScraper {
         group?: string;
       }>;
 
+      const elapsed = Date.now() - startTime;
+      logger.debug(`Scraped components in ${elapsed}ms`);
+
       return components.map((comp, index) => ({
         id: comp.id,
         name: comp.name,
@@ -187,7 +226,13 @@ export class WebScraper {
     } catch (error) {
       throw new ScraperError('Failed to scrape components', error);
     } finally {
+      const browser = (page as any)._pooledBrowser;
+      const usesPooling = (page as any)._usesPooling;
       await page.close();
+
+      if (usesPooling && this.pool && browser) {
+        await this.pool.release(browser);
+      }
     }
   }
 
@@ -196,6 +241,7 @@ export class WebScraper {
    */
   async scrapeIncidents(): Promise<Incident[]> {
     const page = await this.createPage();
+    const startTime = Date.now();
 
     try {
       await page.goto(this.baseUrl, { timeout: this.timeout });
@@ -276,6 +322,9 @@ export class WebScraper {
         }>;
       }>;
 
+      const elapsed = Date.now() - startTime;
+      logger.debug(`Scraped incidents in ${elapsed}ms`);
+
       return incidents.map((inc) => ({
         id: inc.id,
         name: inc.name,
@@ -307,7 +356,13 @@ export class WebScraper {
     } catch (error) {
       throw new ScraperError('Failed to scrape incidents', error);
     } finally {
+      const browser = (page as any)._pooledBrowser;
+      const usesPooling = (page as any)._usesPooling;
       await page.close();
+
+      if (usesPooling && this.pool && browser) {
+        await this.pool.release(browser);
+      }
     }
   }
 
@@ -332,9 +387,21 @@ export class WebScraper {
    * Create new page
    */
   private async createPage(): Promise<Page> {
-    const browser = await this.initBrowser();
+    let browser: Browser;
+
+    if (this.usePooling && this.pool) {
+      browser = await this.pool.acquire();
+    } else {
+      browser = await this.initBrowser();
+    }
+
     const page = await browser.newPage();
     page.setDefaultTimeout(this.timeout);
+
+    // Store browser reference for release
+    (page as any)._pooledBrowser = browser;
+    (page as any)._usesPooling = this.usePooling;
+
     return page;
   }
 
