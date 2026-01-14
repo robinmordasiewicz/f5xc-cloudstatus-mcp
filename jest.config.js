@@ -17,6 +17,8 @@ export default {
   },
   roots: ['<rootDir>/tests'],
   testMatch: ['**/*.test.ts'],
+  // Use V8 coverage provider for better ESM support
+  coverageProvider: 'v8',
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/**/*.d.ts',
@@ -24,10 +26,10 @@ export default {
   ],
   coverageThreshold: {
     global: {
-      branches: 70,
-      functions: 70,
-      lines: 70,
-      statements: 70
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80
     }
   }
 };
