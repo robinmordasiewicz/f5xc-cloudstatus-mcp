@@ -1,0 +1,54 @@
+---
+title: OpenCode Installation Guide
+description: How to install the F5 Cloud Status MCP server in OpenCode
+---
+
+OpenCode is an open-source terminal editor with built-in MCP support. Installing the F5 XC Cloud Status MCP server is done through a single configuration edit.
+
+## Prerequisites
+
+- **OpenCode** installed (`which opencode` should return a path)
+- **Node.js** 18.0.0 or higher (`node --version`)
+- **npm** installed (comes with Node.js)
+
+## Installation
+
+### Step 1: Locate OpenCode Configuration
+
+OpenCode stores MCP server configuration in `~/.config/opencode/opencode.json`.
+
+### Step 2: Add the MCP Server
+
+Edit the `opencode.json` file:
+
+```json
+{
+  "mcp": {
+    "f5xc-cloudstatus": {
+      "type": "local",
+      "command": ["npx", "-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"],
+      "environment": {}
+    }
+  }
+}
+```
+
+## Verification
+
+```bash
+opencode
+# Try: "What is the current status of F5 Cloud services?"
+```
+
+## Configuration Reference
+
+| Setting | Value | Purpose |
+|---------|-------|---------|
+| `type` | `local` | Server runs locally |
+| `command` | `["npx", "-y", "..."]` | Command to execute |
+| `environment` | `{}` | Environment variables (none needed) |
+
+## Next Steps
+
+- Review [Troubleshooting Guide](../troubleshooting/) if issues arise
+- Check [Home](../../) for tool descriptions and verification queries

@@ -1,0 +1,77 @@
+---
+title: Claude Desktop Installation Guide
+description: How to install the F5 Cloud Status MCP server in Claude Desktop
+---
+
+Claude Desktop is the native macOS desktop application. Installing the F5 XC Cloud Status MCP server requires editing a configuration file and restarting the application.
+
+## Prerequisites
+
+- **Claude Desktop** installed (available from https://claude.ai/desktop)
+- **Node.js** 18.0.0 or higher (`node --version`)
+- **npm** installed (comes with Node.js)
+
+## Installation
+
+### Step 1: Backup Configuration
+
+```bash
+cp ~/Library/Application\ Support/Claude/claude_desktop_config.json ~/Library/Application\ Support/Claude/claude_desktop_config.json.backup
+```
+
+### Step 2: Edit Configuration File
+
+```bash
+# macOS
+vim ~/Library/Application\ Support/Claude/claude_desktop_config.json
+```
+
+### Step 3: Add MCP Server Configuration
+
+```json
+{
+  "mcpServers": {
+    "f5xc-cloudstatus": {
+      "command": "npx",
+      "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]
+    }
+  }
+}
+```
+
+### Step 4: Restart Claude Desktop
+
+```bash
+pkill -f "Claude" || killall Claude
+open -a Claude
+```
+
+## Verification
+
+Create a new conversation and try:
+
+```text
+What is the current status of F5 Cloud services?
+```
+
+## Configuration Paths
+
+| Platform | Path |
+|----------|------|
+| macOS | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| Windows | `%APPDATA%\Claude\claude_desktop_config.json` |
+
+## Recovery
+
+If something goes wrong, restore from backup:
+
+```bash
+cp ~/Library/Application\ Support/Claude/claude_desktop_config.json.backup ~/Library/Application\ Support/Claude/claude_desktop_config.json
+pkill -f "Claude" || killall Claude
+open -a Claude
+```
+
+## Next Steps
+
+- Review [Troubleshooting Guide](../troubleshooting/) if issues arise
+- Check [Home](../../) for tool descriptions and verification queries

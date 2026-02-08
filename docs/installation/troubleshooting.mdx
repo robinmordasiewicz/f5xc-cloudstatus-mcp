@@ -1,0 +1,91 @@
+---
+title: Troubleshooting Guide
+description: Common issues and solutions for the F5 Cloud Status MCP server
+---
+
+This guide helps resolve common issues when installing or using the F5 XC Cloud Status MCP server.
+
+## Common Issues
+
+### "npx: command not found"
+
+**Root Cause:** Node.js or npm is not properly installed or not in your PATH.
+
+```bash
+# Check if Node.js is installed
+node --version  # Should be v18.0.0 or higher
+npm --version
+
+# If not installed, download from https://nodejs.org
+```
+
+### "Cannot find module"
+
+**Root Cause:** Package not found on npm registry or network issue.
+
+```bash
+# Clear npm cache
+npm cache clean --force
+
+# Check npm registry
+npm search @robinmordasiewicz/f5xc-cloudstatus-mcp
+```
+
+### "EACCES: permission denied"
+
+**Root Cause:** npm modules directory permissions.
+
+```bash
+# Fix npm permissions (recommended)
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+export PATH=~/.npm-global/bin:$PATH
+```
+
+### Invalid JSON Syntax
+
+```bash
+# Validate your config file
+python -m json.tool <config-file>
+```
+
+## Platform-Specific Issues
+
+### Claude Code
+
+- Verify `.mcp.json` exists in project root
+- Check JSON syntax: `python -m json.tool .mcp.json`
+- Verify package: `npx -y @robinmordasiewicz/f5xc-cloudstatus-mcp@latest --version`
+
+### Claude Desktop
+
+- Fully restart Claude Desktop (not just window)
+- Verify config saved: `cat ~/Library/Application\ Support/Claude/claude_desktop_config.json | grep f5xc`
+- Restore from backup if corrupted
+
+### VS Code
+
+- Requires version 1.96.0+ (`code --version`)
+- Reload window: Cmd+Shift+P → "Developer: Reload Window"
+- Try `--add-mcp` CLI command
+
+### OpenCode
+
+- Verify config location: `ls -la ~/.config/opencode/opencode.json`
+- Check `mcp` section structure
+- Restart OpenCode
+
+## API Connectivity Issues
+
+```bash
+# Test F5 Cloud API connectivity
+curl -I https://www.f5cloudstatus.com/api/v2/overall
+# Should return HTTP 200
+```
+
+## Getting Help
+
+1. Check platform-specific guide
+2. Verify prerequisites (Node.js 18+, npm, internet)
+3. Gather diagnostics: `node --version && npm --version`
+4. Report issues: https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/issues

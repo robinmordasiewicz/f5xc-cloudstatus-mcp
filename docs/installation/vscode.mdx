@@ -1,0 +1,58 @@
+---
+title: VS Code Installation Guide
+description: How to install the F5 Cloud Status MCP server in VS Code
+---
+
+VS Code has native MCP support built-in. Installing the F5 XC Cloud Status MCP server requires just one command.
+
+## Prerequisites
+
+- **VS Code** version 1.96.0+ (`code --version`)
+- **Node.js** 18.0.0 or higher (`node --version`)
+- **npm** installed (comes with Node.js)
+
+## Installation
+
+### Method 1: CLI Command (Recommended)
+
+```bash
+code --add-mcp '{"name":"f5xc-cloudstatus","command":"npx","args":["-y","@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]}'
+```
+
+### Method 2: Manual Configuration
+
+Edit VS Code settings:
+
+```json
+{
+  "mcp.servers": {
+    "f5xc-cloudstatus": {
+      "command": "npx",
+      "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]
+    }
+  }
+}
+```
+
+Then reload VS Code (Ctrl+Shift+P → "Developer: Reload Window").
+
+## Verification
+
+Open VS Code chat (Cmd+L) and try:
+
+```text
+What is the current status of F5 Cloud services?
+```
+
+## Platform-Specific Paths
+
+| Platform | Path |
+|----------|------|
+| macOS | `~/.config/Code/User/settings.json` |
+| Windows | `%APPDATA%\Code\User\settings.json` |
+| Linux | `~/.config/Code/User/settings.json` |
+
+## Next Steps
+
+- Review [Troubleshooting Guide](../troubleshooting/) if issues arise
+- Check [Home](../../) for tool descriptions and verification queries
