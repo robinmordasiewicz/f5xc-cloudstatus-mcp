@@ -1,0 +1,105 @@
+---
+title: F5 Cloud Status MCP Server
+description: MCP server for monitoring F5 Distributed Cloud service status, components, incidents, and maintenance
+template: splash
+sidebar:
+  hidden: true
+hero:
+  tagline: Real-time F5 Cloud operational status monitoring with 6 comprehensive tools
+  actions:
+    - text: Get Started
+      link: installation/claude-code/
+      icon: right-arrow
+      variant: primary
+---
+
+## Prerequisites
+
+All platforms require:
+
+- **Node.js**: Version 18.0.0 or higher
+- **npm**: Included with Node.js
+- **Internet connection**: Required for API access and package downloads
+
+Check your Node.js version:
+
+```bash
+node --version  # Should be v18.0.0 or higher
+npm --version
+```
+
+## Quick Start
+
+Get started in under 1 minute with Claude Code:
+
+```bash
+# Add MCP server to Claude Code
+claude mcp add f5xc-cloudstatus npx @robinmordasiewicz/f5xc-cloudstatus-mcp@latest
+
+# Test it immediately
+# Ask Claude: "What is the current status of F5 Cloud services?"
+```
+
+## Platform Comparison
+
+| Feature | Claude Code | OpenCode | VS Code | Claude Desktop |
+|---------|-------------|----------|---------|-----------------|
+| **Type** | CLI | CLI | Editor | Desktop App |
+| **Installation Difficulty** | Easy | Easy | Medium | Easy |
+| **Configuration Method** | `.mcp.json` | `opencode.json` | CLI command | `claude_desktop_config.json` |
+| **Restart Required** | No | No | No | Yes |
+| **Best For** | Developers | Terminal users | IDE integration | General users |
+
+## Installation by Platform
+
+### Basic Configuration
+
+The MCP server is added via a JSON configuration in your platform's config file:
+
+```json
+{
+  "mcpServers": {
+    "f5xc-cloudstatus": {
+      "command": "npx",
+      "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]
+    }
+  }
+}
+```
+
+### Detailed Platform Guides
+
+- **[Claude Code](installation/claude-code/)** - CLI-based installation with command examples
+- **[OpenCode](installation/opencode/)** - Terminal editor installation guide
+- **[VS Code](installation/vscode/)** - IDE installation with extension details
+- **[Claude Desktop](installation/claude-desktop/)** - Desktop app configuration guide
+- **[Troubleshooting](installation/troubleshooting/)** - Common issues and solutions
+
+## Available Tools
+
+| Tool | Description |
+|------|-------------|
+| `f5-status-get-overall` | Get current overall operational status |
+| `f5-status-get-components` | List all service components with filtering |
+| `f5-status-get-component` | Get detailed information about a specific component |
+| `f5-status-get-incidents` | Track current and recent incidents |
+| `f5-status-get-maintenance` | View scheduled maintenance windows |
+| `f5-status-search` | Search across components, incidents, and maintenance |
+
+## Verification
+
+After installation, verify with this prompt:
+
+```text
+What is the current status of F5 Cloud services?
+```
+
+## Support and Links
+
+- [npm Package](https://www.npmjs.com/package/@robinmordasiewicz/f5xc-cloudstatus-mcp)
+- [GitHub Repository](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp)
+- [Issues](https://github.com/robinmordasiewicz/f5xc-cloudstatus-mcp/issues)
+
+## License
+
+MIT License - Copyright (c) 2025 Robin Mordasiewicz

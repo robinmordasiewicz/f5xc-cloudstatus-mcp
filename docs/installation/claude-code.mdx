@@ -1,0 +1,99 @@
+---
+title: Claude Code Installation Guide
+description: How to install the F5 Cloud Status MCP server in Claude Code
+---
+
+Claude Code is the official Claude command-line interface. Installing the F5 XC Cloud Status MCP server takes just 2 steps.
+
+## Prerequisites
+
+Before starting, ensure you have:
+- **Claude Code** installed (`which claude-code` should return a path)
+- **Node.js** 18.0.0 or higher (`node --version`)
+- **npm** installed (comes with Node.js)
+
+## Installation
+
+### Step 1: Locate Your Claude Code Configuration
+
+Claude Code uses a `.mcp.json` file to register MCP servers. This file is typically located in your project root:
+
+```bash
+# Navigate to your Claude Code project
+cd /path/to/your/project
+
+# Or if you want a global configuration, use:
+# ~/.claude/.mcp.json
+```
+
+### Step 2: Add the F5 XC Cloud Status MCP Server
+
+If the `.mcp.json` file doesn't exist, create it:
+
+```bash
+cat > .mcp.json << 'EOF'
+{
+  "mcpServers": {
+    "f5xc-cloudstatus": {
+      "command": "npx",
+      "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]
+    }
+  }
+}
+EOF
+```
+
+If the file already exists, edit it to add the server configuration:
+
+```json
+{
+  "mcpServers": {
+    "f5xc-cloudstatus": {
+      "command": "npx",
+      "args": ["-y", "@robinmordasiewicz/f5xc-cloudstatus-mcp@latest"]
+    }
+  }
+}
+```
+
+## Verification
+
+### Direct Test
+
+Try this in Claude Code immediately:
+
+```text
+Prompt: "What is the current status of F5 Cloud services?"
+Expected: Current F5 Cloud operational status
+```
+
+### Command Line Verification
+
+```bash
+# Check if Claude Code can access the server
+npx @robinmordasiewicz/f5xc-cloudstatus-mcp@latest --version
+```
+
+## Configuration Reference
+
+| Setting | Value | Purpose |
+|---------|-------|---------|
+| `command` | `npx` | Node package executor |
+| `args[0]` | `-y` | Auto-confirm package execution |
+| `args[1]` | `@robinmordasiewicz/f5xc-cloudstatus-mcp@latest` | Package name and version |
+
+## Troubleshooting
+
+### "npx: command not found"
+- **Cause**: Node.js or npm not properly installed
+- **Solution**: Install Node.js from https://nodejs.org (v18.0.0+)
+
+### Server not showing up in Claude Code
+- Verify `.mcp.json` is in your project root
+- Check JSON syntax with `python -m json.tool .mcp.json`
+- Restart Claude Code CLI tool
+
+## Next Steps
+
+- Review [Troubleshooting Guide](../troubleshooting/) if issues arise
+- Check [Home](../../) for tool descriptions and verification queries

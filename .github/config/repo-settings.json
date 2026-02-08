@@ -1,0 +1,7 @@
+{
+  "repository": {
+    "description": "F5 Cloud Status MCP server",
+    "homepage": "https://robinmordasiewicz.github.io/f5xc-cloudstatus-mcp/"
+  },
+  "topics": ["f5xc", "mcp", "cloud-status"]
+}
