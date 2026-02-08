@@ -6,7 +6,7 @@ Thank you for your interest in contributing. This document describes the workflo
 
 Every change follows this path:
 
-```text
+```
 Issue → Branch → PR (linked to issue) → CI passes → Merge → Branch auto-deleted
 ```
 
