@@ -62,7 +62,7 @@
     "axios": "^1.12.2",
     "dotenv": "^17.2.3",
     "playwright": "^1.56.0",
-    "zod": "^3.25.76"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
