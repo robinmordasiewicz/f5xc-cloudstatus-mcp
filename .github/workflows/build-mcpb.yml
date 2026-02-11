@@ -75,7 +75,7 @@ jobs:
           unzip -l "$MCPB_FILE"
       
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: mcpb-build-${{ github.sha }}
           path: '*.mcpb'
