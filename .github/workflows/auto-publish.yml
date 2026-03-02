@@ -276,7 +276,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Upload MCPB artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: mcpb-package-v${{ steps.version.outputs.version }}
           path: ${{ steps.version.outputs.filename }}
